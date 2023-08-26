@@ -1,0 +1,95 @@
+{
+  "name": "powergem-vscode",
+  "publisher": "PowerGEM-VSCode",
+  "displayName": "PowerGEM_vscode",
+  "description": "Syntax Highlighting for various PowerGEM related formats",
+  "version": "0.4.2",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "pg",
+        "aliases": ["pg", "pg"],
+        "configuration": "./language-configuration.json"
+      },
+    {
+      "id": "pg.sub",
+      "aliases": ["Subsystem", "pg.sub"],
+      "extensions": [".sub"],
+      "configuration": "./language-configuration.json"
+    },
+    {
+      "id": "pg.comm",
+      "aliases": ["PGScript", "pg.comm"],
+      "filenamePatterns": ["*comm*.txt"],
+      "configuration": "./language-configuration.json"
+    },
+    {
+      "id": "pg.mon",
+      "aliases": ["Monitor","pg.mon"],
+      "extensions": [".mon"],
+      "configuration": "./language-configuration.json"
+    },
+    {
+      "id": "pg.common",
+      "aliases": ["Common","pg.common"],
+      "extensions": [],
+      "configuration": "./language-configuration.json"
+    },
+    {
+      "id": "pg.cont",
+      "aliases": ["Contingency","pg.cont"],
+      "extensions": [".con"],
+      "configuration": "./cont-language-configuration.json"
+    }],
+    "grammars": [
+    {
+      "language": "pg",
+      "scopeName": "pg",
+      "path": "./syntaxes/pg.tmLanguage.json"
+    },
+    {
+      "language": "pg.mon",
+      "scopeName": "source.pg.mon",
+      "path": "./syntaxes/mon.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg", "pg.cont": "source.pg.cont", "pg.common": "source.pg.common" }
+    },
+    {
+      "language": "pg.common",
+      "scopeName": "source.pg.common",
+      "path": "./syntaxes/common.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg"}
+    },
+    {
+      "language": "pg.comm",
+      "scopeName": "source.pg.comm",
+      "path": "./syntaxes/comm.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg"}
+    },
+    {
+      "language": "pg.cont",
+      "scopeName": "source.pg.cont",
+      "path": "./syntaxes/cont.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg", "pg.common": "source.pg.common" }
+
+    },
+    {
+      "language": "pg.sub",
+      "scopeName": "source.pg.sub",
+      "path": "./syntaxes/sub.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg", "pg.common": "source.pg.common" }
+
+    }],
+    "snippets": [
+      {
+        "language": "pg.cont",
+        "path": "./cont-snippets.json"
+      }
+    ]
+  }
+}

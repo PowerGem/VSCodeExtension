@@ -1,0 +1,422 @@
+{
+    "Contingecy": {
+        "prefix": "Contingency",
+        "body" : ["Contingency \"${1:name}\""," ", "End"],
+        "description": "Define a Contingecy"
+    },
+    "Branch[busnumber]":{
+        "prefix": "Branch",
+        "body": ["Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Branch using Bus Numbers"
+    },
+    "Branch[busname]":{
+        "prefix": "Branch-bna",
+        "body": ["Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Branch using Bus Names"
+    },
+    "Breaker[busnumber]":{
+        "prefix": "Breaker",
+        "body": ["Breaker Substation \"${1:stationname}\" FROM Node ${2:12345} TO Node ${3:54321} Ckt ${4:1}"],
+        "description": "Breaker using Bus Numbers"
+    },
+    "Breaker[busname]":{
+        "prefix": "Breaker-bna",
+        "body": ["Breaker Substation \"${1:stationname}\" FROM Node \"${2:fromnode}\" TO Node \"${3:tonode}\" Ckt ${4:1}"],
+        "description": "Breaker using Bus Names"
+    },
+    "Close-Branch[busnumber]":{
+        "prefix": "Close-Branch",
+        "body": ["Close Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Close Branch using Bus Numbers"
+    },
+    "Close-Branch[busname]":{
+        "prefix": "Close-Branch-bna",
+        "body": ["Close Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Close Branch using Bus Names"
+    },
+    "Close-Shunt[busnumber]":{
+        "prefix": "Close-Shunt",
+        "body": ["Close Shunt FROM Bus ${1:12345} Ckt ${2:1}"],
+        "description": "Close Shunt using Bus Numbers"
+    },    
+    "Close-Shunt[busname]":{
+        "prefix": "Close-Shunt-bna",
+        "body": ["Close Shunt FROM Bus \"${1:frombus}\" Ckt ${2:1}"],
+        "description": "Close Shunt using Bus Names"
+    },
+    "Close-SwitchShunt[busnumber]":{
+        "prefix": "Close-SwitchShunt",
+        "body": ["Close SwShunt FROM Bus ${1:12345} Ckt ${2:1}"],
+        "description": "Close Switch Shunt using Bus Numbers"
+    },    
+    "Close-SwitchShunt[busname]":{
+        "prefix": "Close-SwitchShunt-bna",
+        "body": ["Close SwShunt FROM Bus \"${1:frombus}\" Ckt ${2:1}"],
+        "description": "Close Switch Shunt using Bus Names"
+    },
+    "Close-Switch[busnumber]":{
+        "prefix": "Close-Switch",
+        "body": ["Close Switch Substation \"${1:stationname}\" FROM Node ${2:12345} TO Node ${3:54321} Ckt ${4:1}"],
+        "description": "Close Switch using Bus Numbers"
+    },
+    "Close-Switch[busname]":{
+        "prefix": "Close-Switch-bna",
+        "body": ["Close Switch Substation \"${1:stationname}\" FROM Node \"${2:fromnode}\" TO Node \"${3:tonode}\" Ckt ${4:1}"],
+        "description": "Close Switch using Bus Names"
+    },    
+    "Close-ThreeWinding[busnumber]":{
+        "prefix": "Close-ThreeWinding",
+        "body": ["Close ThreeWinding AT Bus ${1:12345} TO Bus ${2:54321} TO Bus ${3:12321} Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Close Three Winding using Bus Numbers"
+    },
+    "Close-ThreeWinding[busname]":{
+        "prefix": "Close-ThreeWinding-bna",
+        "body": ["Close ThreeWinding AT Bus \"${1:frombusname}\" TO Bus \"${2:tobusname1}\" TO Bus \"${3:tobusname2}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Close Three Winding using Bus Names"
+    },
+    "Close-Winding[busnumber]":{
+        "prefix": "Close-Winding",
+        "body": ["Close Wind ${1:1} FROM Bus ${2:12345} TO Bus ${3:54321} TO Bus ${4:12321} Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Close Winding using Bus Numbers"
+    },
+    "Close-Winding[busname]":{
+        "prefix": "Close-Winding-bna",
+        "body": ["Close Wind ${1:1} FROM Bus \"${2:frombusname}\" TO Bus \"${3:tobusname1}\" TO Bus \"${4:tobusname2}\" Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Close Winding using Bus Names"
+    },
+    "Disconnect-Bus[busnumber]":{
+        "prefix": "Disconnect-Bus",
+        "body": ["Disconnect Bus ${1:54321}"],
+        "description": "Disconnect Bus using Bus Numbers"
+    },
+    "Disconnect-Bus[busname]":{
+        "prefix": "Disconnect-Bus-bna",
+        "body": ["Disconnect Bus \"${1:busname}\""],
+        "description": "Disconnect Bus using Bus Names"
+    },
+    "Isolate-Branch[busnumber]":{
+        "prefix": "Isolate-Branch",
+        "body": ["Isolate Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Isolate Branch using Bus Numbers"
+    },
+    "Isolate-Branch[busname]":{
+        "prefix": "Isolate-Branch-bna",
+        "body": ["Isolate Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Isolate Branch using Bus Names"
+    },
+    "Isolate-Branch[branchname]":{
+        "prefix": "Isolate-Branch-br",
+        "body": ["Isolate \"${1:Branch Name}\""],
+        "description": "Isolate Branch using Branch Names"
+    },
+    "Isolate-Substation[busnumber]":{
+        "prefix": "Isolate-Substation",
+        "body": ["Isolate Substation \"${1:stationname}\" Node ${2:12345}"],
+        "description": "Isolate Substation using Bus Numbers"
+    },
+    "Isolate-Substation[busname]":{
+        "prefix": "Isolate-Substation-bna",
+        "body": ["Isolate Substation \"${1:stationname}\" Node \"${2:fromnode}\""],
+        "description": "Isolate Substation using Bus Names"
+    },
+    "Isolate-Switch[busnumber]":{
+        "prefix": "Isolate-Switch",
+        "body": ["Isolate Switch Substation \"${1:stationname}\" FROM Node ${2:12345} TO Node ${3:54321} Ckt ${4:1}"],
+        "description": "Isolate Switch using Bus Numbers"
+    },
+    "Isolate-Switch[busname]":{
+        "prefix": "Isolate-Switch-bna",
+        "body": ["Isolate Switch Substation \"${1:stationname}\" FROM Node \"${2:fromnode}\" TO Node \"${3:tonode}\" Ckt ${4:1}"],
+        "description": "Isolate Switch using Bus Names"
+    },
+    "Isolate-ThreeWinding[busnumber]":{
+        "prefix": "Isolate-ThreeWinding",
+        "body": ["Isolate ThreeWinding AT Bus ${1:12345} TO Bus ${2:54321} TO Bus ${3:12321} Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Isolate Three Winding using Bus Numbers"
+    },
+    "Isolate-ThreeWinding[busname]":{
+        "prefix": "Isolate-ThreeWinding-bna",
+        "body": ["Isolate ThreeWinding AT Bus \"${1:frombusname}\" TO Bus \"${2:tobusname1}\" TO Bus \"${3:tobusname2}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Isolate Three Winding using Bus Names"
+    },    
+    "Outage": {
+        "prefix": "Outage",
+        "body" : ["Outage \"${1:name}\" \"${2:01}\/${3:01}\/${4:2020} ${5:0500}\" \"${6:12}\/${7:12}\/${8:2100} ${9:2300}\" ${10:QUEUED} ${11:Owner} ${12:1} \"${13:12}\/${14:12}\/${15:2100} ${16:2300}\" \"${17:00}:${18:00}\" \"${19:23}:${20:59}\" ${21:\\OptCost:} ${22:99999999} ${23:\\OptDesc:} \"${24:Description}\""," ", "End"],
+        "description": "Define an Outage"
+    },
+    "Open-Branch[busnumber]":{
+        "prefix": "Open-Branch",
+        "body": ["Open Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Open Branch using Bus Numbers"
+    },
+    "Open-Branch[busname]":{
+        "prefix": "Open-Branch-bna",
+        "body": ["Open Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Open Branch using Bus Names"
+    },
+    "Open-Branch[branchname]":{
+        "prefix": "Open-Branch-br",
+        "body": ["Open \"${1:Branch Name}\""],
+        "description": "Open Branch using Branch Names"
+    },
+    "Open-Breaker[busnumber]":{
+        "prefix": "Open-Breaker",
+        "body": ["Open Breaker Substation \"${1:stationname}\" FROM Node ${2:12345} TO Node ${3:54321} Ckt ${4:1}"],
+        "description": "Open Breaker using Bus Numbers"
+    },
+    "Open-Breaker[busname]":{
+        "prefix": "Open-Breaker-bna",
+        "body": ["Open Breaker Substation \"${1:stationname}\" FROM Node \"${2:fromnode}\" TO Node \"${3:tonode}\" Ckt ${4:1}"],
+        "description": "Open Breaker using Bus Names"
+    },
+    "Open-Bus[busnumber]":{
+        "prefix": "Open-Bus",
+        "body": ["Open Bus ${1:54321}"],
+        "description": "Open Bus using Bus Numbers"
+    },
+    "Open-Bus[busname]":{
+        "prefix": "Open-Bus-bna",
+        "body": ["Open Bus \"${1:busname}\""],
+        "description": "Open Bus using Bus Names"
+    },
+    "Open-LineShunt[busnumber]":{
+        "prefix": "Open-LineShunt",
+        "body": ["Open LShunt FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1}"],
+        "description": "Open Line Shunt using Bus Numbers"
+    },
+    "Open-LineShunt[busname]":{
+        "prefix": "Open-LineShunt-bna",
+        "body": ["Open LShunt FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1}"],
+        "description": "Open Line Shunt using Bus Names"
+    },
+    "Open-Shunt[busnumber]":{
+        "prefix": "Open-Shunt",
+        "body": ["Open Shunt FROM Bus ${1:12345} Ckt ${2:1}"],
+        "description": "Open Shunt using Bus Numbers"
+    },    
+    "Open-Shunt[busname]":{
+        "prefix": "Open-Shunt-bna",
+        "body": ["Open Shunt FROM Bus \"${1:frombus}\" Ckt ${2:1}"],
+        "description": "Open Shunt using Bus Names"
+    },
+    "Open-Switch[busnumber]":{
+        "prefix": "Open-Switch",
+        "body": ["Open Switch Substation \"${1:stationname}\" FROM Node ${2:12345} TO Node ${3:54321} Ckt ${4:1}"],
+        "description": "Open Switch using Bus Numbers"
+    },
+    "Open-Switch[busname]":{
+        "prefix": "Open-Switch-bna",
+        "body": ["Open Switch Substation \"${1:stationname}\" FROM Node \"${2:fromnode}\" TO Node \"${3:tonode}\" Ckt ${4:1}"],
+        "description": "Open Switch using Bus Names"
+    },    
+    "Open-Terminal[busnumber]":{
+        "prefix": "Open-Terminal",
+        "body": ["Open Terminal FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Open Terminal using Bus Numbers"
+    },
+    "Open-Terminal[busname]":{
+        "prefix": "Open-Terminal-bna",
+        "body": ["Open Terminal FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "Open Terminal using Bus Names"
+    },
+    "Open-Terminal[Terminalname]":{
+        "prefix": "Open-Terminal-br",
+        "body": ["Open \"${1:Terminal Name}\""],
+        "description": "Open Terminal using Branch Names"
+    },
+    "Open-ThreeWinding[busnumber]":{
+        "prefix": "Open-ThreeWinding",
+        "body": ["Open ThreeWinding AT Bus ${1:12345} TO Bus ${2:54321} TO Bus ${3:12321} Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Open Three Winding using Bus Numbers"
+    },
+    "Open-ThreeWinding[busname]":{
+        "prefix": "Open-ThreeWinding-bna",
+        "body": ["Open ThreeWinding AT Bus \"${1:frombusname}\" TO Bus \"${2:tobusname1}\" TO Bus \"${3:tobusname2}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Open Three Winding using Bus Names"
+    },
+    "Open-Winding[busnumber]":{
+        "prefix": "Open-Winding",
+        "body": ["Open Wind ${1:1} FROM Bus ${2:12345} TO Bus ${3:54321} TO Bus ${4:12321} Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Open Winding using Bus Numbers"
+    },
+    "Open-Winding[busname]":{
+        "prefix": "Open-Winding-bna",
+        "body": ["Open Wind ${1:1} FROM Bus \"${2:frombusname}\" TO Bus \"${3:tobusname1}\" TO Bus \"${4:tobusname2}\" Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Open Winding using Bus Names"
+    },
+    "OpenTo-Branch[busnumber]":{
+        "prefix": "OpenTo-Branch",
+        "body": ["OpenTo Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "OpenTo Branch using Bus Numbers"
+    },
+    "OpenTo-Branch[busname]":{
+        "prefix": "OpenTo-Branch-bna",
+        "body": ["OpenTo Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "OpenTo Branch using Bus Names"
+    },
+    "OpenFrom-Branch[busnumber]":{
+        "prefix": "OpenFrom-Branch",
+        "body": ["OpenFrom Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "OpenFrom Branch using Bus Numbers"
+    },
+    "OpenFrom-Branch[busname]":{
+        "prefix": "OpenFrom-Branch-bna",
+        "body": ["OpenFrom Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
+        "description": "OpenFrom Branch using Bus Names"
+    },
+    "Set-Gen[busnumber]":{
+        "prefix": "Set-Gen",
+        "body": ["Set Bus ${1:12345} Gen TO ${2:100}% ${3:\\or MW}"],
+        "description": "Set Generation Percent or MW"
+    },
+    "Set-Gen[busname]":{
+        "prefix": "Set-Gen-bna",
+        "body": ["Set Bus \"${1:busname}\" Gen TO ${2:100}% ${3:\\or MW}"],
+        "description": "Set Generation Percent or MW"
+    },
+    "Set-Gen[branchname]":{
+        "prefix": "Set-Gen-br",
+        "body": ["Set Gen \"${1:genname}\" TO ${2:100}% ${3:\\or MW}"],
+        "description": "Set Generation Percent or MW"
+    },
+    "Set-Load[busnumber]":{
+        "prefix": "Set-Load",
+        "body": ["Set Bus ${1:12345} Load TO ${2:100}% ${3:\\or MW}"],
+        "description": "Set Load Percent or MW"
+    },
+    "Set-Load[busname]":{
+        "prefix": "Set-Load-bna",
+        "body": ["Set Bus \"${1:loadname}\" Load TO ${2:100}% ${3:\\or MW}"],
+        "description": "Set Load Percent or MW"
+    },
+    "Set-Load[branchname]":{
+        "prefix": "Set-Load-br",
+        "body": ["Set Load \"${1:loadname}\" TO ${2:100}% ${3:\\or MW}"],
+        "description": "Set Load Percent or MW"
+    },
+    "Set-LoadQ[busnumber]":{
+        "prefix": "Set-LoadQ",
+        "body": ["Set Bus ${1:12345} LoadQ TO ${2:100}% ${3:\\or MVar}"],
+        "description": "Set Load Q Percent or MW"
+    },
+    "Set-LoadQ[busname]":{
+        "prefix": "Set-LoadQ-bna",
+        "body": ["Set Bus \"${1:loadname}\" LoadQ TO ${2:100}% ${3:\\or MVar}"],
+        "description": "Set Load Q Percent or MW"
+    },
+    "Set-LoadQ[branchname]":{
+        "prefix": "Set-LoadQ-br",
+        "body": ["Set LoadQ \"${1:loadname}\" TO ${2:100}% ${3:\\or MVar}"],
+        "description": "Set Load Q Percent or MW"
+    },
+    "Set-Shunt[busnumber]":{
+        "prefix": "Set-Shunt",
+        "body": ["Set Bus ${1:12345} Shunt TO ${2:100}% ${3:\\or MVar}"],
+        "description": "Set Shunt Percent or MVar"
+    },
+    "Set-Shunt[busname]":{
+        "prefix": "Set-Shunt-bna",
+        "body": ["Set Bus \"${1:shuntname}\" Shunt TO ${2:100}% ${3:\\or MVar}"],
+        "description": "Set Shunt Percent or MVar"
+    },
+    "Set-Shunt[branchname]":{
+        "prefix": "Set-Shunt-br",
+        "body": ["Set Shunt \"${1:shuntname}\" TO ${2:100}% ${3:\\or MVar}"],
+        "description": "Set Shunt Percent or MVar"
+    },
+    "Set-ShuntID[busnumber]":{
+        "prefix": "Set-ShuntID",
+        "body": ["Set Bus ${1:12345} Shunt ID \"${2:id}\" TO ${3:100}MVar"],
+        "description": "Set Shunt ID MVar"
+    },
+    "Set-ShuntID[busname]":{
+        "prefix": "Set-ShuntID-bna",
+        "body": ["Set Bus \"${1:shuntname}\" Shunt ID \"${2:id}\" TO ${3:100}MVar"],
+        "description": "Set Shunt ID MVar"
+    },
+    "Set-ShuntID[branchname]":{
+        "prefix": "Set-ShuntID-br",
+        "body": ["Set Shunt \"${1:shuntname}\" ID \"${2:id}\" TO ${3:100}MVar"],
+        "description": "Set Shunt ID MVar"
+    },
+    "Set-PostContRating-Branch[busnumber]":{
+        "prefix": "Set-PostContRating-Branch",
+        "body": ["Set PostContRating ${1:9999} Branch FROM Bus ${2:12345} TO Bus ${3:54321} Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Set PostContRating for Branch using Bus Numbers"
+    },
+    "Set-PostContRating-Branch[busname]":{
+        "prefix": "Set-PostContRating-Branch-bna",
+        "body": ["Set PostContRating ${1:9999} Branch FROM Bus \"${2:frombus}\" TO Bus \"${3:tobus}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Set PostContRating for Branch using Bus Names"
+    },
+    "Set-PostContRating-Branch[branchname]":{
+        "prefix": "Set-PostContRating-Branch-br",
+        "body": ["Set PostContRating ${1:9999} \"${2:branchname}\""],
+        "description": "Set PostContRating for Branch using Branch Name"
+    },
+    "Set-PostContRating-Breaker[busnumber]":{
+        "prefix": "Set-PostContRating-Breaker",
+        "body": ["Set PostContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node ${3:12345} TO Node ${4:54321} Ckt ${5:1}"],
+        "description": "Set PostContRating for Breaker using Bus Numbers"
+    },
+    "Set-PostContRating-Breaker[busname]":{
+        "prefix": "Set-PostContRating-Breaker-bna",
+        "body": ["Set PostContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node \"${3:fromnode}\" TO Node \"${4:tonode}\" Ckt ${5:1}"],
+        "description": "Set PostContRating for Breaker using Bus Names"
+    },
+    "Set-PostContRating-Winding[busnumber]":{
+        "prefix": "Set-PostContRating-Winding",
+        "body": ["Set PostContRating ${1:9999} Wind ${2:1} FROM Bus ${3:12345} TO Bus ${4:54321} TO Bus ${5:12321} Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
+        "description": "Set PostContRating Winding using Bus Numbers"
+    },
+    "Set-PostContRating-Winding[busname]":{
+        "prefix": "Set-PostContRating-Winding-bna",
+        "body": ["Set PostContRating ${1:9999} Wind ${2:1} FROM Bus \"${3:frombusname}\" TO Bus \"${4:tobusname1}\" TO Bus \"${5:tobusname2}\" Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
+        "description": "Set PostContRating for Winding using Bus Names"
+    },
+    "Set-PreContRating-Branch[busnumber]":{
+        "prefix": "Set-PreContRating-Branch",
+        "body": ["Set PreContRating ${1:9999} Branch FROM Bus ${2:12345} TO Bus ${3:54321} Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Set PreContRating for Branch using Bus Numbers"
+    },
+    "Set-PreContRating-Branch[busname]":{
+        "prefix": "Set-PreContRating-Branch-bna",
+        "body": ["Set PreContRating ${1:9999} Branch FROM Bus \"${2:frombus}\" TO Bus \"${3:tobus}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+        "description": "Set PreContRating for Branch using Bus Names"
+    },
+    "Set-PreContRating-Branch[branchname]":{
+        "prefix": "Set-PreContRating-Branch-br",
+        "body": ["Set PreContRating ${1:9999} \"${2:branchname}\""],
+        "description": "Set PreContRating for Branch using Branch Name"
+    },
+    "Set-PreContRating-Breaker[busnumber]":{
+        "prefix": "Set-PreContRating-Breaker",
+        "body": ["Set PreContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node ${3:12345} TO Node ${4:54321} Ckt ${5:1}"],
+        "description": "Set PreContRating for Breaker using Bus Numbers"
+    },
+    "Set-PreContRating-Breaker[busname]":{
+        "prefix": "Set-PreContRating-Breaker-bna",
+        "body": ["Set PreContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node \"${3:fromnode}\" TO Node \"${4:tonode}\" Ckt ${5:1}"],
+        "description": "Set PreContRating for Breaker using Bus Names"
+    },
+    "Set-PreContRating-Winding[busnumber]":{
+        "prefix": "Set-PreContRating-Winding",
+        "body": ["Set PreContRating ${1:9999} Wind ${2:1} FROM Bus ${3:12345} TO Bus ${4:54321} TO Bus ${5:12321} Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
+        "description": "Set PreContRating Winding using Bus Numbers"
+    },
+    "Set-PreContRating-Winding[busname]":{
+        "prefix": "Set-PreContRating-Winding-bna",
+        "body": ["Set PreContRating ${1:9999} Wind ${2:1} FROM Bus \"${3:frombusname}\" TO Bus \"${4:tobusname1}\" TO Bus \"${5:tobusname2}\" Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
+        "description": "Set PreContRating for Winding using Bus Names"
+    },
+    "Winding[busnumber]":{
+        "prefix": "Winding",
+        "body": ["Wind ${1:1} FROM Bus ${2:12345} TO Bus ${3:54321} TO Bus ${4:12321} Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Winding using Bus Numbers"
+    },
+    "Winding[busname]":{
+        "prefix": "Winding-bna",
+        "body": ["Wind ${1:1} FROM Bus \"${2:frombusname}\" TO Bus \"${3:tobusname1}\" TO Bus \"${4:tobusname2}\" Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Winding using Bus Names"
+    }
+}

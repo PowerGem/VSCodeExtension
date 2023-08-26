@@ -1,0 +1,82 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "pg",
+	"patterns": [
+		{"include": "#commands"},
+		{"include": "#comments"},
+		{"include": "#errors"}
+	],
+	"repository": {
+		"commands": 
+		{
+			"patterns":
+			[
+				{"include": "#command-chdir"},
+				{"include": "#command-addsave"},
+				{"include": "#command-reporttype"},
+				{"include": "#command-debug"},
+					{"include": "#command-include"},
+					{"include": "#command-dos"}
+			]
+		},
+		"command-debug": {"patterns": [{"match": "(?xi)^\\s*(debug)\\s+([0-9]+)\\s+([0-9]+)",
+			"captures": {
+				"1": { "name": "entity.name.function.pg" },
+				"2": { "name": "constant.numeric.pg" },
+				"3": { "name": "constant.numeric.pg" }		
+		}}]},
+		"command-chdir": {"patterns": [{"match": "(?xi)^\\s*(chdir)\\s+([\\w\\-_\\.]+|\"[^\"]*\"|'[^']')",
+			"captures": {
+				"1": { "name": "entity.name.function.pg" },
+				"2": { "name": "string.quoted" }		
+		}}]},
+		"command-addsave": {"patterns": [{"match": "(?xi)\\s*(%(add|save))\\s+([\\w\\-_\\.]+|\"[^\"]*\"|'[^']')",
+			"captures": {
+				"1": { "name": "entity.name.function.pg" },
+				"3": { "name": "string.quoted" }		
+		}}]},
+		"command-reporttype": {"patterns": [{"match": "(?xi)\\s*(%(csv|txt|xls))\\b",
+			"captures": {
+				"1": { "name": "entity.name.function.pg" }
+		}}]},
+		"command-include": {"patterns": [{"match": "(?xi)\\s*(%include)\\s+((\"[\\/\\\\\\w\\-\\._ :]*\")|('[\\/\\\\\\w\\-\\._ :]*')|([\\/\\\\\\w\\-\\._:]*))",
+			"captures": {
+				"1": { "name": "entity.name.function.pg" },
+				"3": { "name": "string.quoted.pg" },
+				"4": { "name": "string.quoted.pg" },
+				"5": { "name": "string.unquoted.pg" }		
+		}}]},
+		"command-dos": {"patterns": [{"begin": "(?xi)^\\s*(%)(\\w+)",
+			"beginCaptures": {
+				"1": { "name": "entity.name.function.pg" },
+				"2": { "name": "support.class" }		
+		},
+		"end": "(?=$)",
+		"patterns": 
+		[
+			{"include": "#strings-unlimited"}
+		]
+		}]},
+		"comments": {"patterns": [{"name": "comment.pg", "match": "(\\s*(\\\/|\\\\).*$|^\\s*com(m(e(n(t)?)?)?)?\\s.*$)"}]},
+		"errors": {"patterns": [{"name": "invalid.pg", "match": "[^\\\/\\s]+"}]},
+		"strings-unlimited": {			
+			"patterns": 
+			[
+					{"include": "#string-double-unlimited"},
+					{"include": "#string-single-unlimited"},
+					{"include": "#string-unquoted"}
+				]},
+	"string-double-unlimited": {
+		"name": "string.quoted.double.common",
+		"begin": "(?<![\"'])\"(?=.*\")",
+		"end": "[\"\r\n]"
+	},
+	"string-single-unlimited": {
+		"name": "string.quoted.single.common",
+		"begin": "(?<![\"'])'(?=.*')",
+		"end": "['\r\n]"
+	},
+	"string-unquoted": {"name": "string.unquoted.common", "match":"\\b\\w+\\b"}
+	},
+	"scopeName": "pg"
+}

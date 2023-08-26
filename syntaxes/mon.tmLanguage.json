@@ -1,0 +1,541 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "mon",
+	"patterns": [
+		{ "include": "#monitor" },
+		{ "include": "#flowgate" },
+		{ "include": "#interface" },
+		{ "include": "#_toplevel" }
+	],
+	"repository": {
+		"_toplevel": {"patterns": [
+			{ "include": "#branchnames" },
+			{ "include": "#busnumbers" },
+			{ "include": "#busnames" },
+			{ "include": "#montype-set" },
+			{ "include": "#rating-multiply" },
+			{ "include": "pg"}
+		]},
+		"branch-block": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(branch(es)?)\\s(?=(\/[^\\r\\n]*)?$)",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#montype-set"},
+					{"include": "#branch-nolables"},
+					{"include": "pg"}
+				]}
+		]},
+		"branch-block-busname": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(branch(es)?)\\s*(?=(\/[^\\r\\n]*)?$)",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#montype-set"},
+					{"include": "#branch-nolables-busname"},
+					{"include": "pg"}
+				]}
+		]},
+		"branch-block-name": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(branch(es)?)\\s*(?=(\/[^\\r\\n]*)?$)",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#montype-set"},
+					{"include": "#branch-nolables-name"},
+					{"include": "pg"}
+				]}
+		]},
+		"branch-nolables": {			
+			"patterns": 
+			[{
+				"name": "entity.name.tag.mon",
+				"begin": "(?xi)^\\s*[0-9]+\\s+[0-9]+\\s+[0-9]+\\s*",
+				"end": "(?=$)", "patterns": [
+					{"include": "pg"}
+				]}
+		]},
+		"branch-nolables-busname": {			
+			"patterns": 
+			[{
+				"name": "entity.name.tag.mon",
+				"begin": "(?xi)^\\s*(\"[^\"]*\"|'[^']*'|(\\w+))\\s+(\"[^\"]*\"|'[^']*'|(\\w+))\\s+([0-9]+)\\s*",
+				"captures": {
+					"1": { "name": "string.quoted.mon" },
+					"2": { "name": "string.unquoted.mon" },
+					"3": { "name": "string.quoted.mon" },
+					"4": { "name": "string.unquoted.mon" },
+					"5": { "name": "entity.name.tag.mon" }
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "pg"}
+				]}
+		]},
+		"branch-nolables-name": {			
+			"patterns": 
+			[{
+				"name": "entity.name.tag.mon",
+				"begin": "(?xi)^\\s*",
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#strings-unlimited"},
+					{"include": "pg"}
+				]}
+		]},
+		"branchnames": {
+			"patterns": 
+			[
+			{
+				"begin": "(?xi)^\\s*(BRANCHNAMES)\\s*",
+				"captures": {"1": { "name": "keyword.control.mon" }},
+				"end": "(?xi)sdkjasdlaksdjlasdkjasldkjasldkjf", "patterns": [
+					{ "include": "#monitor-branchname" },
+					{ "include": "#flowgate-branchname" },
+					{ "include": "#interface-branchname" },
+					{ "include": "#_toplevel" }
+			
+				]}
+			]
+		},			
+		"busnames": {
+			"patterns": 
+			[
+			{
+				"begin": "(?xi)^\\s*(BUSNAMES)\\s*",
+				"captures": {"1": { "name": "keyword.control.mon" }},
+				"end": "(?xi)sdkjasdlaksdjlasdkjasldkjasldkjf", "patterns": [
+					{ "include": "#monitor-busname" },
+					{ "include": "#flowgate-busname" },
+					{ "include": "#interface-busname" },
+					{ "include": "#_toplevel" }
+			
+				]}
+			]
+		},
+		"busnumbers": {
+			"patterns": 
+			[
+			{
+				"begin": "(?xi)^\\s*(BUSNUMBERS)\\s*",
+				"captures": {"1": { "name": "keyword.control.mon" }},
+				"end": "(?xi)sdkjasdlaksdjlasdkjasldkjasldkjf", "patterns": [
+					{ "include": "#monitor" },
+					{ "include": "#flowgate" },
+					{ "include": "#interface" },
+					{ "include": "#_toplevel" }
+			
+				]}
+			]
+		},										
+		"factor": {			
+			"patterns": 
+			[{
+				"begin": "(?xi)\\s*(factor)\\s+(-?[0-9]*\\.?[0-9]+)\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "constant.numeric.mon" }
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "pg"}
+				]}
+		]},
+		"filename": {"patterns": [{"name": "string.quoted.mon", "match": "[\\w\\-.]+"}]},
+		"flowgate": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(flowgate)\\s+([0-9]+)\\s+(\\w+|\"[^\"]*\"|'[^']*')(\\s+(rating)\\s+(-?[0-9]*\\.?[0-9]+)|\\s+(biratings)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+))?(\\s+(penalty)\\s+(-?[0-9]*\\.?[0-9]+))?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "entity.name.tag" },
+					"3": { "name": "string.quoted.mon" },
+					"5": { "name": "entity.name.type.mon" },
+					"6": { "name": "constant.numeric.mon" },
+					"7": { "name": "entity.name.type.mon" },
+					"8": { "name": "constant.numeric.mon" },
+					"9": { "name": "constant.numeric.mon" },
+					"11": { "name": "entity.name.type.mon" },
+					"12": { "name": "constant.numeric.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#flowgate-monitor"},
+					{"include": "source.pg.cont#contingency-bnu"},
+					{"include": "pg"}
+				]}
+		]},
+		"flowgate-busname": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(flowgate)\\s+([0-9]+)\\s+(\\w+|\"[^\"]*\"|'[^']*')(\\s+(rating)\\s+(-?[0-9]*\\.?[0-9]+)|\\s+(biratings)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+))?(\\s+(penalty)\\s+(-?[0-9]*\\.?[0-9]+))?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "entity.name.tag.mon" },
+					"3": { "name": "string.quoted.mon" },
+					"5": { "name": "entity.name.type.mon" },
+					"6": { "name": "constant.numeric.mon" },
+					"7": { "name": "entity.name.type.mon" },
+					"8": { "name": "constant.numeric.mon" },
+					"9": { "name": "constant.numeric.mon" },
+					"11": { "name": "entity.name.type.mon" },
+					"12": { "name": "constant.numeric.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#flowgate-monitor-busname"},
+					{"include": "source.pg.cont#contingency-bna"},
+					{"include": "pg"}
+				]}
+			]},
+		"flowgate-branchname": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(flowgate)\\s+([0-9]+)\\s+(\\w+|\"[^\"]*\"|'[^']*')(\\s+(rating)\\s+(-?[0-9]*\\.?[0-9]+)|\\s+(biratings)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+))?(\\s+(penalty)\\s+(-?[0-9]*\\.?[0-9]+))?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "entity.name.tag" },
+					"3": { "name": "string.quoted.mon" },
+					"5": { "name": "entity.name.type.mon" },
+					"6": { "name": "constant.numeric.mon" },
+					"7": { "name": "entity.name.type.mon" },
+					"8": { "name": "constant.numeric.mon" },
+					"9": { "name": "constant.numeric.mon" },
+					"11": { "name": "entity.name.type.mon" },
+					"12": { "name": "constant.numeric.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "source.pg.cont#contingency-br"},
+					{"include": "#flowgate-monitor-branchname"},
+					{"include": "pg"}
+				]}
+			]},
+		"flowgate-monitor": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.mon",
+				"begin": "(?xi)^\\s*monitor\\s*",
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#branch"},
+					{"include": "#factor"},
+					{"include": "#monitor-group" },
+					{"include": "source.pg.common#strings-unlimited"},
+					{"include": "pg"}
+				]}
+			]},
+		"flowgate-monitor-busname": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.mon",
+				"begin": "(?xi)^\\s*monitor\\s*",
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#branch-busname"},
+					{"include": "#factor"},
+					{"include": "#monitor-group" },
+					{"include": "source.pg.common#strings-unlimited"},
+					{"include": "pg"}
+				]}
+			]},
+		"flowgate-monitor-branchname": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.mon",
+				"begin": "(?xi)^\\s*(monitor\\s+)?((\\b\\w+\\b)|(\"[^\"]*\"|'[^']*'))(\\s+-?1)?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.function.mon" },
+					"3": { "name": "entity.name.tag" },
+					"4": { "name": "string.quoted.mon" },
+					"5": { "name": "constant.numeric.mon" }
+				},				
+				"end": "(?=$)", "patterns": [
+					{"include": "#factor"},
+					{"include": "pg"}
+				]}
+			]},							
+		"interface": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(interface)\\s+(\"[^\"]*\"|'[^']*')(\\s+(rating)\\s+(-?[0-9]*\\.?[0-9]+)|\\s+(biratings)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+))?(\\s+(penalty)\\s+(-?[0-9]*\\.?[0-9]+))?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "string.quoted.mon" },
+					"4": { "name": "entity.name.type.mon" },
+					"5": { "name": "constant.numeric.mon" },
+					"6": { "name": "entity.name.type.mon" },
+					"7": { "name": "constant.numeric.mon" },
+					"8": { "name": "constant.numeric.mon" },
+					"10": { "name": "entity.name.type.mon" },
+					"11": { "name": "constant.numeric.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#flowgate-monitor"},
+					{"include": "pg"}
+				]}
+		]},
+		"interface-busname": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(interface)\\s+(\"[^\"]*\"|'[^']*')(\\s+(rating)\\s+(-?[0-9]*\\.?[0-9]+)|\\s+(biratings)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+))?(\\s+(penalty)\\s+(-?[0-9]*\\.?[0-9]+))?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "string.quoted.mon" },
+					"4": { "name": "entity.name.type.mon" },
+					"5": { "name": "constant.numeric.mon" },
+					"6": { "name": "entity.name.type.mon" },
+					"7": { "name": "constant.numeric.mon" },
+					"8": { "name": "constant.numeric.mon" },
+					"10": { "name": "entity.name.type.mon" },
+					"11": { "name": "constant.numeric.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#flowgate-monitor-busname"},
+					{"include": "pg"}
+				]}
+			]},
+		"interface-branchname": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)\\s*(interface)\\s+(\"[^\"]*\"|'[^']*')(\\s+(rating)\\s+(-?[0-9]*\\.?[0-9]+)|\\s+(biratings)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+))?(\\s+(penalty)\\s+(-?[0-9]*\\.?[0-9]+))?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "string.quoted.mon" },
+					"4": { "name": "entity.name.type.mon" },
+					"5": { "name": "constant.numeric.mon" },
+					"6": { "name": "entity.name.type.mon" },
+					"7": { "name": "constant.numeric.mon" },
+					"8": { "name": "constant.numeric.mon" },
+					"10": { "name": "entity.name.type.mon" },
+					"11": { "name": "constant.numeric.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#flowgate-monitor-branchname"},
+					{"include": "pg"},
+					{"include": "#errors"}
+				]}
+		]},
+		"monitor": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.mon",
+				"begin": "(?xi)^\\s*monitor\\s*",
+				"end": "(?=$)", "patterns": [
+					{"include": "#monitor-group" },
+					{"include": "#monitor-ties" },
+					{"include": "#branch-block"},
+					{"include": "source.pg.common#branch"},
+					{"include": "#flowgate"},
+					{"include": "#interface"},
+					{"include": "#voltage-range"},
+					{"include": "pg"}
+				]}
+			]},
+		"monitor-busname": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.mon",
+				"begin": "(?xi)^\\s*monitor\\s*",
+				"end": "(?=$)", "patterns": [
+					{"include": "#monitor-group" },
+					{"include": "#monitor-ties" },
+					{"include": "source.pg.common#branch-busname"},
+					{"include": "#branch-block-busname"},
+					{"include": "#flowgate-busname"},
+					{"include": "#interface-busname"},
+					{"include": "#voltage-range-busname"},
+					{"include": "pg"}
+				]}
+			]},
+		"monitor-branchname": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.mon",
+				"begin": "(?xi)^\\s*monitor\\s*",
+				"end": "(?=$)", "patterns": [
+					{"include": "#flowgate-branchname"},
+					{"include": "#interface-branchname"},
+					{"include": "#monitor-group" },
+					{"include": "#monitor-ties" },
+					{"include": "#branch-block-name"},
+					{"include": "source.pg.common#branch-name"},
+					{"include": "pg"}
+				]}
+			]},
+		"monitor-group": {			
+			"patterns": 
+			[{
+				"begin": "(?xi)\\s*(branches|transformers|lines|nontransformers)\\s+((in)|(within)\\s+([0-9]+)\\s+(buses)\\s+(outside))\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"3": { "name": "keyword.operator.mon" },
+					"4": { "name": "keyword.operator.mon" },
+					"5": { "name": "constant.numeric.mon" },
+					"6": { "name": "entity.name.type.mon" },
+					"7": { "name": "keyword.operator.mon" }
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#system"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]},
+		"monitor-ties": {			
+			"patterns": 
+			[{
+				"begin": "(?xi)\\s*(ties)\\s+(from)\\s*(?=((areas|zones|(sub)?system)\\s+([0-9\\s]+|\\w+|'[^']*'|\\\"[^\\\"]*\\\")|((area|zone)\\s+[0-9\\s]+(\\s+to\\s+(area|zone)\\s+[0-9\\s]+)?))(\\s+kvrange\\s+[0-9\\s]+)?\\s*(\\\/[^\\r\\n]*)?$)",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "keyword.operator.mon" }
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#system"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]},
+		"montype-set": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.mon",
+				"begin": "(?xi)^\\s*(montype)\\s*(set)\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "entity.name.function.mon" }
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#strings-unlimited"},
+					{"include": "pg"}
+				]}
+		]},
+		"rating-multiply": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.mon",
+				"begin": "(?xi)^\\s*(rating)\\s+(multipliers)(\\s+(include)\\s+(ties))?\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "entity.name.function" },
+					"4": { "name": "keyword.operator.mon" },
+					"5": { "name": "entity.name.type.mon" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#rating-multiply-area"},
+					{"include": "pg"}
+				]}
+		]},		
+		"rating-multiply-area": {			
+			"patterns": 
+			[{
+				"begin": "(?xi)^(?=(area|zone)s?[^\\r\\n]*\\b[ABC]\\b)",
+				"end": "(?=$)",
+				"captures": {
+					"2": { "name": "entity.name.tag.mon" },
+					"3": { "name": "constant.numeric.function"},
+					"4": { "name": "entity.name.tag.mon" },
+					"5": { "name": "constant.numeric.function"},
+					"7": { "name": "entity.name.tag.mon" },
+					"8": { "name": "constant.numeric.function"}
+				},
+				 "patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "#rating-multiply-mul"},
+					{"include": "pg"}
+				]}
+		]},		
+		"rating-multiply-mul": {			
+			"patterns": 
+			[{
+				"begin": "(?xi)\\s*\\b([ABC])\\s+([0-9]+)(\\s+\\b([ABC])\\s+([0-9]+))?(\\s+\\b([ABC])\\s+([0-9]+))?\\s+",
+				"end": "(?=$)",
+				"captures": {
+					"1": { "name": "entity.name.type.mon" },
+					"2": { "name": "constant.numeric.function"},
+					"4": { "name": "entity.name.type.mon" },
+					"5": { "name": "constant.numeric.function"},
+					"7": { "name": "entity.name.type.mon" },
+					"8": { "name": "constant.numeric.function"}
+				},
+				 "patterns": [
+					{"include": "pg"}
+				]}
+		]},	
+		"voltage-range": {			
+			"patterns": 
+			[{
+				"begin": "(?xi)\\s*(voltage\\s+(range|deviation))\\s*((all)\\s+(buses)\\s*(?![^\\r\\n]*(area|zone|system|bus)[^\\r\\n]*$)|((within)\\s+([0-9]+)\\s+(buses)\\s(outside)\\s*|(in)\\s*(?=(sub)?system))?)",
+				"beginCaptures": {
+					"1": { "name": "entity.name.type.mon" },
+					"4": { "name": "keyword.operator.mon" },
+					"5": { "name": "entity.name.type.mon" },
+					"8": { "name": "keyword.operator.mon" },
+					"9": { "name": "constant.numeric.mon" },
+					"10": { "name": "entity.name.type.mon" },
+					"11": { "name": "keyword.operator.mon" },
+					"12": { "name": "keyword.operator.mon" }
+				},
+				"end": "(\\s*(?<=\\s)(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+)\\s*(\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+)\\s*)?\\s*(?=(\/[^\\r\\n]*)?$)|(?=$))", 
+				"endCaptures": {
+					"2": { "name": "constant.numeric.mon" },
+					"3": { "name": "constant.numeric.mon" },
+					"5": { "name": "constant.numeric.mon" },
+					"6": { "name": "constant.numeric.mon" }
+				},
+				"patterns": [
+					{"include": "source.pg.common#bus"},
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#system"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]},
+		"voltage-range-busname": {			
+			"patterns": 
+			[{
+				"begin": "(?xi)\\s*(voltage\\s+(range|deviation))\\s*((all)\\s+(buses)\\s*(?![^\\r\\n]*(area|zone|system|bus)[^\\r\\n]*$)|((within)\\s+([0-9]+)\\s+(buses)\\s(outside)\\s*|(in)\\s*(?=(sub)?system))?)",
+				"beginCaptures": {
+					"1": { "name": "entity.name.type.mon" },
+					"4": { "name": "keyword.operator.mon" },
+					"5": { "name": "entity.name.type.mon" },
+					"8": { "name": "keyword.operator.mon" },
+					"9": { "name": "constant.numeric.mon" },
+					"10": { "name": "entity.name.type.mon" },
+					"11": { "name": "keyword.operator.mon" },
+					"12": { "name": "keyword.operator.mon" }
+				},
+				"end": "(\\s*(?<=\\s)(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+)\\s*(\\s+(-?[0-9]*\\.?[0-9]+)\\s+(-?[0-9]*\\.?[0-9]+)\\s*)?\\s*(?=(\/[^\\r\\n]*)?$)|(?=$))", 
+				"endCaptures": {
+					"2": { "name": "constant.numeric.mon" },
+					"3": { "name": "constant.numeric.mon" },
+					"5": { "name": "constant.numeric.mon" },
+					"6": { "name": "constant.numeric.mon" }
+				},
+				"patterns": [
+					{"include": "source.pg.common#bus-busname"},
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#system"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]}		
+	},
+	"scopeName": "source.pg.mon"
+}

@@ -1,0 +1,322 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "sub",
+	"patterns": [
+		{ "include": "#end" },
+		{ "include": "#_toplevel" }
+	],
+	"repository": {
+		"_toplevel": {"patterns": [
+			{ "include": "#add-all-area" },
+			{ "include": "#system-block" },
+			{ "include": "pg"}
+		]},
+		"add-all": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(add)\\s*(all)\\s+((buses)|(generators)(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?(\\s+(include)\\s+(offline))?)\\s*",
+				"end": "\\s*((?=\/)|(?=$))", 
+				"beginCaptures": {
+					"1": {"name": "entity.name.function.sub"},
+					"2": {"name": "keyword.other.sub"},
+					"4": {"name": "entity.name.type.sub"},
+					"5": {"name": "entity.name.type.sub"},
+					"7": {"name": "keyword.operator"},
+					"8": {"name": "entity.other.attribute-name"},
+					"9": {"name": "keyword.operator.sub"},
+					"10": {"name": "constant.numeric"},
+					"11": {"name": "entity.name.type.sub"},
+					"13": {"name": "entity.name.function.sub"},
+					"14": {"name": "keyword.other.sub"}
+				},
+				"patterns": [
+					{"include": "#except-block"},
+					{"include": "pg"}
+				]}
+		]},
+		"add-all-area": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(add)\\s+((all)\\s+(areas|zones)\\s+(?=scale|for)|(?=(area|zone)s?[0-9\\s]*\\s(scale|for)))",
+				"beginCaptures": {
+					"1": {"name": "entity.name.function.sub"},
+					"3": {"name": "keyword.other.sub"},
+					"4": {"name": "entity.name.type.sub"}
+				},
+				"end": "((?xi)\\s*((scale)\\s+(generation)(\\s+(suffix)\\s+(\"[^\"]*\"|'[^']*'))?(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?|(scale)\\s+(load(_id)?)(\\s+(suffix)\\s+(\"[^\"]*\"|'[^']*'))?(\\s+(include)\\s+(nonconforming))?|(for)\\s+((import)(\\s+(suffix)\\s+(\"[^\"]*\"|'[^']*'))?(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?|(export)(\\s+(suffix)\\s+(\"[^\"]*\"|'[^']*'))?(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?(\\s+(include)\\s+(offline))?))\\s*((?=\/)|(?=$))|((?=\/)|(?=$)))",
+				"endCaptures": {
+					"3": {"name": "entity.name.function.sub"},
+					"4": {"name": "entity.name.type.sub"},
+					"6": {"name": "entity.other.attribute-name.sub"},
+					"7": {"name": "string.sub"},
+					"9": {"name": "keyword.operator.sub"},
+					"10": {"name": "entity.other.attribute-name.sub"},
+					"11": {"name": "keyword.operator.sub"},
+					"12": {"name": "constant.numeric.sub"},
+					"13": {"name": "entity.name.type.sub"},
+
+					"14": {"name": "entity.name.function.sub"},
+					"15": {"name": "entity.name.type.sub"},
+					"18": {"name": "entity.other.attribute-name.sub"},
+					"19": {"name": "string.sub"},
+					"21": {"name": "entity.name.function.sub"},
+					"22": {"name": "keyword.other.sub"},
+
+					"23": {"name": "keyword.operator.sub"},
+
+					"25": {"name": "keyword.other.sub"},
+					"27": {"name": "entity.other.attribute-name.sub"},
+					"28": {"name": "string.sub"},
+
+
+					"30": {"name": "keyword.operator.sub"},
+					"31": {"name": "entity.other.attribute-name.sub"},
+					"32": {"name": "keyword.operator.sub"},
+					"33": {"name": "constant.numeric.sub"},
+					"34": {"name": "entity.name.type.sub"},
+
+
+					"35": {"name": "keyword.other.sub"},
+					"37": {"name": "entity.other.attribute-name.sub"},
+					"38": {"name": "string.sub"},
+
+					"40": {"name": "keyword.operator.sub"},
+					"41": {"name": "entity.other.attribute-name.sub"},
+					"42": {"name": "keyword.operator.sub"},
+					"43": {"name": "constant.numeric.sub"},
+					"44": {"name": "entity.name.type.sub"},
+
+					"46": {"name": "entity.name.function.sub"},
+					"47": {"name": "keyword.other.sub"}
+				},
+				"patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "pg"}
+				]}
+		]},		
+		"baseload": {			
+			"patterns": 
+			[{
+				"match": "(?xi)(?<=^)\\s*(baseload)\\s+([0-9]+)\\s*",
+				"captures": {
+					"1": { "name": "entity.other.attribute-name" },
+					"2": { "name": "entity.name.tag.common" }
+				}}
+		]},	
+		"join-block": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(join)\\s*",
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#join-block-line"},
+					{"include": "#system-block-line"},
+					{"include": "pg"}
+				]}
+		]},
+		"join-block-line": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(?=((sub)?system)[^\\r\\n]*$)",
+				"end": "\\s*((?=\/)|(?=$))", 
+				"patterns": [
+					{"include": "source.pg.common#system"}
+				]}
+		]},
+		"end": {			
+			"patterns": 
+			[{
+				"name": "markup.italic",
+				"begin": "(?xi)^\\s*((((end))))\\b\\s*",
+				"beginCaptures": {"1": {"name": "markup.underline"}, "2": {"name": "markup.bold"}, "3": {"name": "keyword.control"}, "4": {"name": "markup.underline"}},
+				"end": "asdajsdfasfiwfiuwefias00303093030930930932lskjsfa", 
+				"patterns": [
+					{"include": "#_toplevel"}
+				]}
+		]},
+		"except-block": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)((?<=^)|(?<=buses\\s)|(?<=bus\\s)|(?<=generation\\s)|(?<=load(_id)?\\s)|(?<=NONCONFORMING\\s)|(?<=mw\\s))\\s*(except)\\s*",
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#except-block-line"},
+ 					{"include": "#system-block-line"},
+					{"include": "pg"}
+				]}
+		]},
+			"except-block-line": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(?=(load|(sub)?system)[^\\r\\n]*$)",
+				"end": "\\s*((?=\/)|(?=$))", 
+				"patterns": [
+					{"include": "source.pg.common#system"},
+					{"include": "source.pg.common#load-id"}
+				]}
+		]},
+		"participate-block": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(participate)(\\s+(include)\\s+(offline))?\\s*",
+				"beginCaptures": {
+					"1": {"name": "keyword.control.sub"},
+					"3": {"name": "entity.name.function"},
+					"4": {"name": "keyword.other.sub"}
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+ 					{"include": "#participate-block-line"},
+					{"include": "pg"}
+				]}
+		]},
+		"participate-block-line": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(?=((sub)?system|bus|area|zone|owner|baseload|turbinetype)[^\\r\\n]*$)",
+				"end": "\\s*(-?[0-9]*\\.?[0-9]+)\\s*((?=\/)|(?=$))", 
+				"endCaptures": {"1": {"name": "constant.numeric.sub"}},
+				"patterns": [
+					{"include": "source.pg.common#bus"},
+					{"include": "source.pg.common#system"},
+					{"include": "pg"}
+				]}
+		]},
+		"scale-all": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(scale)\\s*(all)\\s+((generation)(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?|(load(_id)?)(\\s+(include)\\s+(nonconforming))?|(for)\\s+((import)(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?|(export)(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?(\\s+(include)\\s+(offline))?))\\s*",
+				"beginCaptures": {
+					"1": {"name": "entity.name.function.sub"},
+					"2": {"name": "keyword.other.sub"},
+					"4": {"name": "entity.name.type.sub"},
+					"6": {"name": "keyword.operator.sub"},
+					"7": {"name": "entity.other.attribute-name.sub"},
+					"8": {"name": "keyword.operator.sub"},
+					"9": {"name": "constant.numeric.sub"},
+					"10": {"name": "entity.name.type.sub"},
+
+					"11": {"name": "entity.name.type.sub"},
+					"14": {"name": "entity.name.function.sub"},
+					"15": {"name": "keyword.other.sub"},
+					"16": {"name": "keyword.operator.sub"},
+					"18": {"name": "keyword.other.sub"},
+
+					"20": {"name": "keyword.operator.sub"},
+					"21": {"name": "entity.other.attribute-name.sub"},
+					"22": {"name": "keyword.operator.sub"},
+					"23": {"name": "constant.numeric.sub"},
+					"24": {"name": "entity.name.type.sub"},
+
+
+					"25": {"name": "keyword.other.sub"},
+
+					"27": {"name": "keyword.operator.sub"},
+					"28": {"name": "entity.other.attribute-name.sub"},
+					"29": {"name": "keyword.operator.sub"},
+					"30": {"name": "constant.numeric.sub"},
+					"31": {"name": "entity.name.type.sub"},
+
+
+					"33": {"name": "entity.name.function.sub"},
+					"34": {"name": "keyword.other.sub"}
+				},
+				"end": "(?xi)\\s*(?=$)", "patterns": [
+					{"include": "#except-block"},
+				   {"include": "pg"}
+			   ]}   
+		]},
+		"sequential-block": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(sequential\\s+honor)\\s+(pmax|pmin|zero)\\s*",
+				"beginCaptures": {
+					"1": {"name": "entity.name.function"},
+					"2": {"name": "entity.other.attribute-name.sub"}
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+ 					{"include": "#sequential-block-line"},
+					{"include": "pg"}
+				]}
+		]},		
+		"sequential-block-line": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(?=((sub)?system|bus|area|zone|owner|baseload|turbinetype)[^\\r\\n]*$)",
+				"end": "\\s*(?=$)", 
+				"patterns": [
+					{"include": "source.pg.common#system"},
+					{"include": "pg"}
+				]}
+		]},		
+		"system-block": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*((add)\\s+((sub)?system)\\s+(by)\\s+(bus|generator(\\s+(with)\\s+(pmax)\\s+(greater)\\s+(-?[0-9]*\\.?[0-9]+)\\s+(mw))?(\\s+(include)\\s+(offline))?)\\s*|((sub)?system)\\s+(\"[^\"]*\"|'[^']*'|([0-9\\w]+))\\s*)",
+				"beginCaptures": {
+					"2": {"name": "entity.name.function"},
+					"3": {"name": "entity.name.type"},
+					"5": {"name": "keyword.operator"},
+					"6": {"name": "entity.name.type"},
+					"8": {"name": "keyword.operator.sub"},
+					"9": {"name": "entity.other.attribute-name.sub"},
+					"10": {"name": "keyword.operator.sub"},
+					"11": {"name": "constant.numeric.sub"},
+					"12": {"name": "entity.name.type.sub"},
+					"14": {"name": "entity.name.function.sub"},
+					"15": {"name": "keyword.other.sub"},
+					"16": {"name": "entity.name.type"},
+					"18": {"name": "string"}
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#except-block"},
+					{"include": "#sequential-block"},
+					{"include": "#add-all"},
+					{"include": "#join-block"},
+					{"include": "#participate-block"},
+					{"include": "#scale-all"},
+					{"include": "#system-block-line"},
+					{"include": "pg"}
+				]}
+		]},
+		"system-block-line": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.sub",
+				"begin": "(?xi)^\\s*(?=((sub)?system|bus|area|zone|owner|baseload|turbinetype|kvrange)[^\\r\\n]*$)",
+				"end": "(?=$)", "patterns": [
+					{"include": "#baseload"},
+					{"include": "source.pg.common#bus"},
+					{"include": "source.pg.common#buses"},
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "source.pg.common#owner"},
+					{"include": "source.pg.common#owners"},
+					{"include": "#turbinetype"},
+					{"include": "pg"}
+				]}
+		]},
+		"turbinetype": {			
+			"patterns": 
+			[{
+				"match": "(?xi)(?<=^)\\s*(turbinetype)\\s+([0-9]+)\\s*",
+				"captures": {
+					"1": { "name": "entity.other.attribute-name" },
+					"2": { "name": "entity.name.tag.common" }
+				}}
+		]}
+
+	},
+	"scopeName": "source.pg.sub"
+}
