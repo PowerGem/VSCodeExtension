@@ -2,7 +2,7 @@
 
 * [PowerGEM](https://www.power-gem.com/) PROBE & TARA input and output langugage grammars
 
-    If you find issues, you can send files djohnsonbaugh@power-gem.com for evaluation
+    Issues can be reported [here](https://github.com/PowerGem/VSCodeExtension/issues).
 
 ## Features
 
