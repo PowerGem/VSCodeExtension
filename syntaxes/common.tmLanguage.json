@@ -121,7 +121,7 @@
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b(ckt|circuit)\\s+[\"']?(&|@)?(\\w\\w?)(?=\\b)[\"']?\\s*",
+				"match": "(?xi)\\s*\\b(ckt|circuit)\\s+[\"']?(&)?([\\w@][\\w@]?)(?=\\b)[\"']?\\s*",
 				"captures": {
 					"1": { "name": "entity.name.type.common" },
 					"2": { "name": "keyword.operator.common" },
@@ -175,12 +175,20 @@
 						"1": { "name": "keyword.operator.language" }
 					}}
 		]},
+		"language-operators-by": {			
+			"patterns": 
+			[{
+				"match": "(?xi)\\s+\\b(by)\\b",
+				"captures": {
+					"1": { "name": "keyword.operator.language.by" }
+				}}
+		]},		
 		"language-operators-to": {			
 			"patterns": 
 			[{
 				"match": "(?xi)\\s+\\b(to)\\b",
 				"captures": {
-					"1": { "name": "keyword.operator.language" }
+					"1": { "name": "keyword.operator.language.to" }
 				}}
 		]},		
 		"language-types": {			

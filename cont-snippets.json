@@ -24,6 +24,21 @@
         "body": ["Breaker Substation \"${1:stationname}\" FROM Node \"${2:fromnode}\" TO Node \"${3:tonode}\" Ckt ${4:1}"],
         "description": "Breaker using Bus Names"
     },
+    "Change-Bus[busnumber]":{
+        "prefix": "Change-Bus",
+        "body": ["${1|Increase,Decrease,Set|} Bus ${2:12345} ${3|Gen,Load,LoadQ,Shunt,Shunt ID \"shuntid\"|} ${4|BY,TO|} ${5:100}${6|%,MW,MVar,Percent|}"],
+        "description": "Set Bus"
+    },
+    "Change-Bus[busname]":{
+        "prefix": "Change-Bus-bna",
+        "body": ["${1|Increase,Decrease,Set|} Bus \"${2:busname}\" ${3|Gen,Load,LoadQ,Shunt,Shunt ID \"shuntid\"|} ${4|BY,TO|} ${5:100}${6|%,MW,MVar,Percent|}"],
+        "description": "Set Bus"
+    },
+    "Change-Bus[branchname]":{
+        "prefix": "Set-Bus-br",
+        "body": ["${1|Increase,Decrease,Bus|} ${2|Gen,Load,LoadQ,Shunt|} \"${3:equipname}\" ${4|BY,TO|} ${5:100}${6|%,MW,MVar,Percent|}"],
+        "description": "Set Bus"
+    },
     "Close-Branch[busnumber]":{
         "prefix": "Close-Branch",
         "body": ["Close Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
@@ -84,6 +99,81 @@
         "body": ["Close Wind ${1:1} FROM Bus \"${2:frombusname}\" TO Bus \"${3:tobusname1}\" TO Bus \"${4:tobusname2}\" Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
         "description": "Close Winding using Bus Names"
     },
+    "Decrease-Gen[busnumber]":{
+        "prefix": "Decrease-Gen",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus ${2:12345} Gen BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Decrease Generation Percent or MW"
+    },
+    "Decrease-Gen[busname]":{
+        "prefix": "Decrease-Gen-bna",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus \"${2:busname}\" Gen BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Decrease Generation Percent or MW"
+    },
+    "Decrease-Gen[branchname]":{
+        "prefix": "Decrease-Gen-br",
+        "body": ["${1|Decrease,Increase,Change,Set|} Gen \"${2:genname}\"${3| , PMax|} BY ${4:100}${5|%,MW, Percent|}"],
+        "description": "Decrease Generation Percent or MW"
+    },
+    "Decrease-Load[busnumber]":{
+        "prefix": "Decrease-Load",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus ${2:12345} Load BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Decrease Load Percent or MW"
+    },
+    "Decrease-Load[busname]":{
+        "prefix": "Decrease-Load-bna",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus \"${2:loadname}\" Load BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Decrease Load Percent or MW"
+    },
+    "Decrease-Load[branchname]":{
+        "prefix": "Decrease-Load-br",
+        "body": ["${1|Decrease,Increase,Change,Set|} Load \"${2:loadname}\" BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Decrease Load Percent or MW"
+    },
+    "Decrease-LoadQ[busnumber]":{
+        "prefix": "Decrease-LoadQ",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus ${2:12345} LoadQ BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Decrease Load Q Percent or MW"
+    },
+    "Decrease-LoadQ[busname]":{
+        "prefix": "Decrease-LoadQ-bna",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus \"${2:loadname}\" LoadQ BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Decrease Load Q Percent or MW"
+    },
+    "Decrease-LoadQ[branchname]":{
+        "prefix": "Decrease-LoadQ-br",
+        "body": ["${1|Decrease,Increase,Change,Set|} LoadQ \"${2:loadname}\" BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Decrease Load Q Percent or MW"
+    },
+    "Decrease-Shunt[busnumber]":{
+        "prefix": "Decrease-Shunt",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus ${2:12345} Shunt BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Decrease Shunt Percent or MVar"
+    },
+    "Decrease-Shunt[busname]":{
+        "prefix": "Decrease-Shunt-bna",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus \"${2:shuntname}\" Shunt BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Decrease Shunt Percent or MVar"
+    },
+    "Decrease-Shunt[branchname]":{
+        "prefix": "Decrease-Shunt-br",
+        "body": ["${1|Decrease,Increase,Change,Set|} Shunt \"${2:shuntname}\" BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Decrease Shunt Percent or MVar"
+    },
+    "Decrease-ShuntID[busnumber]":{
+        "prefix": "Decrease-ShuntID",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus ${2:12345} Shunt ID \"${3:id}\" BY ${4:100}MVar"],
+        "description": "Decrease Shunt ID MVar"
+    },
+    "Decrease-ShuntID[busname]":{
+        "prefix": "Decrease-ShuntID-bna",
+        "body": ["${1|Decrease,Increase,Change,Set|} Bus \"${2:shuntname}\" Shunt ID \"${3:id}\" BY ${4:100}MVar"],
+        "description": "Decrease Shunt ID MVar"
+    },
+    "Decrease-ShuntID[branchname]":{
+        "prefix": "Decrease-ShuntID-br",
+        "body": ["${1|Decrease,Increase,Change,Set|} Shunt \"${2:shuntname}\" ID \"${3:id}\" BY ${4:100}MVar"],
+        "description": "Decrease Shunt ID MVar"
+    },
     "Disconnect-Bus[busnumber]":{
         "prefix": "Disconnect-Bus",
         "body": ["Disconnect Bus ${1:54321}"],
@@ -93,6 +183,81 @@
         "prefix": "Disconnect-Bus-bna",
         "body": ["Disconnect Bus \"${1:busname}\""],
         "description": "Disconnect Bus using Bus Names"
+    },
+    "Increase-Gen[busnumber]":{
+        "prefix": "Increase-Gen",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus ${2:12345} Gen BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Increase Generation Percent or MW"
+    },
+    "Increase-Gen[busname]":{
+        "prefix": "Increase-Gen-bna",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus \"${2:busname}\" Gen BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Increase Generation Percent or MW"
+    },
+    "Increase-Gen[branchname]":{
+        "prefix": "Increase-Gen-br",
+        "body": ["${1|Increase,Decrease,Change,Set|} Gen \"${2:genname}\"${3| , PMax|} BY ${4:100}${5|%,MW, Percent|}"],
+        "description": "Increase Generation Percent or MW"
+    },
+    "Increase-Load[busnumber]":{
+        "prefix": "Increase-Load",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus ${2:12345} Load BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Increase Load Percent or MW"
+    },
+    "Increase-Load[busname]":{
+        "prefix": "Increase-Load-bna",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus \"${2:loadname}\" Load BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Increase Load Percent or MW"
+    },
+    "Increase-Load[branchname]":{
+        "prefix": "Increase-Load-br",
+        "body": ["${1|Increase,Decrease,Change,Set|} Load \"${2:loadname}\" BY ${3:100}${4|%,MW, Percent|}"],
+        "description": "Increase Load Percent or MW"
+    },
+    "Increase-LoadQ[busnumber]":{
+        "prefix": "Increase-LoadQ",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus ${2:12345} LoadQ BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Increase Load Q Percent or MW"
+    },
+    "Increase-LoadQ[busname]":{
+        "prefix": "Increase-LoadQ-bna",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus \"${2:loadname}\" LoadQ BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Increase Load Q Percent or MW"
+    },
+    "Increase-LoadQ[branchname]":{
+        "prefix": "Increase-LoadQ-br",
+        "body": ["${1|Increase,Decrease,Change,Set|} LoadQ \"${2:loadname}\" BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Increase Load Q Percent or MW"
+    },
+    "Increase-Shunt[busnumber]":{
+        "prefix": "Increase-Shunt",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus ${2:12345} Shunt BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Increase Shunt Percent or MVar"
+    },
+    "Increase-Shunt[busname]":{
+        "prefix": "Increase-Shunt-bna",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus \"${2:shuntname}\" Shunt BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Increase Shunt Percent or MVar"
+    },
+    "Increase-Shunt[branchname]":{
+        "prefix": "Increase-Shunt-br",
+        "body": ["${1|Increase,Decrease,Change,Set|} Shunt \"${2:shuntname}\" BY ${3:100}${4|%,MVar,Percent|}"],
+        "description": "Increase Shunt Percent or MVar"
+    },
+    "Increase-ShuntID[busnumber]":{
+        "prefix": "Increase-ShuntID",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus ${2:12345} Shunt ID \"${3:id}\" BY ${4:100}MVar"],
+        "description": "Increase Shunt ID MVar"
+    },
+    "Increase-ShuntID[busname]":{
+        "prefix": "Increase-ShuntID-bna",
+        "body": ["${1|Increase,Decrease,Change,Set|} Bus \"${2:shuntname}\" Shunt ID \"${3:id}\" BY ${4:100}MVar"],
+        "description": "Increase Shunt ID MVar"
+    },
+    "Increase-ShuntID[branchname]":{
+        "prefix": "Increase-ShuntID-br",
+        "body": ["${1|Increase,Decrease,Change,Set|} Shunt \"${2:shuntname}\" ID \"${3:id}\" BY ${4:100}MVar"],
+        "description": "Increase Shunt ID MVar"
     },
     "Isolate-Branch[busnumber]":{
         "prefix": "Isolate-Branch",
@@ -264,64 +429,79 @@
         "body": ["OpenFrom Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
         "description": "OpenFrom Branch using Bus Names"
     },
+    "Set-Bus[busnumber]":{
+        "prefix": "Set",
+        "body": ["${1|Set,Increase,Decrease|} Bus ${2:12345} ${3|Gen,Load,LoadQ,Shunt,Shunt ID \"shuntid\"|} ${4|TO,BY|} ${5:100}${6|%,MW,MVar,Percent|}"],
+        "description": "Set Bus"
+    },
+    "Set-Bus[busname]":{
+        "prefix": "Set-bna",
+        "body": ["${1|Set,Increase,Decrease|} Bus \"${2:busname}\" ${3|Gen,Load,LoadQ,Shunt,Shunt ID \"shuntid\"|} ${4|TO,BY|} ${5:100}${6|%,MW,MVar,Percent|}"],
+        "description": "Set Bus"
+    },
+    "Set-Bus[branchname]":{
+        "prefix": "Set-br",
+        "body": ["${1|Set,Increase,Decrease|} ${2|Gen,Load,LoadQ,Shunt|} \"${3:equipname}\" ${4|TO,BY|} ${5:100}${6|%,MW,MVar,Percent|}"],
+        "description": "Set Bus"
+    },
     "Set-Gen[busnumber]":{
         "prefix": "Set-Gen",
-        "body": ["Set Bus ${1:12345} Gen TO ${2:100}% ${3:\\or MW}"],
+        "body": ["Set Bus ${1:12345} Gen TO ${2:100}${3|%,MW, Percent|}"],
         "description": "Set Generation Percent or MW"
     },
     "Set-Gen[busname]":{
         "prefix": "Set-Gen-bna",
-        "body": ["Set Bus \"${1:busname}\" Gen TO ${2:100}% ${3:\\or MW}"],
+        "body": ["Set Bus \"${1:busname}\" Gen TO ${2:100}${3|%,MW, Percent|}"],
         "description": "Set Generation Percent or MW"
     },
     "Set-Gen[branchname]":{
         "prefix": "Set-Gen-br",
-        "body": ["Set Gen \"${1:genname}\" TO ${2:100}% ${3:\\or MW}"],
+        "body": ["Set Gen \"${1:genname}\"${2| , PMax|} TO ${3:100}${4|%,MW, Percent|}"],
         "description": "Set Generation Percent or MW"
     },
     "Set-Load[busnumber]":{
         "prefix": "Set-Load",
-        "body": ["Set Bus ${1:12345} Load TO ${2:100}% ${3:\\or MW}"],
+        "body": ["Set Bus ${1:12345} Load TO ${2:100}${3|%,MW, Percent|}"],
         "description": "Set Load Percent or MW"
     },
     "Set-Load[busname]":{
         "prefix": "Set-Load-bna",
-        "body": ["Set Bus \"${1:loadname}\" Load TO ${2:100}% ${3:\\or MW}"],
+        "body": ["Set Bus \"${1:loadname}\" Load TO ${2:100}${3|%,MW, Percent|}"],
         "description": "Set Load Percent or MW"
     },
     "Set-Load[branchname]":{
         "prefix": "Set-Load-br",
-        "body": ["Set Load \"${1:loadname}\" TO ${2:100}% ${3:\\or MW}"],
+        "body": ["Set Load \"${1:loadname}\" TO ${2:100}${3|%,MW, Percent|}"],
         "description": "Set Load Percent or MW"
     },
     "Set-LoadQ[busnumber]":{
         "prefix": "Set-LoadQ",
-        "body": ["Set Bus ${1:12345} LoadQ TO ${2:100}% ${3:\\or MVar}"],
+        "body": ["Set Bus ${1:12345} LoadQ TO ${2:100}${3|%,MVar,Percent|}"],
         "description": "Set Load Q Percent or MW"
     },
     "Set-LoadQ[busname]":{
         "prefix": "Set-LoadQ-bna",
-        "body": ["Set Bus \"${1:loadname}\" LoadQ TO ${2:100}% ${3:\\or MVar}"],
+        "body": ["Set Bus \"${1:loadname}\" LoadQ TO ${2:100}${3|%,MVar,Percent|}"],
         "description": "Set Load Q Percent or MW"
     },
     "Set-LoadQ[branchname]":{
         "prefix": "Set-LoadQ-br",
-        "body": ["Set LoadQ \"${1:loadname}\" TO ${2:100}% ${3:\\or MVar}"],
+        "body": ["Set LoadQ \"${1:loadname}\" TO ${2:100}${3|%,MVar,Percent|}"],
         "description": "Set Load Q Percent or MW"
     },
     "Set-Shunt[busnumber]":{
         "prefix": "Set-Shunt",
-        "body": ["Set Bus ${1:12345} Shunt TO ${2:100}% ${3:\\or MVar}"],
+        "body": ["Set Bus ${1:12345} Shunt TO ${2:100}${3|%,MVar,Percent|}"],
         "description": "Set Shunt Percent or MVar"
     },
     "Set-Shunt[busname]":{
         "prefix": "Set-Shunt-bna",
-        "body": ["Set Bus \"${1:shuntname}\" Shunt TO ${2:100}% ${3:\\or MVar}"],
+        "body": ["Set Bus \"${1:shuntname}\" Shunt TO ${2:100}${3|%,MVar,Percent|}"],
         "description": "Set Shunt Percent or MVar"
     },
     "Set-Shunt[branchname]":{
         "prefix": "Set-Shunt-br",
-        "body": ["Set Shunt \"${1:shuntname}\" TO ${2:100}% ${3:\\or MVar}"],
+        "body": ["Set Shunt \"${1:shuntname}\" TO ${2:100}${3|%,MVar,Percent|}"],
         "description": "Set Shunt Percent or MVar"
     },
     "Set-ShuntID[busnumber]":{
@@ -339,75 +519,45 @@
         "body": ["Set Shunt \"${1:shuntname}\" ID \"${2:id}\" TO ${3:100}MVar"],
         "description": "Set Shunt ID MVar"
     },
-    "Set-PostContRating-Branch[busnumber]":{
-        "prefix": "Set-PostContRating-Branch",
-        "body": ["Set PostContRating ${1:9999} Branch FROM Bus ${2:12345} TO Bus ${3:54321} Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
+    "Set-Rating[busnumber]":{
+        "prefix": "Set-Rating",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} ${3|Branch,Breaker Substation \"subname\",Wind 1|} FROM ${4|Bus,Node,Bus|} ${5:12345} TO ${4} ${6:54321}${7| , TO Bus 12321 |}Ckt ${8:1} ${9:\\OptSection:} Section ${6:1}"],
         "description": "Set PostContRating for Branch using Bus Numbers"
     },
-    "Set-PostContRating-Branch[busname]":{
-        "prefix": "Set-PostContRating-Branch-bna",
-        "body": ["Set PostContRating ${1:9999} Branch FROM Bus \"${2:frombus}\" TO Bus \"${3:tobus}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
-        "description": "Set PostContRating for Branch using Bus Names"
+    "Set-Rating-Branch[busnumber]":{
+        "prefix": "Set-Rating-Branch",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} Branch FROM Bus ${3:12345} TO Bus ${4:54321} Ckt ${4:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Set Rating for Branch using Bus Numbers"
     },
-    "Set-PostContRating-Branch[branchname]":{
-        "prefix": "Set-PostContRating-Branch-br",
-        "body": ["Set PostContRating ${1:9999} \"${2:branchname}\""],
-        "description": "Set PostContRating for Branch using Branch Name"
+    "Set-Rating-Branch[busname]":{
+        "prefix": "Set-Rating-Branch-bna",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} Branch FROM Bus \"${3:frombus}\" TO Bus \"${4:tobus}\" Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
+        "description": "Set Rating for Branch using Bus Names"
     },
-    "Set-PostContRating-Breaker[busnumber]":{
-        "prefix": "Set-PostContRating-Breaker",
-        "body": ["Set PostContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node ${3:12345} TO Node ${4:54321} Ckt ${5:1}"],
-        "description": "Set PostContRating for Breaker using Bus Numbers"
+    "Set-Rating-Branch[branchname]":{
+        "prefix": "Set-Rating-Branch-br",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} \"${3:branchname}\""],
+        "description": "Set Rating for Branch using Branch Name"
     },
-    "Set-PostContRating-Breaker[busname]":{
-        "prefix": "Set-PostContRating-Breaker-bna",
-        "body": ["Set PostContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node \"${3:fromnode}\" TO Node \"${4:tonode}\" Ckt ${5:1}"],
-        "description": "Set PostContRating for Breaker using Bus Names"
+    "Set-Rating-Breaker[busnumber]":{
+        "prefix": "Set-Rating-Breaker",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} Breaker Substation \"${3:stationname}\" FROM Node ${4:12345} TO Node ${5:54321} Ckt ${6:1}"],
+        "description": "Set Rating for Breaker using Bus Numbers"
     },
-    "Set-PostContRating-Winding[busnumber]":{
-        "prefix": "Set-PostContRating-Winding",
-        "body": ["Set PostContRating ${1:9999} Wind ${2:1} FROM Bus ${3:12345} TO Bus ${4:54321} TO Bus ${5:12321} Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
-        "description": "Set PostContRating Winding using Bus Numbers"
+    "Set-Rating-Breaker[busname]":{
+        "prefix": "Set-Rating-Breaker-bna",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} Breaker Substation \"${3:stationname}\" FROM Node \"${4:fromnode}\" TO Node \"${5:tonode}\" Ckt ${6:1}"],
+        "description": "Set Rating for Breaker using Bus Names"
     },
-    "Set-PostContRating-Winding[busname]":{
-        "prefix": "Set-PostContRating-Winding-bna",
-        "body": ["Set PostContRating ${1:9999} Wind ${2:1} FROM Bus \"${3:frombusname}\" TO Bus \"${4:tobusname1}\" TO Bus \"${5:tobusname2}\" Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
-        "description": "Set PostContRating for Winding using Bus Names"
+    "Set-Rating-Winding[busnumber]":{
+        "prefix": "Set-Rating-Winding",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} Wind ${3:1} FROM Bus ${4:12345} TO Bus ${5:54321} TO Bus ${6:12321} Ckt ${7:1} ${8:\\OptSection:} Section ${9:1}"],
+        "description": "Set Rating Winding using Bus Numbers"
     },
-    "Set-PreContRating-Branch[busnumber]":{
-        "prefix": "Set-PreContRating-Branch",
-        "body": ["Set PreContRating ${1:9999} Branch FROM Bus ${2:12345} TO Bus ${3:54321} Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
-        "description": "Set PreContRating for Branch using Bus Numbers"
-    },
-    "Set-PreContRating-Branch[busname]":{
-        "prefix": "Set-PreContRating-Branch-bna",
-        "body": ["Set PreContRating ${1:9999} Branch FROM Bus \"${2:frombus}\" TO Bus \"${3:tobus}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
-        "description": "Set PreContRating for Branch using Bus Names"
-    },
-    "Set-PreContRating-Branch[branchname]":{
-        "prefix": "Set-PreContRating-Branch-br",
-        "body": ["Set PreContRating ${1:9999} \"${2:branchname}\""],
-        "description": "Set PreContRating for Branch using Branch Name"
-    },
-    "Set-PreContRating-Breaker[busnumber]":{
-        "prefix": "Set-PreContRating-Breaker",
-        "body": ["Set PreContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node ${3:12345} TO Node ${4:54321} Ckt ${5:1}"],
-        "description": "Set PreContRating for Breaker using Bus Numbers"
-    },
-    "Set-PreContRating-Breaker[busname]":{
-        "prefix": "Set-PreContRating-Breaker-bna",
-        "body": ["Set PreContRating ${1:9999} Breaker Substation \"${2:stationname}\" FROM Node \"${3:fromnode}\" TO Node \"${4:tonode}\" Ckt ${5:1}"],
-        "description": "Set PreContRating for Breaker using Bus Names"
-    },
-    "Set-PreContRating-Winding[busnumber]":{
-        "prefix": "Set-PreContRating-Winding",
-        "body": ["Set PreContRating ${1:9999} Wind ${2:1} FROM Bus ${3:12345} TO Bus ${4:54321} TO Bus ${5:12321} Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
-        "description": "Set PreContRating Winding using Bus Numbers"
-    },
-    "Set-PreContRating-Winding[busname]":{
-        "prefix": "Set-PreContRating-Winding-bna",
-        "body": ["Set PreContRating ${1:9999} Wind ${2:1} FROM Bus \"${3:frombusname}\" TO Bus \"${4:tobusname1}\" TO Bus \"${5:tobusname2}\" Ckt ${6:1} ${7:\\OptSection:} Section ${8:1}"],
-        "description": "Set PreContRating for Winding using Bus Names"
+    "Set-Rating-Winding[busname]":{
+        "prefix": "Set-Rating-Winding-bna",
+        "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} Wind ${3:1} FROM Bus \"${4:frombusname}\" TO Bus \"${5:tobusname1}\" TO Bus \"${6:tobusname2}\" Ckt ${7:1} ${8:\\OptSection:} Section ${9:1}"],
+        "description": "Set Rating for Winding using Bus Names"
     },
     "Winding[busnumber]":{
         "prefix": "Winding",
