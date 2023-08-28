@@ -1,5 +1,4 @@
 node_modules
-*.vsix
 cparse.json
 junk.txt
 vsc-extension-quickstart.md
