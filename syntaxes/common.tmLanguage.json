@@ -78,9 +78,10 @@
 		"bus-bnu": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((bus)(?=\\s+([0-9]+))|((bus)))",
+				"match": "(?xi)\\s+((bus)\\s+([0-9]+)|((bus)))",
 				"captures": {
 					"2": { "name": "entity.name.type.bus" },
+					"3": { "name": "entity.name.tag.bus" },
 					"4":{"name": "invalid.illegal"},
 					"5":{"name": "markup.underline"}
 				}}
@@ -183,6 +184,14 @@
 					"1": { "name": "keyword.operator.language.by" }
 				}}
 		]},		
+		"language-operators-from": {			
+			"patterns": 
+			[{
+				"match": "(?xi)\\s+\\b(from)\\b",
+				"captures": {
+					"1": { "name": "keyword.operator.language.from" }
+				}}
+		]},		
 		"language-operators-to": {			
 			"patterns": 
 			[{
@@ -199,6 +208,17 @@
 					"1": { "name": "entity.name.type.language" }
 				}}
 		]},	
+		"load": {			
+			"patterns": 
+			[{
+				"match": "(?xi)\\s+((load)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((load)))",
+				"captures": {
+					"2": { "name": "entity.name.type.node" },
+					"3": { "name": "string.quoted.nodename" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
+		]},
 		"load-id": {			
 				"patterns": 
 				[{
@@ -219,10 +239,32 @@
 						"3": { "name": "entity.name.tag.common" }
 					}}
 		]},
+		"node-bnu": {			
+			"patterns": 
+			[{
+				"match": "(?xi)\\s+((node)\\s+([0-9]+)|((node)))",
+				"captures": {
+					"2": { "name": "entity.name.type.node" },
+					"3": { "name": "entity.name.tag.node" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
+		]},
+		"node-bna": {			
+			"patterns": 
+			[{
+				"match": "(?xi)\\s+((node)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((node)))",
+				"captures": {
+					"2": { "name": "entity.name.type.node" },
+					"3": { "name": "string.quoted.nodename" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
+		]},
 		"node-busname": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s*\\b(from\\s+|to\\s+)?(node)\\s+((\"[^\"]*\")|('[^']*')|(\\w+))\\s*",
+				"match": "(?xi)\\s*\\b(from\\s+|to\\s+)?(node)\\s+((\"[^\"]+\")|('[^']+')|(\\w+))\\s*",
 				"captures": {
 					"1": { "name": "keyword.operator.common" },
 					"2": { "name": "entity.name.type.common" },
@@ -243,12 +285,12 @@
 		"substation": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s*\\b(sub(station)?)\\s+((\"[^\"]*\")|('[^']*')|(\\w+))\\s*",
+				"match": "(?xi)\\s+((sub(station)?)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((sub(station)?)))",
 				"captures": {
-					"1": { "name": "entity.name.type.common" },
-					"4": { "name": "string.quoted.common" },
-					"5": { "name": "string.quoted.common" },
-					"6": { "name": "string.unquoted.common" }
+					"2": { "name": "entity.name.type.sub" },
+					"4": { "name": "string.quoted.subname" },
+					"5":{"name": "invalid.illegal"},
+					"6":{"name": "markup.underline"}
 				}}
 		]},
 		"owner": {			

@@ -290,6 +290,7 @@
 			{ "include": "#change-bnu"},
 			{ "include": "#close-bnu"},
 			{ "include": "#isolate-bnu"},
+			{ "include": "#move-bnu"},
 			{ "include": "#open-bnu"},
 			{ "include": "#set-bnu"}
 		]},
@@ -297,12 +298,14 @@
 			{ "include": "#change-bna"},
 			{ "include": "#close-bna"},
 			{ "include": "#isolate-bna"},
+			{ "include": "#move-bna"},
 			{ "include": "#open-bna"},
 			{ "include": "#set-bna"}
 		]},
 		"contingency-block-br": {"patterns": [
 			{ "include": "#change-br"},
 			{ "include": "#isolate-br"},
+			{ "include": "#move-br"},
 			{ "include": "#open-br"},
 			{ "include": "#set-br"}
 		]},
@@ -866,6 +869,168 @@
 					{"include": "pg"}
 				]}
 		]},
+		"move-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.move",
+				"begin": "(?xi)^\\s*(move(?=\\s+[0-9\\.\\-\\=]+(\\s*(%|percent|mw)\\s+(gen(s|eration)?|load(p)?)|\\s*(%|percent|mvar)\\s+(loadq|shunt)))|((move)))",
+				"beginCaptures": {
+					"9":{"name": "invalid.illegal"},
+					"10":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#move-mw-bnu"},
+					{"include": "#move-mvar-bnu"},
+					{"include": "source.pg.common#float"},
+					{"include": "source.pg.common#language-attribute"},
+					{"include": "pg"}
+				]}
+		]},
+		"move-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.move",
+				"begin": "(?xi)^\\s*(move(?=\\s+[0-9\\.\\-\\=]+(\\s*(%|percent|mw)\\s+(gen(s|eration)?|load(p)?)|\\s*(%|percent|mvar)\\s+(loadq|shunt)))|((move)))",
+				"beginCaptures": {
+					"9":{"name": "invalid.illegal"},
+					"10":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#move-mw-bna"},
+					{"include": "#move-mvar-bna"},
+					{"include": "source.pg.common#float"},
+					{"include": "source.pg.common#language-attribute"},
+					{"include": "pg"}
+				]}
+		]},
+		"move-br": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.move",
+				"begin": "(?xi)^\\s*(move(?=\\s+[0-9\\.\\-\\=]+\\s*(%|percent|mw|mvar)\\s+(load))|((move)))",
+				"beginCaptures": {
+					"6":{"name": "invalid.illegal"},
+					"7":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#move-load-br"},
+					{"include": "source.pg.common#float"},
+					{"include": "source.pg.common#language-attribute"},
+					{"include": "pg"}
+				]}
+		]},
+		"move-mw-bnu": {			
+			"name": "entity.name.type.move-mw-bnu",
+			"begin": "(?xi)\\s*((%|percent|mw)\\s+(gen(s|eration)?|load(p)?)(?=\\s+from\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+[0-9]+\\s+to\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+[0-9]+.*$)|((%|percent|mw)\\s+)?((mvar)\\s+)?((gen(s|eration)?|load(p)?\\b)))",
+			"beginCaptures": {
+				"2":{"name": "entity.other.attribute-name"},
+				"13":{"name": "entity.other.attribute-name"},
+				"15":{"name": "invalid.illegal"},
+				"16":{"name": "invalid.illegal"},
+				"17":{"name": "markup.underline"}
+			},
+			"end": "(?=$)",
+			"endCaptures": {
+				"2":{"name": "entity.other.attribute-name"}
+			},
+			"patterns": [
+				{"include": "source.pg.common#language-operators-to"},
+				{"include": "source.pg.common#language-operators-from"},
+				{"include": "source.pg.common#bus-bnu"},
+				{"include": "source.pg.common#substation"},
+				{"include": "source.pg.common#node-bnu"},
+				{"include": "pg"}
+			]
+		},
+		"move-mw-bna": {			
+			"name": "entity.name.type.move-mw-bna",
+			"begin": "(?xi)\\s*((%|percent|mw)\\s+(gen(s|eration)?|load(p)?)(?=\\s+from\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+to\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+(\"[^\"]+\"|'[^']+'|\\w+).*$)|((%|percent|mw)\\s+)?((mvar)\\s+)?((gen(s|eration)?|load(p)?\\b)))",
+			"beginCaptures": {
+				"2":{"name": "entity.other.attribute-name"},
+				"15":{"name": "entity.other.attribute-name"},
+				"17":{"name": "invalid.illegal"},
+				"18":{"name": "invalid.illegal"},
+				"19":{"name": "markup.underline"}
+			},
+			"end": "(?=$)",
+			"endCaptures": {
+				"2":{"name": "entity.other.attribute-name"}
+			},
+			"patterns": [
+				{"include": "source.pg.common#language-operators-to"},
+				{"include": "source.pg.common#language-operators-from"},
+				{"include": "source.pg.common#bus-bna"},
+				{"include": "source.pg.common#substation"},
+				{"include": "source.pg.common#node-bna"},
+				{"include": "pg"}
+			]
+		},
+		"move-mvar-bnu": {			
+			"name": "entity.name.type.move-mvar-bnu",
+			"begin": "(?xi)\\s*((%|percent|mvar)\\s+(shunt|loadq?)(?=\\s+from\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+[0-9]+\\s+to\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+[0-9]+.*$)|((%|percent|mvar)\\s+)?((mw)\\s+)?((shunt|loadq)))",
+			"beginCaptures": {
+				"2":{"name": "entity.other.attribute-name"},
+				"11":{"name": "entity.other.attribute-name"},
+				"13":{"name": "invalid.illegal"},
+				"14":{"name": "invalid.illegal"},
+				"15":{"name": "markup.underline"}
+			},
+			"end": "(?=$)",
+			"endCaptures": {
+				"2":{"name": "entity.other.attribute-name"}
+			},
+			"patterns": [
+				{"include": "source.pg.common#language-operators-to"},
+				{"include": "source.pg.common#language-operators-from"},
+				{"include": "source.pg.common#bus-bnu"},
+				{"include": "source.pg.common#substation"},
+				{"include": "source.pg.common#node-bnu"},
+				{"include": "pg"}
+			]
+		},
+		"move-mvar-bna": {			
+			"name": "entity.name.type.move-mvar-bna",
+			"begin": "(?xi)\\s*((%|percent|mvar)\\s+(shunt|loadq?)(?=\\s+from\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+to\\s+(bus|sub(station)?\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+node)\\s+(\"[^\"]+\"|'[^']+'|\\w+).*$)|((%|percent|mvar)\\s+)?((mw)\\s+)?((shunt|loadq)))",
+			"beginCaptures": {
+				"2":{"name": "entity.other.attribute-name"},
+				"13":{"name": "entity.other.attribute-name"},
+				"15":{"name": "invalid.illegal"},
+				"16":{"name": "invalid.illegal"},
+				"17":{"name": "markup.underline"}
+			},
+			"end": "(?=$)",
+			"endCaptures": {
+				"2":{"name": "entity.other.attribute-name"}
+			},
+			"patterns": [
+				{"include": "source.pg.common#language-operators-to"},
+				{"include": "source.pg.common#language-operators-from"},
+				{"include": "source.pg.common#bus-bna"},
+				{"include": "source.pg.common#substation"},
+				{"include": "source.pg.common#node-bna"},
+				{"include": "pg"}
+			]
+		},
+		"move-load-br": {			
+			"name": "entity.name.type.move-load-bna",
+			"begin": "(?xi)\\s*((%|percent|mw|mvar)\\s+(load)(?=\\s+from\\s+(load)\\s+(\"[^\"]+\"|'[^']+'|\\w+)\\s+to\\s+(load)\\s+(\"[^\"]+\"|'[^']+'|\\w+).*$)|((%|percent|mvar|mw)\\s+)?((load)))",
+			"beginCaptures": {
+				"2":{"name": "entity.other.attribute-name"},
+				"9":{"name": "entity.other.attribute-name"},
+				"10":{"name": "invalid.illegal"},
+				"11":{"name": "markup.underline"}
+			},
+			"end": "(?=$)",
+			"endCaptures": {
+				"2":{"name": "entity.other.attribute-name"}
+			},
+			"patterns": [
+				{"include": "source.pg.common#language-operators-to"},
+				{"include": "source.pg.common#language-operators-from"},
+				{"include": "source.pg.common#load"},
+				{"include": "pg"}
+			]
+		},
 		"set-bnu": {			
 			"patterns": 
 			[{

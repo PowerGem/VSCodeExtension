@@ -303,7 +303,62 @@
         "prefix": "Isolate-ThreeWinding-bna",
         "body": ["Isolate ThreeWinding AT Bus \"${1:frombusname}\" TO Bus \"${2:tobusname1}\" TO Bus \"${3:tobusname2}\" Ckt ${4:1} ${5:\\OptSection:} Section ${6:1}"],
         "description": "Isolate Three Winding using Bus Names"
-    },    
+    },  
+    "Move[busnumber]":{
+        "prefix": "Move",
+        "body": ["Move ${1:100}${2|%,MW,MVar, Percent|} ${3|Gen,Load,LoadQ,Shunt|} FROM ${4|Bus,Substation \"subname\" Node|} ${5:12345} TO ${6|Bus,Substation \"subname\" Node|} ${7:54321}"],
+        "description": "Move"
+    },  
+    "Move[busname]":{
+        "prefix": "Move-bna",
+        "body": ["Move ${1:100}${2|%,MW,MVar, Percent|} ${3|Gen,Load,LoadQ,Shunt|} FROM ${4|Bus,Substation \"subname\" Node|} ${5:\"fromname\"} TO ${6|Bus,Substation \"subname\" Node|} ${7:\"toname\"}"],
+        "description": "Move"
+    },  
+    "Move-Gen[busnumber]":{
+        "prefix": "Move-Gen",
+        "body": ["Move ${1:100}${2|%,MW, Percent|} Gen FROM ${3|Bus,Substation \"subname\" Node|} ${4:12345} TO ${5|Bus,Substation \"subname\" Node|} ${6:54321}"],
+        "description": "Move Gen"
+    },  
+    "Move-Gen[busname]":{
+        "prefix": "Move-Gen-bna",
+        "body": ["Move ${1:100}${2|%,MW, Percent|} Gen FROM ${3|Bus,Substation \"subname\" Node|} ${4:\"fromname\"} TO ${5|Bus,Substation \"subname\" Node|} ${6:\"toname\"}"],
+        "description": "Move Gen"
+    },  
+    "Move-Load[busnumber]":{
+        "prefix": "Move-Load",
+        "body": ["Move ${1:100}${2|%,MW, Percent|} Load FROM ${3|Bus,Substation \"subname\" Node|} ${4:12345} TO ${5|Bus,Substation \"subname\" Node|} ${6:54321}"],
+        "description": "Move Load"
+    },  
+    "Move-Load[busname]":{
+        "prefix": "Move-Load-bna",
+        "body": ["Move ${1:100}${2|%,MW, Percent|} Load FROM ${3|Bus,Substation \"subname\" Node|} ${4:\"fromname\"} TO ${5|Bus,Substation \"subname\" Node|} ${6:\"toname\"}"],
+        "description": "Move Load"
+    },  
+    "Move-Load[branchname]":{
+        "prefix": "Move-Load-br",
+        "body": ["Move ${1:100}${2|%,MWMVar, Percent|} Load FROM Load ${3:\"fromloadname\"} TO Load ${4:\"toloadname\"}"],
+        "description": "Move Load"
+    },  
+    "Move-Shunt[busnumber]":{
+        "prefix": "Move-Shunt",
+        "body": ["Move ${1:100}${2|%,MVar, Percent|} Shunt FROM ${3|Bus,Substation \"subname\" Node|} ${4:12345} TO ${5|Bus,Substation \"subname\" Node|} ${6:54321}"],
+        "description": "Move Shunt"
+    },  
+    "Move-Shunt[busname]":{
+        "prefix": "Move-Shunt-bna",
+        "body": ["Move ${1:100}${2|%,MVar, Percent|} Shunt FROM ${3|Bus,Substation \"subname\" Node|} ${4:\"fromname\"} TO ${5|Bus,Substation \"subname\" Node|} ${6:\"toname\"}"],
+        "description": "Move Shunt"
+    },  
+    "Move-LoadQ[busnumber]":{
+        "prefix": "Move-LoadQ",
+        "body": ["Move ${1:100}${2|%,MVar, Percent|} LoadQ FROM ${3|Bus,Substation \"subname\" Node|} ${4:12345} TO ${5|Bus,Substation \"subname\" Node|} ${6:54321}"],
+        "description": "Move LoadQ"
+    },  
+    "Move-LoadQ[busname]":{
+        "prefix": "Move-LoadQ-bna",
+        "body": ["Move ${1:100}${2|%,MVar, Percent|} LoadQ FROM ${3|Bus,Substation \"subname\" Node|} ${4:\"fromname\"} TO ${5|Bus,Substation \"subname\" Node|} ${6:\"toname\"}"],
+        "description": "Move LoadQ"
+    },  
     "Outage": {
         "prefix": "Outage",
         "body" : ["Outage \"${1:name}\" \"${2:01}\/${3:01}\/${4:2020} ${5:0500}\" \"${6:12}\/${7:12}\/${8:2100} ${9:2300}\" ${10:QUEUED} ${11:Owner} ${12:1} \"${13:12}\/${14:12}\/${15:2100} ${16:2300}\" \"${17:00}:${18:00}\" \"${19:23}:${20:59}\" ${21:\\OptCost:} ${22:99999999} ${23:\\OptDesc:} \"${24:Description}\""," ", "End"],
