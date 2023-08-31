@@ -29,13 +29,13 @@
     ],
     "folding": {
         "markers": {
-          "start": "^\\s*((c|C)(o|O)(N|n)(t|T)(i|I)(n|N)(g|G)(e|E)(N|n)(c|C)(Y|y)|(o|O)(u|U)(t|T)(a|A)(g|G)(e|E))\\b",
+          "start": "(^\\s*(c|C)(o|O)(N|n)(t|T)(i|I)(n|N)(g|G)(e|E)(N|n)(c|C)(Y|y)|^\\s*(o|O)(u|U)(t|T)(a|A)(g|G)(e|E)|\\s*(d|D)(i|I)(s|S)(p|P)(a|A)(t|T)(c|C)(h|H)(\\s+(f|F)(i|I)(r|R)(s|S)(t|T)(l|L)(e|E)(v|V)(e|E)(l|L))?)\\b",
           "end": "^\\s*(e|E)(N|n)(D|d)\\b"
         }
       },
       
         "indentationRules": {
-          "increaseIndentPattern": "^\\s*((c|C)(o|O)(N|n)(t|T)(i|I)(n|N)(g|G)(e|E)(N|n)(c|C)(Y|y)|(o|O)(u|U)(t|T)(a|A)(g|G)(e|E))\\b.*$",
+          "increaseIndentPattern": "(^\\s*(c|C)(o|O)(N|n)(t|T)(i|I)(n|N)(g|G)(e|E)(N|n)(c|C)(Y|y)|^\\s*(o|O)(u|U)(t|T)(a|A)(g|G)(e|E)|\\s*(d|D)(i|I)(s|S)(p|P)(a|A)(t|T)(c|C)(h|H)(\\s+(f|F)(i|I)(r|R)(s|S)(t|T)(l|L)(e|E)(v|V)(e|E)(l|L))?)\\b.*$",
           "decreaseIndentPattern": "^\\s*(e|E)(N|n)(D|d)\\b.*$"
         }
       

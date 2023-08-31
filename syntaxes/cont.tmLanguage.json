@@ -9,6 +9,7 @@
 			{ "include": "#branchnames" },
 			{ "include": "#busnumbers" },
 			{ "include": "#busnames" },
+			{ "include": "#dispatch-default" },
 			{ "include": "#end" },
 			{ "include": "pg"}
 		]},
@@ -30,6 +31,57 @@
 			{ "include": "#outage-br"},
 			{ "include": "#_toplevel"}
 		]},
+		"add-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.add",
+				"begin": "(?xi)^\\s*(add(?=\\s+(machine|unit|load)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)\\s+to\\s+bus\\s+[0-9]+(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$)|((add)))",
+				"beginCaptures": {
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
+					{"include": "source.pg.common#load"},
+					{"include": "source.pg.common#machine"},
+					{"include": "source.pg.common#bus-bnu"},
+					{"include": "source.pg.common#language-operators-to"},
+					{"include": "pg"}
+				]}
+		]},
+		"add-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.add",
+				"begin": "(?xi)^\\s*(add(?=\\s+(machine|unit|load)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)\\s+to\\s+bus\\s+(?:(?<q2>\"|')[^'\"]+\\k<q2>|[^'\"\\s]+)(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$)|((add)))",
+				"beginCaptures": {
+					"5":{"name": "invalid.illegal"},
+					"6":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
+					{"include": "source.pg.common#load"},
+					{"include": "source.pg.common#machine"},
+					{"include": "source.pg.common#bus-bna"},
+					{"include": "source.pg.common#language-operators-to"},
+					{"include": "pg"}
+				]}
+		]},
+		"add-br": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.add",
+				"begin": "(?xi)^\\s*(add(?=\\s+(machine|unit)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$)|((add)))",
+				"beginCaptures": {
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#machine-br"},
+					{"include": "#dispatch"},
+					{"include": "pg"}
+				]}
+		]},				
 		"branchnames": {
 			"patterns": 
 			[
@@ -76,6 +128,7 @@
 					"12":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
 					{"include": "source.pg.common#bus-bnu"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#change-bus-mvar"},
@@ -95,6 +148,7 @@
 					"13":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
 					{"include": "source.pg.common#bus-bna"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#change-bus-mvar"},
@@ -287,26 +341,32 @@
 				]}
 		]},
 		"contingency-block-bnu": {"patterns": [
+			{ "include": "#add-bnu"},
 			{ "include": "#change-bnu"},
 			{ "include": "#close-bnu"},
 			{ "include": "#isolate-bnu"},
 			{ "include": "#move-bnu"},
 			{ "include": "#open-bnu"},
+			{ "include": "#remove-bnu"},
 			{ "include": "#set-bnu"}
 		]},
 		"contingency-block-bna": {"patterns": [
+			{ "include": "#add-bna"},
 			{ "include": "#change-bna"},
 			{ "include": "#close-bna"},
 			{ "include": "#isolate-bna"},
 			{ "include": "#move-bna"},
 			{ "include": "#open-bna"},
+			{ "include": "#remove-bna"},
 			{ "include": "#set-bna"}
 		]},
 		"contingency-block-br": {"patterns": [
+			{ "include": "#add-br"},
 			{ "include": "#change-br"},
 			{ "include": "#isolate-br"},
 			{ "include": "#move-br"},
 			{ "include": "#open-br"},
+			{ "include": "#remove-br"},
 			{ "include": "#set-br"}
 		]},
 		"contingency-disconnect-bnu": {			
@@ -335,6 +395,45 @@
 					{"include": "pg"}
 				]}
 		]},		
+		"dispatch": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.dispatch",
+				"begin": "(?xi)\\s*(dispatch)",
+				"captures": {
+					"1": { "name": "entity.name.function.dispatch" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#dispatch-sub-line"},
+					{"include": "pg"}
+				]}
+		]},
+		"dispatch-sub-line": {			
+			"patterns": 
+			[{
+				"name": "string.subsystem",
+				"match": "(?xi)^\\s*((sub(system)?)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))(\\s+[0-9]+)?(?=\\s*([\\\\\\\/].*)?$)|((sub(system)?)))",
+				"captures": {
+					"2": { "name": "entity.name.type.subsystem" },
+					"5": { "name": "entity.name.tag.subsystem" },
+					"6": {"name": "constant.numeric"},
+					"8":{"name": "invalid.illegal"},
+					"9":{"name": "markup.underline"}
+				}}
+		]},
+		"dispatch-default": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.dispatch",
+				"begin": "(?xi)^\\s*default\\s+(dispatch)(\\s+firstlevel)?",
+				"captures": {
+					"1": { "name": "entity.name.function.dispatch" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#dispatch-sub-line"},
+					{"include": "pg"}
+				]}
+		]},
 		"isolate-bnu": {			
 			"patterns": 
 			[{
@@ -1027,10 +1126,103 @@
 			"patterns": [
 				{"include": "source.pg.common#language-operators-to"},
 				{"include": "source.pg.common#language-operators-from"},
-				{"include": "source.pg.common#load"},
+				{"include": "source.pg.common#load-br"},
 				{"include": "pg"}
 			]
 		},
+		"remove-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.remove",
+				"begin": "(?xi)^\\s*(remove(?=\\s+((machine|unit|load)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)\\s+from\\s+bus\\s+[0-9]+(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$|(sw)?shunt))|((remove)))",
+				"beginCaptures": {
+					"6":{"name": "invalid.illegal"},
+					"7":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
+					{"include": "source.pg.common#load"},
+					{"include": "source.pg.common#machine"},
+					{"include": "#remove-shunt-bnu"},
+					{"include": "source.pg.common#bus-bnu"},
+					{"include": "source.pg.common#language-operators-from"},
+					{"include": "pg"}
+				]}
+		]},
+		"remove-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.remove",
+				"begin": "(?xi)^\\s*(remove(?=\\s+((machine|unit|load)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)\\s+from\\s+bus\\s+(?:(?<q2>\"|')[^'\"]+\\k<q2>|[^'\"\\s]+)(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$|(sw)?shunt))|((remove)))",
+				"beginCaptures": {
+					"7":{"name": "invalid.illegal"},
+					"8":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
+					{"include": "source.pg.common#load"},
+					{"include": "source.pg.common#machine"},
+					{"include": "#remove-shunt-bna"},
+					{"include": "source.pg.common#bus-bna"},
+					{"include": "source.pg.common#language-operators-from"},
+					{"include": "pg"}
+				]}
+		]},
+		"remove-br": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.remove",
+				"begin": "(?xi)^\\s*(remove(?=\\s+(machine|unit|load|swshunt)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$)|((remove)))",
+				"beginCaptures": {
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#machine-br"},
+					{"include": "source.pg.common#load-br"},
+					{"include": "source.pg.common#swshunt-br"},
+					{"include": "#dispatch"},
+					{"include": "pg"}
+				]}
+		]},	
+		"remove-shunt-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.removeshunt",
+				"begin": "(?xi)(?<=remove)\\s+(swshunt(?=\\s+from\\s+bus\\s+[0-9]+\\s+block\\s+[0-9]+(\\s+step\\s+[0-9]+)?)|(sw)?shunt(?=\\s+from\\s+bus\\s+[0-9]+\\s+(ckt|circuit)\\s+(?:(?<q>\"|')[^'\"]{1,3}\\k<q>|[^'\"\\s]{1,3}(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$))|(((sw)?shunt)))",
+				"beginCaptures": {
+					"6":{"name": "invalid.illegal"},
+					"7":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
+					{"include": "source.pg.common#circuit-shunt"},
+					{"include": "source.pg.common#block"},
+					{"include": "source.pg.common#step"},
+					{"include": "source.pg.common#bus-bnu"},
+					{"include": "source.pg.common#language-operators-from"},
+					{"include": "pg"}
+				]}
+		]},
+		"remove-shunt-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.removeshunt",
+				"begin": "(?xi)(?<=remove)\\s+(swshunt(?=\\s+from\\s+bus\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)\\s+block\\s+[0-9]+(\\s+step\\s+[0-9]+)?)|(sw)?shunt(?=\\s+from\\s+bus\\s+(?:(?<q3>\"|')[^'\"]+\\k<q3>|[^'\"\\s]+)\\s+(ckt|circuit)\\s+(?:(?<q2>\"|')[^'\"]{1,3}\\k<q2>|[^'\"\\s]{1,3}(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$))|(((sw)?shunt)))",
+				"beginCaptures": {
+					"8":{"name": "invalid.illegal"},
+					"9":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
+					{"include": "source.pg.common#circuit-shunt"},
+					{"include": "source.pg.common#block"},
+					{"include": "source.pg.common#step"},
+					{"include": "source.pg.common#bus-bna"},
+					{"include": "source.pg.common#language-operators-from"},
+					{"include": "pg"}
+				]}
+		]},	
 		"set-bnu": {			
 			"patterns": 
 			[{
@@ -1041,6 +1233,7 @@
 					"12":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
 					{"include": "source.pg.common#bus-bnu"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#set-bus-mvar"},
@@ -1060,6 +1253,7 @@
 					"13":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
+					{"include": "#dispatch"},
 					{"include": "source.pg.common#bus-bna"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#set-bus-mvar"},
@@ -1295,7 +1489,7 @@
 				"patterns": [
 					{"include": "#_toplevel-br"}
 				]}
-		]}	
+		]}
 
 	},
 	"scopeName": "source.pg.cont"

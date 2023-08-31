@@ -38,6 +38,17 @@
 					"2": { "name": "entity.name.tag.common" }
 				}}
 		]},
+		"block": {			
+			"patterns": 
+			[{
+				"match": "(?xi)\\s+((block)\\s+([0-9]+)|((block)))",
+				"captures": {
+					"2": { "name": "entity.other.attribute-name.block" },
+					"3": { "name": "entity.name.tag.bus" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
+		]},
 		"branch": {			
 			"patterns": 
 			[{
@@ -122,10 +133,20 @@
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b(ckt|circuit)\\s+[\"']?(&)?([\\w@][\\w@]?)(?=\\b)[\"']?\\s*",
+				"match": "(?xi)\\s*\\b(ckt|circuit)\\s+(&)?(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))\\s*",
 				"captures": {
-					"1": { "name": "entity.name.type.common" },
+					"1": { "name": "entity.other.attribute-name.circuit" },
 					"2": { "name": "keyword.operator.common" },
+					"4": { "name": "entity.name.tag.common" }
+				}}
+		]},
+		"circuit-shunt": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b(ckt|circuit)\\s+(?:(?<q>\"|')[^'\"]{1,3}\\k<q>|([^'\"\\s]{1,3}))\\s*",
+				"captures": {
+					"1": { "name": "entity.other.attribute-name.circuit" },
 					"3": { "name": "entity.name.tag.common" }
 				}}
 		]},
@@ -208,7 +229,19 @@
 					"1": { "name": "entity.name.type.language" }
 				}}
 		]},	
-		"load": {			
+		"load": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b((load)\\s+(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))|((load)))",
+				"captures": {
+					"2": { "name": "entity.name.type.machine" },
+					"4": { "name": "entity.name.tag.machineid" },
+					"5":{"name": "invalid.illegal"},
+					"6":{"name": "markup.underline"}
+				}}
+		]},
+		"load-br": {			
 			"patterns": 
 			[{
 				"match": "(?xi)\\s+((load)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((load)))",
@@ -229,6 +262,30 @@
 						"3": { "name": "string.quoted.common" }
 					}}
 		]},	
+		"machine": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b((machine|unit)\\s+(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))|((machine|unit)))",
+				"captures": {
+					"2": { "name": "entity.name.type.machine" },
+					"4": { "name": "entity.name.tag.machineid" },
+					"5":{"name": "invalid.illegal"},
+					"6":{"name": "markup.underline"}
+				}}
+		]},
+		"machine-br": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b((machine|unit)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((machine|unit)))",
+				"captures": {
+					"2": { "name": "entity.name.type.machine" },
+					"4": { "name": "entity.name.tag.machineid" },
+					"5":{"name": "invalid.illegal"},
+					"6":{"name": "markup.underline"}
+				}}
+		]},
 		"node": {			
 				"patterns": 
 				[{
@@ -282,6 +339,17 @@
 					"2": { "name": "entity.name.tag.common" }
 				}}
 		]},
+		"step": {			
+			"patterns": 
+			[{
+				"match": "(?xi)\\s+((step)\\s+([0-9]+)|((step)))",
+				"captures": {
+					"2": { "name": "entity.other.attribute-name.step" },
+					"3": { "name": "entity.name.tag.step" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
+		]},
 		"substation": {			
 			"patterns": 
 			[{
@@ -289,6 +357,18 @@
 				"captures": {
 					"2": { "name": "entity.name.type.sub" },
 					"4": { "name": "string.quoted.subname" },
+					"5":{"name": "invalid.illegal"},
+					"6":{"name": "markup.underline"}
+				}}
+		]},
+		"swshunt-br": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b((swshunt)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((swshunt)))",
+				"captures": {
+					"2": { "name": "entity.name.type.machine" },
+					"4": { "name": "entity.name.tag.machineid" },
 					"5":{"name": "invalid.illegal"},
 					"6":{"name": "markup.underline"}
 				}}

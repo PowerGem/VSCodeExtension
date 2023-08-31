@@ -1,9 +1,44 @@
 {
-    "Contingecy": {
-        "prefix": "Contingency",
-        "body" : ["Contingency \"${1:name}\""," ", "End"],
-        "description": "Define a Contingecy"
+    "Add[busnumber]":{
+        "prefix": "Add",
+        "body": ["Add ${1|Machine,Unit,Load|} ${2:id} TO Bus ${3:12345}"],
+        "description": "Add"
+    },  
+    "Add[busname]":{
+        "prefix": "Add-bna",
+        "body": ["Add ${1|Machine,Unit,Load|} ${2:id} TO Bus \"${3:busname}\""],
+        "description": "Add"
     },
+    "Add[branchname]":{
+        "prefix": "Add-br",
+        "body": ["Add ${1|Machine,Unit|} \"${2:name}\""],
+        "description": "Add"
+    },    
+    "Add-Machine[busnumber]":{
+        "prefix": "Add-Machine",
+        "body": ["Add Machine ${1:id} TO Bus ${2:12345}"],
+        "description": "Add Machine"
+    },  
+    "Add-Machine[busname]":{
+        "prefix": "Add-Machine-bna",
+        "body": ["Add Machine ${1:id} TO Bus \"${2:busname}\""],
+        "description": "Add Machine"
+    },
+    "Add-Machine[branchname]":{
+        "prefix": "Add-Machine-br",
+        "body": ["Add Machine \"${1:name}\""],
+        "description": "Add Machine"
+    },
+    "Add-Load[busnumber]":{
+        "prefix": "Add-Load",
+        "body": ["Add Load ${1:id} TO Bus ${2:12345}"],
+        "description": "Add Load"
+    },  
+    "Add-Load[busname]":{
+        "prefix": "Add-Load-bna",
+        "body": ["Add Load ${1:id} TO Bus \"${2:busname}\""],
+        "description": "Move Load"
+    },    
     "Branch[busnumber]":{
         "prefix": "Branch",
         "body": ["Branch FROM Bus ${1:12345} TO Bus ${2:54321} Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
@@ -99,6 +134,11 @@
         "body": ["Close Wind ${1:1} FROM Bus \"${2:frombusname}\" TO Bus \"${3:tobusname1}\" TO Bus \"${4:tobusname2}\" Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],
         "description": "Close Winding using Bus Names"
     },
+    "Contingecy": {
+        "prefix": "Contingency",
+        "body" : ["Contingency \"${1:name}\""," ", "End"],
+        "description": "Define a Contingecy"
+    },
     "Decrease-Gen[busnumber]":{
         "prefix": "Decrease-Gen",
         "body": ["${1|Decrease,Increase,Change,Set|} Bus ${2:12345} Gen BY ${3:100}${4|%,MW, Percent|}"],
@@ -183,6 +223,11 @@
         "prefix": "Disconnect-Bus-bna",
         "body": ["Disconnect Bus \"${1:busname}\""],
         "description": "Disconnect Bus using Bus Names"
+    },
+    "Dispatch": {
+        "prefix": "Dispatch",
+        "body" : ["${1| ,Default |}Dispatch${2| , FirstLevel|}","    Subsystem \"${3:name}\" ${4:100}", "End"],
+        "description": "Define a Contingecy"
     },
     "Increase-Gen[busnumber]":{
         "prefix": "Increase-Gen",
@@ -484,6 +529,76 @@
         "body": ["OpenFrom Branch FROM Bus \"${1:frombus}\" TO Bus \"${2:tobus}\" Ckt ${3:1} ${4:\\OptSection:} Section ${5:1}"],
         "description": "OpenFrom Branch using Bus Names"
     },
+    "Remove[busnumber]":{
+        "prefix": "Remove",
+        "body": ["Remove ${1|Machine,Unit,Load,Shunt,SwShunt|}${2| id, |} FROM Bus ${3:12345}${4| , Ckt, Block|}${5| , 1|}${6| , Step 1|}"],
+        "description": "Remove"
+    },  
+    "Remove[busname]":{
+        "prefix": "Remove-bna",
+        "body": ["Remove ${1|Machine,Unit,Load,Shunt,SwShunt|}${2| id, |} FROM Bus \"${3:busname}\"${4| , Ckt, Block|}${5| , 1|}${6| , Step 1|}"],
+        "description": "Remove"
+    },  
+    "Remove[branchname]":{
+        "prefix": "Remove-br",
+        "body": ["Remove ${1|Machine,Unit,Load,SwShunt|} \"${2:equipname}\""],
+        "description": "Remove"
+    },
+    "Remove-Machine[busnumber]":{
+        "prefix": "Remove-Machine",
+        "body": ["Remove Machine ${1:id} FROM Bus ${2:12345}"],
+        "description": "Remove Machine"
+    },  
+    "Remove-Machine[busname]":{
+        "prefix": "Remove-Machine-bna",
+        "body": ["Remove Machine ${1:id} FROM Bus \"${2:busname}\""],
+        "description": "Remove Machine"
+    },
+    "Remove-Machine[branchname]":{
+        "prefix": "Remove-Machine-br",
+        "body": ["Remove Machine \"${1:name}\""],
+        "description": "Remove Machine"
+    },  
+    "Remove-Load[busnumber]":{
+        "prefix": "Remove-Load",
+        "body": ["Remove Load ${1:id} FROM Bus ${2:12345}"],
+        "description": "Remove Load"
+    },  
+    "Remove-Load[busname]":{
+        "prefix": "Remove-Load-bna",
+        "body": ["Remove Load ${1:id} FROM Bus \"${2:busname}\""],
+        "description": "Remove Load"
+    },
+    "Remove-Load[branchname]":{
+        "prefix": "Remove-Load-br",
+        "body": ["Remove Load \"${1:name}\""],
+        "description": "Remove Load"
+    },
+    "Remove-Shunt[busnumber]":{
+        "prefix": "Remove-Shunt",
+        "body": ["Remove Shunt FROM Bus ${1:12345} Ckt ${2:1}"],
+        "description": "Remove Shunt"
+    },  
+    "Remove-Shunt[busname]":{
+        "prefix": "Remove-Shunt-bna",
+        "body": ["Remove Shunt FROM Bus \"${1:busname}\" Ckt ${2:1}"],
+        "description": "Remove Shunt"
+    },    
+    "Remove-SwShunt[busnumber]":{
+        "prefix": "Remove-SwShunt",
+        "body": ["Remove SwShunt FROM Bus ${1:12345} ${2|Ckt,Block|} ${3:1}${4| , Step 1|}"],
+        "description": "Remove SwShunt"
+    },  
+    "Remove-SwShunt[busname]":{
+        "prefix": "Remove-SwShunt-bna",
+        "body": ["Remove SwShunt FROM Bus \"${1:busname}\" ${2|Ckt,Block|} ${3:1}${4| , Step 1|}"],
+        "description": "Remove SwShunt"
+    },
+    "Remove-SwShunt[branchname]":{
+        "prefix": "Remove-SwShunt-br",
+        "body": ["Remove SwShunt \"${1:name}\""],
+        "description": "Remove SwShunt"
+    },      
     "Set-Bus[busnumber]":{
         "prefix": "Set",
         "body": ["${1|Set,Increase,Decrease|} Bus ${2:12345} ${3|Gen,Load,LoadQ,Shunt,Shunt ID \"shuntid\"|} ${4|TO,BY|} ${5:100}${6|%,MW,MVar,Percent|}"],
