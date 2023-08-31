@@ -162,6 +162,18 @@
 					"3": { "name": "entity.name.tag.common" }
 				}}
 		]},
+		"facts": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b(?:(facts)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((facts)))",
+				"captures": {
+					"1": { "name": "entity.name.type.machine" },
+					"3": { "name": "entity.name.tag.machineid" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
+		]},
 		"float": {
 			"patterns": 
 			[{
@@ -443,6 +455,18 @@
 					{"include": "#kvrange"},
 					{"include": "pg"}
 				]}
+		]},
+		"twotermdc": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b(?:(twotermdc)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((twotermdc)))",
+				"captures": {
+					"1": { "name": "entity.name.type.machine" },
+					"3": { "name": "entity.name.tag.machineid" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
 		]}
 	},
 	"scopeName": "source.pg.common"
