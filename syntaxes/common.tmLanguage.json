@@ -76,6 +76,18 @@
 		"branch-name": {"patterns": [
 						{"include": "#strings-unlimited"}
 		]},
+		"breaker-br": {
+			"patterns": 
+			[{
+				"name" : "string.quoted",
+				"match": "(?xi)\\s*\\b((breaker)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((breaker)))",
+				"captures": {
+					"2": { "name": "entity.name.type.machine" },
+					"4": { "name": "entity.name.tag.machineid" },
+					"5":{"name": "invalid.illegal"},
+					"6":{"name": "markup.underline"}
+				}}
+		]},
 		"bus": {			
 				"patterns": 
 				[{

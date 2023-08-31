@@ -729,6 +729,21 @@
         "body": ["Set ${1|PostContRating,PreContRating,NormalRating,BaseRating,ContRating|} ${2:9999} Wind ${3:1} FROM Bus \"${4:frombusname}\" TO Bus \"${5:tobusname1}\" TO Bus \"${6:tobusname2}\" Ckt ${7:1} ${8:\\OptSection:} Section ${9:1}"],
         "description": "Set Rating for Winding using Bus Names"
     },
+    "Stuck-Breaker[busnumber]":{
+        "prefix": "Stuck-Breaker",
+        "body": ["Stuck Breaker Substation \"${1:stationname}\" FROM Node ${2:12345} TO Node ${3:54321} Ckt ${4:1}"],
+        "description": "Stuck Breaker using Bus Numbers"
+    },
+    "Stuck-Breaker[busname]":{
+        "prefix": "Stuck-Breaker-bna",
+        "body": ["Stuck Breaker Substation \"${1:stationname}\" FROM Node \"${2:fromnode}\" TO Node \"${3:tonode}\" Ckt ${4:1}"],
+        "description": "Stuck Breaker using Bus Names"
+    },
+    "Stuck-Breaker[branchname]":{
+        "prefix": "Stuck-Breaker-br",
+        "body": ["Stuck Breaker \"${1:breakername}\""],
+        "description": "Stuck Breaker using Branch Names"
+    },
     "Winding[busnumber]":{
         "prefix": "Winding",
         "body": ["Wind ${1:1} FROM Bus ${2:12345} TO Bus ${3:54321} TO Bus ${4:12321} Ckt ${5:1} ${6:\\OptSection:} Section ${7:1}"],

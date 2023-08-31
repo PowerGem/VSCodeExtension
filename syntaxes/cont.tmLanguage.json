@@ -348,7 +348,8 @@
 			{ "include": "#move-bnu"},
 			{ "include": "#open-bnu"},
 			{ "include": "#remove-bnu"},
-			{ "include": "#set-bnu"}
+			{ "include": "#set-bnu"},
+			{ "include": "#stuck-bnu"}
 		]},
 		"contingency-block-bna": {"patterns": [
 			{ "include": "#add-bna"},
@@ -358,7 +359,8 @@
 			{ "include": "#move-bna"},
 			{ "include": "#open-bna"},
 			{ "include": "#remove-bna"},
-			{ "include": "#set-bna"}
+			{ "include": "#set-bna"},
+			{ "include": "#stuck-bna"}
 		]},
 		"contingency-block-br": {"patterns": [
 			{ "include": "#add-br"},
@@ -367,7 +369,8 @@
 			{ "include": "#move-br"},
 			{ "include": "#open-br"},
 			{ "include": "#remove-br"},
-			{ "include": "#set-br"}
+			{ "include": "#set-br"},
+			{ "include": "#stuck-br"}
 		]},
 		"contingency-disconnect-bnu": {			
 			"patterns": 
@@ -648,7 +651,7 @@
 		]},		
 		"open-bnu-breaker": {			
 			"name": "entity.name.type.breakerbusnumber",
-			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|lose|...[0-9]))\\s+((breaker|swd|switch)(?=\\s+(sub(station)?)\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+from\\s+node\\s+[0-9]+\\s+to\\s+node\\s+[0-9]+(\\s+(ckt|circuit)\\s+(\\w+|\"[^\"]*\"|'[^']*'))?\\s*([\\\\\\\/].*)?$\r\n)|((breaker|swd|switch)))",
+			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|lose|tuck|...[0-9]))\\s+((breaker|swd|switch)(?=\\s+(sub(station)?)\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+from\\s+node\\s+[0-9]+\\s+to\\s+node\\s+[0-9]+(\\s+(ckt|circuit)\\s+(\\w+|\"[^\"]*\"|'[^']*'))?\\s*([\\\\\\\/].*)?$\r\n)|((breaker|swd|switch)))",
 			"beginCaptures": {
 				"11":{"name":"invalid.illegal"},
 				"12":{"name":"markup.underline"}
@@ -661,7 +664,7 @@
 		]},
 		"open-bna-breaker": {			
 			"name": "entity.name.type.breakerbusname",
-			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|lose|...[0-9]))\\s+((breaker|swd|switch)(?=\\s+(sub(station)?)\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+from\\s+node\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+to\\s+node\\s+(\\w+|\"[^\"]*\"|'[^']*')(\\s+(ckt|circuit)\\s+(\\w+|\"[^\"]*\"|'[^']*'))?\\s*([\\\\\\\/].*)?$\r\n)|((breaker|swd|switch)))",
+			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|lose|tuck|...[0-9]))\\s+((breaker|swd|switch)(?=\\s+(sub(station)?)\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+from\\s+node\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+to\\s+node\\s+(\\w+|\"[^\"]*\"|'[^']*')(\\s+(ckt|circuit)\\s+(\\w+|\"[^\"]*\"|'[^']*'))?\\s*([\\\\\\\/].*)?$\r\n)|((breaker|swd|switch)))",
 			"beginCaptures": {
 				"13":{"name":"invalid.illegal"},
 				"14":{"name":"markup.underline"}
@@ -674,7 +677,7 @@
 		]},
 		"open-br-branch": {			
 			"name": "entity.name.type.branchname",
-			"match": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|lose))\\s+((((((branch|terminal)[\\w]*))[^\\w_\\-]*$))|((branch|terminal)[\\w]*\\s+)?(\\\"[^\\\"]*\\\"|'[^']*'|(?!(branch|terminal)[\\w]*)[\\w_\\-]+))",
+			"match": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|lose|tuck))\\s+((((((branch|terminal)[\\w]*))[^\\w_\\-]*$))|((branch|terminal)[\\w]*\\s+)?(\"[^\"]*\"|'[^']*'|(?!(branch|terminal)[\\w]*)[\\w_\\-]+))",
 			"captures": {
 				"5":{"name":"invalid.illegal"},
 				"6":{"name":"markup.underline"},
@@ -1488,6 +1491,48 @@
 				"end": "asdajsdfasfiwfiuwefias00303093030930930932lskjsfa", 
 				"patterns": [
 					{"include": "#_toplevel-br"}
+				]}
+		]},
+		"stuck-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.stuck",
+				"begin": "(?xi)^\\s*(stuck(?=\\s+breaker)|((stuck)))",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal"},
+					"3":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#open-bnu-breaker"},
+					{"include": "pg"}
+				]}
+		]},
+		"stuck-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.open",
+				"begin": "(?xi)^\\s*(stuck(?=\\s+breaker)|((stuck)))",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal"},
+					"3":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#open-bna-breaker"},
+					{"include": "pg"}
+				]}
+		]},
+		"stuck-br": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.open",
+				"begin": "(?xi)^\\s*(stuck(?=\\s+breaker\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+))|((stuck)))",
+				"beginCaptures": {
+					"3":{"name": "invalid.illegal"},
+					"4":{"name": "markup.underline"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#breaker-br"},
+					{"include": "pg"}
 				]}
 		]}
 
