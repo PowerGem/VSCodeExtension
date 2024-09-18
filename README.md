@@ -28,6 +28,10 @@ BUSNAMES, BUSNUMBERS, BRANCHNAMES will not work when nested inside other definit
 
 ## Release Notes
 
+### 0.5.0
+
+Added support for Automatic contingencies lists
+
 ### 0.4.0
 
 Significant CTG file supported added for outage/contingency with snippets

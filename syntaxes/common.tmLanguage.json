@@ -19,7 +19,7 @@
 			{ "include": "#system" },
 			{ "include": "#branch-name" }
 		]},
-		"area": {			
+		"area-retire": {			
 			"patterns": 
 			[{
 				"match": "(?xi)(to\\s+)?(area|zone)\\s+([0-9]+)\\s*",
@@ -29,7 +29,7 @@
 					"3": { "name": "entity.name.tag.common" }
 				}}
 		]},
-		"areas": {			
+		"areas-retire": {			
 			"patterns": 
 			[{
 				"match": "(?xi)(areas|zones)(\\s+([0-9]+)\\s+([0-9]+))\\s*",
@@ -38,10 +38,32 @@
 					"2": { "name": "entity.name.tag.common" }
 				}}
 		]},
+		"area": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.area-zone",
+				"match": "(?xi)\\s+(?:(?:area|zone)\\s+([0-9]+)|((area|zone)))\\b",
+				"captures": {
+					"1": { "name": "entity.name.tag.areas" },
+					"2":{"name": "invalid.illegal"},
+					"3":{"name": "markup.underline"}
+				}}
+		]},
+		"areas": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.areas-zones",
+				"match": "(?xi)(?:(?:areas|zones)(\\s+[0-9]+\\s+[0-9]+)|((areas|zones)))\\b",
+				"captures": {
+					"1": { "name": "entity.name.tag.areaids" },
+					"2":{"name": "invalid.illegal"},
+					"3":{"name": "markup.underline"}
+				}}
+		]},
 		"block": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((block)\\s+([0-9]+)|((block)))",
+				"match": "(?xi)\\s+((block)\\s+([0-9]+)|((block)))\\b",
 				"captures": {
 					"2": { "name": "entity.other.attribute-name.block" },
 					"3": { "name": "entity.name.tag.bus" },
@@ -53,7 +75,7 @@
 			"patterns": 
 			[{
 				"name": "entity.name.type.common",
-				"begin": "(?xi)\\s*(branch|line)\\s*(?=\\s*from\\s*bus\\s.*\\sto\\s*bus\\s.*\\s(ckt|circuit))",
+				"begin": "(?xi)\\s*(branch|line)\\s*(?=\\s*from\\s*bus\\s.*\\sto\\s*bus\\s.*\\s(ckt|circuit))\\b",
 				"end": "(?xi)(?=\\s*factor|(?=$))", "patterns": [
 					{"include": "#bus"},
 					{"include": "#curcuit"},
@@ -65,7 +87,7 @@
 			"patterns": 
 			[{
 				"name": "entity.name.type.common",
-				"begin": "(?xi)\\s*(branch|line)\\s*(?=\\s*from\\s*bus\\s.*\\sto\\s*bus\\s.*\\s(ckt|circuit))",
+				"begin": "(?xi)\\s*(branch|line)\\s*(?=\\s*from\\s*bus\\s.*\\sto\\s*bus\\s.*\\s(ckt|circuit))\\b",
 				"end": "(?xi)(?=\\s*factor|(?=$))", "patterns": [
 					{"include": "#bus-busname"},
 					{"include": "#curcuit"},
@@ -80,7 +102,7 @@
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b((breaker)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((breaker)))",
+				"match": "(?xi)\\s*\\b((breaker)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((breaker))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.machine" },
 					"4": { "name": "entity.name.tag.machineid" },
@@ -101,7 +123,7 @@
 		"bus-bnu": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((bus)\\s+([0-9]+)|((bus)))",
+				"match": "(?xi)\\s+((bus)\\s+([0-9]+)|((bus))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.bus" },
 					"3": { "name": "entity.name.tag.bus" },
@@ -112,7 +134,7 @@
 		"bus-bna": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((bus)\\s+(\"[^\"]*\"|'[^']*'|\\w+)|((bus)))",
+				"match": "(?xi)\\s+((bus)\\s+(\"[^\"]*\"|'[^']*'|\\w+)|((bus))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.bus" },
 					"3": { "name": "string.quoted.busname" },
@@ -124,6 +146,24 @@
 			"patterns": 
 			[{
 				"match": "(?xi)(buses)(\\s+([0-9]+)\\s+([0-9]+))\\s*",
+				"captures": {
+					"1": { "name": "entity.name.type.common" },
+					"2": { "name": "entity.name.tag.common" }
+				}}
+		]},
+		"buses-all": {			
+			"patterns": 
+			[{
+				"match": "(?xi)(all)\\s+(buses)\\s*",
+				"captures": {
+					"1": { "name": "keyword.operator.all" },
+					"2": { "name": "entity.name.type.buses" }
+				}}
+		]},
+		"busrange": {			
+			"patterns": 
+			[{
+				"match": "(?xi)(busrange)(\\s+([0-9]+)\\s+([0-9]+))\\s*",
 				"captures": {
 					"1": { "name": "entity.name.type.common" },
 					"2": { "name": "entity.name.tag.common" }
@@ -148,8 +188,8 @@
 				"match": "(?xi)\\s*\\b(ckt|circuit)\\s+(&)?(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))\\s*",
 				"captures": {
 					"1": { "name": "entity.other.attribute-name.circuit" },
-					"2": { "name": "keyword.operator.common" },
-					"4": { "name": "entity.name.tag.common" }
+					"2": { "name": "keyword.operator.circuit" },
+					"4": { "name": "entity.name.tag.circuit" }
 				}}
 		]},
 		"circuit-shunt": {
@@ -162,11 +202,47 @@
 					"3": { "name": "entity.name.tag.common" }
 				}}
 		]},
+		"dispatch-bus-line-bnu": {			
+			"patterns": 
+			[{
+				"name": "string.dispatch-bus-bna",
+				"begin": "(?xi)^(?=\\s*bus\\b)",
+				"end": "(\\s*(\\-|\\+)?([0-9]*\\.)?[0-9]+(?![\\-\\+\\.]))?\\s*(?=$|[\\\\\\\/])", 
+				"patterns": [
+					{"include": "#bus-bnu"},
+					{"include": "pg"}
+				],
+			"endCaptures": {"1":{"name": "constant.numeric.dispatch.bus.factor"}}}				
+		]},
+		"dispatch-bus-line-bna": {			
+			"patterns": 
+			[{
+				"name": "string.dispatch-bus-bna",
+				"begin": "(?xi)^(?=\\s*bus\\b)",
+				"end": "(\\s*(\\-|\\+)?([0-9]*\\.)?[0-9]+(?![\\-\\+\\.]))?\\s*(?=$|[\\\\\\\/])", 
+				"patterns": [
+					{"include": "#bus-bna"},
+					{"include": "pg"}
+				],
+			"endCaptures": {"1":{"name": "constant.numeric.dispatch.bus.factor"}}}				
+		]},
+		"dispatch-subsystem-line": {			
+			"patterns": 
+			[{
+				"name": "string.dispatch-subsystem-bna",
+				"begin": "(?xi)^(?=\\s*(?:sub)?system\\b)",
+				"end": "(\\s*(\\-|\\+)?([0-9]*\\.)?[0-9]+(?![\\-\\+\\.]))?\\s*(?=$|[\\\\\\\/])", 
+				"patterns": [
+					{"include": "#subsystem"},
+					{"include": "pg"}
+				],
+			"endCaptures": {"1":{"name": "constant.numeric.dispatch.subsystem.factor"}}}				
+		]},
 		"facts": {
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b(?:(facts)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((facts)))",
+				"match": "(?xi)\\s*\\b(?:(facts)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((facts))\\b)",
 				"captures": {
 					"1": { "name": "entity.name.type.machine" },
 					"3": { "name": "entity.name.tag.machineid" },
@@ -183,7 +259,7 @@
 		"id": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((id)\\s+(\"[^\"]*\"|'[^']*'|\\w+)|((id)))",
+				"match": "(?xi)\\s+((id)\\s+(\"[^\"]*\"|'[^']*'|\\w+)|((id))\\b)",
 				"captures": {
 					"2": { "name": "entity.other.attribute-name.id" },
 					"3": { "name": "string.quoted.idname" },
@@ -191,11 +267,30 @@
 					"5":{"name": "markup.underline"}
 				}}
 		]},
-		"kvrange": {"patterns": [{"match": "(?xi)\\s*(kvrange)\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s*",
+		"in": {			
+			"patterns": 
+			[{
+				"name": "keyword.operator.in",
+				"match": "(?xi)\\b(in)\\b"}
+		]},
+		"kv": {"patterns": [{"match": "(?xi)\\s*(kv)\\s+([0-9]*\\.?[0-9]+)\\s*",
 			"captures": {
 				"1": { "name": "entity.name.type.common" },
-				"2": { "name": "constant.numeric.common" },
-				"3": { "name": "constant.numeric.common" }		
+				"2": { "name": "constant.numeric.common" }		
+		}}]},
+		"kvrange": {"patterns": [{
+			"name": "entity.name.type.kvrange",
+			"match": "(?xi)(?:kvrange\\s+([0-9]*\\.?[0-9]+\\s+[0-9]*\\.?[0-9]+)|((kvrange)))\\b",
+			"captures": {
+				"1": { "name": "constant.numeric.kv" },
+				"2":{"name": "invalid.illegal"},
+				"3":{"name": "markup.underline"}	
+		}}]},
+		"kvrange-retire": {"patterns": [{"match": "(?xi)\\s*(kvrange)\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s*",
+		"captures": {
+			"1": { "name": "entity.name.type.common" },
+			"2": { "name": "constant.numeric.common" },
+			"3": { "name": "constant.numeric.common" }		
 		}}]},
 		"language-attribute": {			
 				"patterns": 
@@ -257,7 +352,7 @@
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b((load)\\s+(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))|((load)))",
+				"match": "(?xi)\\s*\\b((load)\\s+(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))|((load))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.machine" },
 					"4": { "name": "entity.name.tag.machineid" },
@@ -268,7 +363,7 @@
 		"load-br": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((load)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((load)))",
+				"match": "(?xi)\\s+((load)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((load))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.node" },
 					"3": { "name": "string.quoted.nodename" },
@@ -290,7 +385,7 @@
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b((machine|unit)\\s+(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))|((machine|unit)))",
+				"match": "(?xi)\\s*\\b((machine|unit)\\s+(?:(?<q>\"|')[^'\"]{1,2}\\k<q>|([^'\"\\s]{1,2}))|((machine|unit))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.machine" },
 					"4": { "name": "entity.name.tag.machineid" },
@@ -302,7 +397,7 @@
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b((machine|unit)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((machine|unit)))",
+				"match": "(?xi)\\s*\\b((machine|unit)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((machine|unit))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.machine" },
 					"4": { "name": "entity.name.tag.machineid" },
@@ -315,15 +410,15 @@
 				[{
 					"match": "(?xi)\\s*\\b(from\\s+|to\\s+)?(node)\\s+([0-9]+)\\s*",
 					"captures": {
-						"1": { "name": "keyword.operator.common" },
-						"2": { "name": "entity.name.type.common" },
-						"3": { "name": "entity.name.tag.common" }
+						"1": { "name": "keyword.operator.node" },
+						"2": { "name": "entity.name.type.node" },
+						"3": { "name": "entity.name.tag.node" }
 					}}
 		]},
 		"node-bnu": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((node)\\s+([0-9]+)|((node)))",
+				"match": "(?xi)\\s+((node)\\s+([0-9]+)|((node))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.node" },
 					"3": { "name": "entity.name.tag.node" },
@@ -334,7 +429,7 @@
 		"node-bna": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((node)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((node)))",
+				"match": "(?xi)\\s+((node)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((node))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.node" },
 					"3": { "name": "string.quoted.nodename" },
@@ -377,19 +472,32 @@
 		"substation": {			
 			"patterns": 
 			[{
-				"match": "(?xi)\\s+((sub(station)?)\\s+(\"[^\"]+\"|'[^']+'|\\w+)|((sub(station)?)))",
+				"name": "entity.name.type.substation",
+				"match": "(?xi)\\s*(?:(?:sub(?:station)?)\\s+(?:((?<q>\"|')[^'\"]+\\k<q>)|([^'\"\\s]+))|((sub(?:station)?))\\b)",
 				"captures": {
-					"2": { "name": "entity.name.type.sub" },
-					"4": { "name": "string.quoted.subname" },
-					"5":{"name": "invalid.illegal"},
-					"6":{"name": "markup.underline"}
+					"1": { "name": "string.quoted.substation.name" },
+					"3": { "name": "entity.name.tag.substation.name" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
+				}}
+		]},
+		"subsystem": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.subsystem",
+				"match": "(?xi)\\s*(?:(?:(?:sub)?system)\\s+(?:((?<q>\"|')[^'\"]+\\k<q>)|([^'\"\\s]+))|(((?:sub)?system))\\b)",
+				"captures": {
+					"1": { "name": "string.quoted.subsystem.name" },
+					"3": { "name": "entity.name.tag.substation.name" },
+					"4":{"name": "invalid.illegal"},
+					"5":{"name": "markup.underline"}
 				}}
 		]},
 		"swshunt-br": {
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b((swshunt)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((swshunt)))",
+				"match": "(?xi)\\s*\\b((swshunt)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((swshunt))\\b)",
 				"captures": {
 					"2": { "name": "entity.name.type.machine" },
 					"4": { "name": "entity.name.tag.machineid" },
@@ -460,12 +568,24 @@
 			"patterns": 
 			[{
 				"name" : "string.quoted",
-				"match": "(?xi)\\s*\\b(?:(twotermdc)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((twotermdc)))",
+				"match": "(?xi)\\s*\\b(?:(twotermdc)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))|((twotermdc))\\b)",
 				"captures": {
 					"1": { "name": "entity.name.type.machine" },
 					"3": { "name": "entity.name.tag.machineid" },
 					"4":{"name": "invalid.illegal"},
 					"5":{"name": "markup.underline"}
+				}}
+		]},
+		"within-outside": {			
+			"patterns": 
+			[{
+				"name": "keyword.operator.within-outside",
+				"match": "(?xi)\\s+(?:within\\s+(\\d+)\\s+(bus(?:es)?)\\s+outside|((within)))\\b",
+				"captures": {
+					"1": { "name": "constant.numeric.number-of-buses" },
+					"2": { "name": "entity.name.type.bus" },
+					"3":{"name": "invalid.illegal"},
+					"4":{"name": "markup.underline"}	
 				}}
 		]}
 	},

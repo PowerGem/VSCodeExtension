@@ -3,7 +3,8 @@
   "publisher": "PowerGEM-VSCode",
   "displayName": "PowerGEM_vscode",
   "description": "Syntax Highlighting for various PowerGEM related formats",
-  "version": "0.4.4",
+  "icon": "icons/PGlogo.png",
+  "version": "0.5.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/PowerGem/VSCodeExtension.git"
@@ -23,37 +24,61 @@
       {
         "id": "pg",
         "aliases": ["pg", "pg"],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/PGlogo.png",
+          "dark": "./icons/PGlogo.png"
+        }
       },
     {
       "id": "pg.sub",
       "aliases": ["Subsystem", "pg.sub"],
       "extensions": [".sub"],
-      "configuration": "./language-configuration.json"
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/Eo_circle_green_letter-s.svg.png",
+        "dark": "./icons/Eo_circle_green_letter-s.svg.png"
+      }
     },
     {
       "id": "pg.comm",
       "aliases": ["PGScript", "pg.comm"],
       "filenamePatterns": ["*comm*.txt"],
-      "configuration": "./language-configuration.json"
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/PGlogo.png",
+        "dark": "./icons/PGlogo.png"
+      }
     },
     {
       "id": "pg.mon",
       "aliases": ["Monitor","pg.mon"],
       "extensions": [".mon"],
-      "configuration": "./language-configuration.json"
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/Eo_circle_green_letter-m.svg.png",
+        "dark": "./icons/Eo_circle_green_letter-m.svg.png"
+      }
     },
     {
       "id": "pg.common",
       "aliases": ["Common","pg.common"],
       "extensions": [],
-      "configuration": "./language-configuration.json"
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/PGlogo.png",
+        "dark": "./icons/PGlogo.png"
+      }
     },
     {
       "id": "pg.cont",
       "aliases": ["Contingency","pg.cont"],
       "extensions": [".con"],
-      "configuration": "./cont-language-configuration.json"
+      "configuration": "./cont-language-configuration.json",
+      "icon": {
+        "light": "./icons/Eo_circle_green_letter-c.svg.png",
+        "dark": "./icons/Eo_circle_green_white_letter-c.svg.png"
+      }
     }],
     "grammars": [
     {

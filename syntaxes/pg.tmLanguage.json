@@ -39,7 +39,7 @@
 			"captures": {
 				"1": { "name": "entity.name.function.pg" }
 		}}]},
-		"command-include": {"patterns": [{"match": "(?xi)\\s*(%include)\\s+((\"[\\/\\\\\\w\\-\\._ :]*\")|('[\\/\\\\\\w\\-\\._ :]*')|([\\/\\\\\\w\\-\\._:]*))",
+		"command-include": {"patterns": [{"match": "(?xi)\\s*((?:%)?include)\\s+((\"[\\/\\\\\\w\\-\\._ :]*\")|('[\\/\\\\\\w\\-\\._ :]*')|([\\/\\\\\\w\\-\\._:]*))",
 			"captures": {
 				"1": { "name": "entity.name.function.pg" },
 				"3": { "name": "string.quoted.pg" },
@@ -57,7 +57,7 @@
 			{"include": "#strings-unlimited"}
 		]
 		}]},
-		"comments": {"patterns": [{"name": "comment.pg", "match": "(\\s*(\\\/|\\\\).*$|^\\s*com(m(e(n(t)?)?)?)?\\s.*$)"}]},
+		"comments": {"patterns": [{"name": "comment.pg", "match": "(?xi)(\\s*(\\\/|\\\\).*$|^\\s*com(m(e(n(t)?)?)?)?\\s.*$)"}]},
 		"errors": {"patterns": [{"name": "invalid.pg", "match": "[^\\\/\\s]+"}]},
 		"strings-unlimited": {			
 			"patterns": 

@@ -70,7 +70,7 @@
         "description": "Set Bus"
     },
     "Change-Bus[branchname]":{
-        "prefix": "Set-Bus-br",
+        "prefix": "Change-Bus-br",
         "body": ["${1|Increase,Decrease,Bus|} ${2|Gen,Load,LoadQ,Shunt|} \"${3:equipname}\" ${4|BY,TO|} ${5:100}${6|%,MW,MVar,Percent|}"],
         "description": "Set Bus"
     },
@@ -226,7 +226,7 @@
     },
     "Dispatch": {
         "prefix": "Dispatch",
-        "body" : ["${1| ,Default |}Dispatch${2| , FirstLevel|}","    Subsystem \"${3:name}\" ${4:100}", "End"],
+        "body" : ["${1| ,Default |}Dispatch${2| , Down, FirstLevel, Up|}","    Subsystem \"${3:name}\" ${4:100}", "End"],
         "description": "Define a Contingecy"
     },
     "Increase-Gen[busnumber]":{
@@ -586,12 +586,12 @@
     },    
     "Remove-SwShunt[busnumber]":{
         "prefix": "Remove-SwShunt",
-        "body": ["Remove SwShunt FROM Bus ${1:12345} ${2|Ckt,Block|} ${3:1}${4| , Step 1|}"],
+        "body": ["Remove SwShunt FROM Bus ${1:12345} ${2|Block,Ckt|} ${3:1}${4| , Step 1|}"],
         "description": "Remove SwShunt"
     },  
     "Remove-SwShunt[busname]":{
         "prefix": "Remove-SwShunt-bna",
-        "body": ["Remove SwShunt FROM Bus \"${1:busname}\" ${2|Ckt,Block|} ${3:1}${4| , Step 1|}"],
+        "body": ["Remove SwShunt FROM Bus \"${1:busname}\" ${2|Block,Ckt|} ${3:1}${4| , Step 1|}"],
         "description": "Remove SwShunt"
     },
     "Remove-SwShunt[branchname]":{
@@ -600,17 +600,17 @@
         "description": "Remove SwShunt"
     },      
     "Set-Bus[busnumber]":{
-        "prefix": "Set",
+        "prefix": "Set-Bus",
         "body": ["${1|Set,Increase,Decrease|} Bus ${2:12345} ${3|Gen,Load,LoadQ,Shunt,Shunt ID \"shuntid\"|} ${4|TO,BY|} ${5:100}${6|%,MW,MVar,Percent|}"],
         "description": "Set Bus"
     },
     "Set-Bus[busname]":{
-        "prefix": "Set-bna",
+        "prefix": "Set-Bus-bna",
         "body": ["${1|Set,Increase,Decrease|} Bus \"${2:busname}\" ${3|Gen,Load,LoadQ,Shunt,Shunt ID \"shuntid\"|} ${4|TO,BY|} ${5:100}${6|%,MW,MVar,Percent|}"],
         "description": "Set Bus"
     },
     "Set-Bus[branchname]":{
-        "prefix": "Set-br",
+        "prefix": "Set-Bus-br",
         "body": ["${1|Set,Increase,Decrease|} ${2|Gen,Load,LoadQ,Shunt|} \"${3:equipname}\" ${4|TO,BY|} ${5:100}${6|%,MW,MVar,Percent|}"],
         "description": "Set Bus"
     },

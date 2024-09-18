@@ -1,0 +1,199 @@
+//2.4.1 Contingency Names
+BUSNUMBERS
+    CONTINGENCY 'FAULT ON LINE A'
+        TRIP BRANCH FROM BUS 21374 TO BUS 28805 CKT 1
+    END
+BUSNAMES
+    CONTINGENCY 'CHAMBERLAIN-HARDING'
+        TRIP LINE FROM BUS '02CHAMBR 345' TO BUS '02HARDIN 345' CKT '1 '
+    END
+BRANCHNAMES
+    CONTINGENCY 'MTS-PRU'
+        OPEN "MTSTORM4500 KV MTS-PRU "
+    END
+//2.4.2 Branch Events
+BUSNUMBERS
+    CONTINGENCY 'FAULT ON LINE A'
+        TRIP BRANCH FROM BUS 21374 TO BUS 28805 CKT 1
+        OPEN BRANCH FROM BUS 21374 TO BUS 21466 CKT 1
+        OPEN LINE FROM BUS 28073 TO BUS 28018 CKT 1
+        TRIP LINE FROM BUS 21374 TO BUS 28805 CKT 1
+    END
+BRANCHNAMES
+    CONTINGENCY 'MTS-PRU'
+        OPEN "MTSTORM4500 KV MTS-PRU"
+    END
+BUSNUMBERS
+    CONTINGENCY 'ABC'
+        OPEN BRANCH FROM BUS 19315 TO BUS 19037 CKT &1
+    END
+
+
+    Contingency "OPENFROM Example"
+        OpenFrom Branch FROM Bus 12345 TO Bus 54321 Ckt 1 \OptSection: Section 1
+        OpenTo Branch FROM Bus 12345 TO Bus 54321 Ckt 1 \OptSection: Section 1
+    End
+        
+    CONTINGENCY 'RatingChange1'
+        SET PreContRating 50 BRANCH FROM BUS 19315 TO BUS 19037 CKT 1
+        SET PostContRating 65 BRANCH FROM BUS 19315 TO BUS 19037 CKT 1
+    END
+    //2.4.3 Bus Events
+    Contingency "random stuff"
+        STUCK BREAKER SUBSTATION 662 FROM NODE 39 TO NODE 34 CIRCUIT "2"
+        ISOLATE BRANCH FROM BUS 254529 TO BUS 346508 CKT 1
+        Disconnect Bus 54321
+        OPEN BREAKER SUBSTATION 662 FROM NODE 39 TO NODE 34 CIRCUIT "2"
+        OPEN SWD SUBSTATION 2668 FROM NODE 13 TO NODE 6 CIRCUIT "4"
+        CLOSE SWD SUBSTATION 2668 FROM NODE 13 TO NODE 6 CIRCUIT "4"
+        OPEN TERMINAL FROM BUS 217150 TO BUS 219104 CKT 1
+        MOVE 100 PERCENT LOAD FROM BUS 219171 TO SUBSTATION 219104 NODE 1
+        ISOLATE SUBSTATION 21313 NODE 2 
+    End
+    //2.4.4 3‐Winding Transformer Events
+    CONTINGENCY '3-WNDG_XFMR'
+        OPEN BRANCH FROM BUS 1 TO BUS 2 TO BUS 3 CKT A
+    END
+    CONTINGENCY '3-WNDG_XFMR Leg 1'
+        OPEN WND 1 FROM BUS 1 TO BUS 2 TO BUS 3 CKT A
+    END
+
+    CONTINGENCY '3-WNDG_XFMR Leg 1 New'
+        OPEN THREEWINDING AT BUS 1 TO BUS 2 TO BUS 3 CKT A
+        ISOLATE BRANCH FROM BUS 1 TO BUS 2 TO BUS 3 CKT A
+        ISOLATE THREEWINDING AT BUS 1 TO BUS 2 TO BUS 3 CKT A
+        //2.4.5 Generation Events
+        REMOVE MACHINE 1 FROM BUS 2
+        SET BUS 1234 GENERATION TO 50 PERCENT
+        DECREASE BUS 34 GENERATION BY 23 MW
+        INCREASE BUS 56 GENERATION BY 56 PERCENT
+        ADD MACHINE 3 TO BUS 56
+    END
+
+    DEFAULT DISPATCH
+        SUBSYSTEM 'GENSYS'
+    END
+    DEFAULT DISPATCH FIRSTLEVEL
+        SUBSYSTEM 'FIRSTLEVEL_GENSYS'
+    END
+
+Default Dispatch Down
+    Subsystem "fred" 34
+End
+
+    Default Dispatch Up
+        Subsystem 'defaultup' 77
+        bus 23234 23 /asdfaf
+    End
+    Default Dispatch Down
+        Subsystem 'defaultdown'
+    End
+    CONTINGENCY 'GEN CON A'
+        SET BUS 235102 GENERATION TO 50 PERCENT DISPATCH
+            SUBSYSTEM 'AGENSYS' 100 /asdf
+        END
+        REMOVE MACHINE 9 FROM BUS 235103 DISPATCH
+            SUBSYSTEM 'BGENSYS'
+        END
+        SET BUS 235104 GENERATION TO 100 MW DISPATCH
+            SUBSYSTEM ABCGEN 32
+            SUBSYSTEM DEFGEN 68
+        END
+        DECREASE BUS 235105 GENERATION BY 100 PERCENT DISPATCH
+            SUBSYSTEM ABCGEN 32
+            SUBSYSTEM DEFGEN 68
+        END
+        REMOVE MACHINE 5 FROM BUS 235101
+    END
+    CONTINGENCY 'GEN CON B'
+        ADD MACHINE 1 TO BUS 206350
+        ADD MACHINE 2 TO BUS 206350
+        SET BUS 206350 GENERATION TO 70 MW
+    END
+//2.4.6 Load Events
+
+    Contingency "LoadEvents"
+        Move 100% Gen FROM Bus 12345 TO Bus 54321
+        Remove Load id FROM Bus 12345
+        Increase Bus 12345 Load BY 100%
+        Raise bus 23 load by 100%
+        decrease bus 3445 load by 23 MW
+        Set Bus 12345 Gen TO 100%
+        Increase Bus 12345 LoadQ BY 100%
+        Decrease Bus 12345 LoadQ BY 100%    
+    End
+
+//2.4.7 Reactive Shunt Events
+
+    Contingency "ReactiveEvents"
+        Decrease Bus 12345 Shunt BY 100%
+        Increase Bus 12345 Shunt BY 100MVar
+        Set Bus 12345 Shunt To 100MVar
+        Set Bus 12345 Shunt TO 100%
+        Remove Shunt FROM Bus 12345 Ckt 1
+        Remove SwShunt FROM Bus 12345 Ckt 1 
+        Remove SwShunt FROM Bus 12345 block 3 step 2
+    End
+/busnames
+//2.4.8 Automatic Contingency List Creation
+SINGLE BRANCH IN AREAS 225 237 /comment 1
+SINGLE BRANCH IN OWNER 205 IN KVRANGE 100 800  / comment 3
+SINGLE BRANCH IN OWNERS 215 220 IN KVRANGE 100 800 /// comment
+SINGLE BRANCH WITHIN 5 BUSES OUTSIDE AREAS 23 23 IN KVRANGE 100 800 // comment
+SINGLE BRANCH OPENEND SUBSYSTEM 'MYStudy' IN KVRANGE 100 800 /-/-/ stuff
+DOUBLE BRANCH IN ZONE 223 IN KVRANGE 100 800
+SINGLE TIE FROM ZONE 82 TO ZONE 305 IN KVRANGE 230 800
+DOUBLE TIE FROM SUBSYSTEM CENT-FLORIDA IN KVRANGE 230 800
+SINGLE MISSING BRANCH IN AREAS 1 6 KVRANGE 220 800
+BUSDOUBLE BRANCH IN AREA 345
+PARALLEL BRANCH IN AREA 222 KVRANGE 138 800
+SINGLE BUS OUTAGE IN AREA 247
+SINGLE BUS OUTAGE withIN 5 buses outside BUSRANGE 235101 235105
+SINGLE GENERATOR withIN 7 bus outside SUBSYSTEM 'GENSUB1'  Dispatch 
+    Subsystem "name" 100
+End
+single subsystem except /great system
+    subA //comment1
+    systemB 
+    "systemC" 
+end
+SINGLE UNIT OUTAGE IN AREA 35
+single machine owner 456  Dispatch 
+    Subsystem "name" 80
+    bus 234 20
+End
+SINGLE SWSHUNT in AREA 1 KVRANGE 200 800 
+SINGLE BRANCH FROM bus 3 /3
+SINGLE TERMINAL TIE FROM Bus 23 to Bus 23 KVRANGE 23 30
+SINGLE BRANCH TIE OUTAGE FROM ZONE 82 KVRANGE 100 800 TO ZONE 23 KVRANGE 300 344
+
+busnames
+SINGLE BREAKER in substation 'fred' node '3' in kvrange 3 200 //comment
+SINGLE TERMINAL TIE FROM Bus '23' To Bus "23" KVRANGE 23 30
+//2.4.9 Single branch outside but near a subystem
+Single Branch Within 6 Buses Outside Subsystem 'MyStudy' in kVrange 100 800
+
+//2.4.10 Single branch open end P2.1 auto contingencies
+Single branch OPENEND in subsystem 'MyStudy' in KVRange 100 800
+
+//2.4.11 Disconnect Entire Subsystem
+single disconnect subsystem except
+'QUEUEEXPORT'
+End
+single disconnect subsystem
+
+//2.4.12 RAW 34 Node‐Breaker Automatic Contingency List Creation
+SINGLE ISOLATE BRANCH IN AREAS 225 237 KVRANGE 100 800
+SINGLE ISOLATE TIE FROM AREAS 225 237 KVRANGE 100 800
+SINGLE OPEN TERMINAL IN AREAS 225 237 KVRANGE 100 800
+SINGLE STUCK BREAKER IN AREAS 225 237 KVRANGE 100 800
+SINGLE STUCK BREAKER
+busnumbers
+//2.4.13 Load Throwover
+LOAD THROWOVER
+45,34
+INCLUDE "LoadThrowover.txt"
+1001,1002 /* CLARK5
+2023,2025 /* BAILEY3
+3143,3145 /* DEREK1
+END

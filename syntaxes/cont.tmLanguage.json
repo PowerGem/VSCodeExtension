@@ -9,26 +9,33 @@
 			{ "include": "#branchnames" },
 			{ "include": "#busnumbers" },
 			{ "include": "#busnames" },
-			{ "include": "#dispatch-default" },
 			{ "include": "#end" },
 			{ "include": "pg"}
 		]},
 		"_toplevel-bnu": {"patterns": [
 			{ "include": "#stop-bnu"},
+			{ "include": "#busdouble-bnu"},
 			{ "include": "#contingency-bnu"},
+			{ "include": "#dispatch-default-bnu" },
+			{ "include": "#load-throwover-bnu"},
 			{ "include": "#outage-bnu"},
 			{ "include": "#single-bnu"},
 			{ "include": "#_toplevel"}
 		]},
 		"_toplevel-bna": {"patterns": [
 			{ "include": "#stop-bna"},
+			{ "include": "#busdouble-bna"},
 			{ "include": "#contingency-bna"},
+			{ "include": "#dispatch-default-bna" },
+			{ "include": "#load-throwover-bna"},
 			{ "include": "#outage-bna"},
+			{ "include": "#single-bna"},
 			{ "include": "#_toplevel"}
 		]},
 		"_toplevel-br": {"patterns": [
 			{ "include": "#stop-br"},
 			{ "include": "#contingency-br"},
+			{ "include": "#load-throwover-bna"},
 			{ "include": "#outage-br"},
 			{ "include": "#_toplevel"}
 		]},
@@ -42,7 +49,7 @@
 					"5":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bnu"},
 					{"include": "source.pg.common#load"},
 					{"include": "source.pg.common#machine"},
 					{"include": "source.pg.common#bus-bnu"},
@@ -60,7 +67,7 @@
 					"6":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bna"},
 					{"include": "source.pg.common#load"},
 					{"include": "source.pg.common#machine"},
 					{"include": "source.pg.common#bus-bna"},
@@ -79,7 +86,7 @@
 				},
 				"end": "(?=$)", "patterns": [
 					{"include": "source.pg.common#machine-br"},
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bnu"},
 					{"include": "pg"}
 				]}
 		]},		
@@ -109,7 +116,145 @@
 			
 				]}
 			]
-		},			
+		},
+		"busdouble-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.busdouble",
+				"begin": "(?xi)^\\s*(?:(?:(?:bus)?double|parallel)((?:\\s+isol(?:ate)?)?(?:\\s+stuck)?(?:\\s+missing)?(?:\\s+(?:open|trip|disconnect))?)(?=\\s+(?:branch(?:es)?|line(?:s)?|secdd|tie(?:s)?)\\b)|(((?:bus)?double|parallel))\\b)",
+				"beginCaptures": {
+					"1":{"name": "entity.other.attribute-name.singlemodifier"},
+					"2":{"name": "invalid.illegal.single"},
+					"3":{"name": "markup.underline.single"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#single-branch-bnu"},
+					{"include": "#single-tie-bnu"},
+					{"include": "pg"}
+				]}
+		]},
+		"busdouble-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.busdouble",
+				"begin": "(?xi)^\\s*(?:(?:(?:bus)?double|parallel)((?:\\s+isol(?:ate)?)?(?:\\s+stuck)?(?:\\s+missing)?(?:\\s+(?:open|trip|disconnect))?)(?=\\s+(?:branch(?:es)?|line(?:s)?|secdd|tie(?:s)?)\\b)|(((?:bus)?double|parallel))\\b)",
+				"beginCaptures": {
+					"1":{"name": "entity.other.attribute-name.singlemodifier"},
+					"2":{"name": "invalid.illegal.single"},
+					"3":{"name": "markup.underline.single"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#single-branch-bna"},
+					{"include": "#single-tie-bna"},
+					{"include": "pg"}
+				]}
+		]},
+		"busfilter-in_from_to-bnu": {			
+			"patterns": 
+			[{
+				"name": "keyword.operator.busfilter",
+				"begin": "(?xi)(?:(?<=(line|ines|inal|ches|anch|aker|lose|tage|nend|ecdd|hunt))\\s+in|(?<=(tie|ine|nes|hes|nch|ker|ose|age|cdd))\\s+from|(?<=openend|outside|unit|generator|machine|bus|outage))(?!\\s*(?:$|[\\\\\\\/]))(?=(?:\\s+(?:all\\s+buses|area(?:s)?|bus(?:es|range)?|kv|owner(?:s)?|sub(?:station)?(?:\\s+(?:\"[^\"]+\"|'[^']+'|\\w+)\\s+node)?|(?:sub)?system(?:s)?|zone(?:s)?)\\s+(?:\"[^\"]+\"|'[^']+'|[\\w\\-_]+)(?:\\s+[\\d.]+)*)?(?:(?:\\s+in)?\\s+kvrange(?:\\s+[\\d.]+)+)?\\s*(?:to|$|[\\\\\\\/]))|(((?<=(line|ines|inal|ches|anch|aker|lose|tage|nend|ecdd|hunt))\\s+in|(?<=(tie|ine|nes|hes|nch|ker|ose|age|cdd))\\s+from|(?<=openend|outside|unit|generator|machine|bus|outage)))\\b",
+				"beginCaptures": {
+					"4":{"name": "invalid.illegal.in"},
+					"5":{"name": "markup.underline.in"}
+				},
+				"end": "(?xi)(?=($|dispatch))", "patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#bus-bnu"},
+					{"include": "source.pg.common#buses"},
+					{"include": "source.pg.common#buses-all"},
+					{"include": "source.pg.common#busrange"},
+					{"include": "source.pg.common#in"},
+					{"include": "source.pg.common#kv"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "source.pg.common#node-bnu"},
+					{"include": "source.pg.common#owner"},
+					{"include": "source.pg.common#owners"},
+					{"include": "source.pg.common#substation"},
+					{"include": "source.pg.common#subsystem"},
+					{"include": "#busfilter-in_from_to-bnu-nested"},
+					{"include": "pg"}
+				]}
+		]},
+		"busfilter-in_from_to-bnu-nested": {			
+			"patterns": 
+			[{
+				"name": "keyword.operator.busfilter",
+				"begin": "(?xi)(?:\\s+to(?!\\s*(?:$|[\\\\\\\/]))(?=(?:\\s+(?:all\\s+buses|area(?:s)?|bus(?:es|range)?|kv|owner(?:s)?|sub(?:station)?(?:\\s+(?:\"[^\"]+\"|'[^']+'|[\\w\\-_]+)\\s+node)?|(?:sub)?system(?:s)?|zone(?:s)?)\\s+(?:\"[^\"]+\"|'[^']+'|\\w+)(?:\\s+[\\d.]+)*)?(?:(?:\\s+in)?\\s+kvrange(?:\\s+[\\d.]+)+)?\\s*($|[\\\\\\\/]))|\\s+((to))\\b)",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal.in"},
+					"3":{"name": "markup.underline.in"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#bus-bnu"},
+					{"include": "source.pg.common#buses"},
+					{"include": "source.pg.common#buses-all"},
+					{"include": "source.pg.common#busrange"},
+					{"include": "source.pg.common#in"},
+					{"include": "source.pg.common#kv"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "source.pg.common#node-bnu"},
+					{"include": "source.pg.common#owner"},
+					{"include": "source.pg.common#owners"},
+					{"include": "source.pg.common#substation"},
+					{"include": "source.pg.common#subsystem"},
+					{"include": "pg"}
+				]}
+		]},
+		"busfilter-in_from_to-bna": {			
+			"patterns": 
+			[{
+				"name": "keyword.operator.busfilter",
+				"begin": "(?xi)(?:(?<=(line|ines|inal|ches|anch|aker|lose|tage|nend|ecdd|hunt))\\s+in|(?<=(tie|ine|nes|hes|nch|ker|ose|age|cdd))\\s+from|(?<=openend|outside|unit|generator|machine|bus|outage))(?!\\s*(?:$|[\\\\\\\/]))(?=(?:\\s+(?:all\\s+buses|area(?:s)?|bus(?:es|range)?|kv|owner(?:s)?|sub(?:station)?(?:\\s+(?:\"[^\"]+\"|'[^']+'|\\w+)\\s+node)?|(?:sub)?system(?:s)?|zone(?:s)?)\\s+(?:\"[^\"]+\"|'[^']+'|[\\w\\-_]+)(?:\\s+[\\d.]+)*)?(?:(?:\\s+in)?\\s+kvrange(?:\\s+[\\d.]+)+)?\\s*(?:to|$|[\\\\\\\/]))|(((?<=(line|ines|inal|ches|anch|aker|lose|tage|nend|ecdd|hunt))\\s+in|(?<=(tie|ine|nes|hes|nch|ker|ose|age|cdd))\\s+from|(?<=openend|outside|unit|generator|machine|bus|outage)))\\b",
+				"beginCaptures": {
+					"4":{"name": "invalid.illegal.in"},
+					"5":{"name": "markup.underline.in"}
+				},
+				"end": "(?xi)(?=$|dispatch)", "patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#bus-bna"},
+					{"include": "source.pg.common#buses-all"},
+					{"include": "source.pg.common#in"},
+					{"include": "source.pg.common#kv"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "source.pg.common#node-bna"},
+					{"include": "source.pg.common#owner"},
+					{"include": "source.pg.common#owners"},
+					{"include": "source.pg.common#substation"},
+					{"include": "source.pg.common#subsystem"},
+					{"include": "#busfilter-in_from_to-bna-nested"},
+					{"include": "pg"}
+				]}
+		]},			
+		"busfilter-in_from_to-bna-nested": {			
+			"patterns": 
+			[{
+				"name": "keyword.operator.busfilter",
+				"begin": "(?xi)(?:(?:(?<=(line|ines|ches|anch|aker|lose|tage|nend|ecdd))\\s+in|(?<=(tie|ine|nes|hes|nch|ker|ose|age|cdd))\\s+from|\\s+to)(?!\\s*(?:$|[\\\\\\\/]))(?=(?:\\s+(?:all\\s+buses|area(?:s)?|bus|kv|owner(?:s)?|sub(?:station)?(?:\\s+(?:\"[^\"]+\"|'[^']+'|[\\w\\-_]+)\\s+node)?|(?:sub)?system(?:s)?|zone(?:s)?)\\s+(?:\"[^\"]+\"|'[^']+'|\\w+)(?:\\s+[\\d.]+)*)?(?:(?:\\s+in)?\\s+kvrange(?:\\s+[\\d.]+)+)?\\s*(?:to|$|[\\\\\\\/]))|(((?<=(line|ines|ches|anch|aker|lose|tage|nend|ecdd))\\s+in|(?<=(tie|ine|nes|hes|nch|ker|ose|age|cdd))\\s+from|\\s+to))\\b)",
+				"beginCaptures": {
+					"4":{"name": "invalid.illegal.in"},
+					"5":{"name": "markup.underline.in"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#area"},
+					{"include": "source.pg.common#areas"},
+					{"include": "source.pg.common#bus-bna"},
+					{"include": "source.pg.common#buses-all"},
+					{"include": "source.pg.common#in"},
+					{"include": "source.pg.common#kv"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "source.pg.common#node-bna"},
+					{"include": "source.pg.common#owner"},
+					{"include": "source.pg.common#owners"},
+					{"include": "source.pg.common#substation"},
+					{"include": "source.pg.common#subsystem"},
+					{"include": "pg"}
+				]}
+		]},			
 		"busnames": {
 			"patterns": 
 			[
@@ -144,7 +289,7 @@
 					"12":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bnu"},
 					{"include": "source.pg.common#bus-bnu"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#change-bus-mvar"},
@@ -164,7 +309,7 @@
 					"13":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bna"},
 					{"include": "source.pg.common#bus-bna"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#change-bus-mvar"},
@@ -318,7 +463,7 @@
 			"patterns": 
 			[{
 				"name": "keyword.control.cont",
-				"begin": "(?xi)\\s*(contingency)\\b(\\s+(\\w+|\"[^\"]*\"|'[^']*'))?\\s*",
+				"begin": "(?xi)\\s*(contingency)\\b(\\s+([\\w\\-_#]+|\"[^\"]*\"|'[^']*'))?\\s*",
 				"captures": {
 					"1": { "name": "entity.name.type.cont" },
 					"2": { "name": "string.cont" }
@@ -332,7 +477,7 @@
 			"patterns": 
 			[{
 				"name": "keyword.control.cont",
-				"begin": "(?xi)\\s*(contingency)\\b(\\s+(\\w+|\"[^\"]*\"|'[^']*'))?\\s*",
+				"begin": "(?xi)\\s*(contingency)\\b(\\s+([\\w\\-_#]+|\"[^\"]*\"|'[^']*'))?\\s*",
 				"captures": {
 					"1": { "name": "entity.name.type.cont" },
 					"2": { "name": "string.cont" }
@@ -346,7 +491,7 @@
 			"patterns": 
 			[{
 				"name": "keyword.control.cont",
-				"begin": "(?xi)\\s*(contingency)\\b(\\s+(\\w+|\"[^\"]*\"|'[^']*'))?\\s*",
+				"begin": "(?xi)\\s*(contingency)\\b(\\s+([\\w\\-_#]+|\"[^\"]*\"|'[^']*'))?\\s*",
 				"captures": {
 					"1": { "name": "entity.name.type.cont" },
 					"2": { "name": "string.cont" }
@@ -416,8 +561,8 @@
 					{"include": "source.pg.common#bus-busname"},
 					{"include": "pg"}
 				]}
-		]},		
-		"dispatch": {			
+		]},
+		"dispatch-bnu": {			
 			"patterns": 
 			[{
 				"name": "keyword.control.dispatch",
@@ -426,33 +571,50 @@
 					"1": { "name": "entity.name.function.dispatch" }
 				},
 				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
-					{"include": "#dispatch-sub-line"},
+					{"include": "source.pg.common#dispatch-subsystem-line"},
+					{"include": "source.pg.common#dispatch-bus-line-bnu"},
 					{"include": "pg"}
 				]}
-		]},
-		"dispatch-sub-line": {			
-			"patterns": 
-			[{
-				"name": "string.subsystem",
-				"match": "(?xi)^\\s*((sub(system)?)\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|([^'\"\\s]+))(\\s+[0-9]+)?(?=\\s*([\\\\\\\/].*)?$)|((sub(system)?)))",
-				"captures": {
-					"2": { "name": "entity.name.type.subsystem" },
-					"5": { "name": "entity.name.tag.subsystem" },
-					"6": {"name": "constant.numeric"},
-					"8":{"name": "invalid.illegal"},
-					"9":{"name": "markup.underline"}
-				}}
-		]},
-		"dispatch-default": {			
+		]},		
+		"dispatch-bna": {			
 			"patterns": 
 			[{
 				"name": "keyword.control.dispatch",
-				"begin": "(?xi)^\\s*default\\s+(dispatch)(\\s+firstlevel)?",
+				"begin": "(?xi)\\s*(dispatch)",
 				"captures": {
 					"1": { "name": "entity.name.function.dispatch" }
 				},
 				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
-					{"include": "#dispatch-sub-line"},
+					{"include": "source.pg.common#dispatch-subsystem-line"},
+					{"include": "source.pg.common#dispatch-bus-line-bna"},
+					{"include": "pg"}
+				]}
+		]},
+		"dispatch-default-bna": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.dispatch",
+				"begin": "(?xi)^\\s*default\\s+(dispatch)(\\s+(firstlevel|up|down))?",
+				"captures": {
+					"1": { "name": "entity.name.function.dispatch" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "source.pg.common#dispatch-subsystem-line"},
+					{"include": "source.pg.common#dispatch-bus-line-bna"},
+					{"include": "pg"}
+				]}
+		]},
+		"dispatch-default-bnu": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.dispatch",
+				"begin": "(?xi)^\\s*default\\s+(dispatch)(\\s+(firstlevel|up|down))?",
+				"captures": {
+					"1": { "name": "entity.name.function.dispatch" }
+				},
+				"end": "(?xi)^\\s*end\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "source.pg.common#dispatch-subsystem-line"},
+					{"include": "source.pg.common#dispatch-bus-line-bnu"},
 					{"include": "pg"}
 				]}
 		]},
@@ -506,7 +668,7 @@
 		]},	
 		"isolate-bnu-substation": {			
 			"name": "entity.name.type.substation",
-			"begin": "(?xi)(?<=(isol|late))\\s+((?=sub(station)?\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+node\\s+[0-9]+\\s*([\\\\\\\/].*)?$)|((sub(station)?)))",
+			"begin": "(?xi)(?<=(isol|late))((?=\\s+sub(station)?\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+node\\s+[0-9]+\\s*([\\\\\\\/].*)?$)|((sub(station)?)))",
 			"beginCaptures": {
 				"6":{"name":"invalid.illegal"},
 				"7":{"name":"markup.underline"}
@@ -518,7 +680,7 @@
 		]},
 		"isolate-bna-substation": {			
 			"name": "entity.name.type.substation",
-			"begin": "(?xi)(?<=(isol|late))\\s+((?=sub(station)?\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+node\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s*([\\\\\\\/].*)?$)|((sub(station)?)))",
+			"begin": "(?xi)(?<=(isol|late))((?=\\s+sub(station)?\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+node\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s*([\\\\\\\/].*)?$)|((sub(station)?)))",
 			"beginCaptures": {
 				"7":{"name":"invalid.illegal"},
 				"8":{"name":"markup.underline"}
@@ -526,6 +688,50 @@
 			"end": "(?=$)", "patterns": [
 					{"include": "source.pg.common#substation"},
 					{"include": "source.pg.common#node-busname"},
+					{"include": "pg"}
+		]},
+		"load-throwover-bna": {			
+				"name": "entity.name.type.load",
+				"begin": "(?xi)^\\s*(?:load\\s+(throwover)\\b|((load)))\\b",
+				"beginCaptures": {
+					"1":{"name": "entity.name.function.throwover"}, 
+					"2":{"name": "invalid.illegal"},
+					"3":{"name": "markup.underline"}},
+				"end": "(?xi)^\\s*(end)\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "#load-throwover-bna-record"},
+					{"include": "pg"}
+				],	"endCaptures": {"1":{"name": "keyword.control.end"}}
+		},
+		"load-throwover-bnu": {			
+			"name": "entity.name.type.load",
+			"begin": "(?xi)^\\s*(?:load\\s+(throwover)\\b|((load)))\\b",
+			"beginCaptures": {
+				"1":{"name": "entity.name.function.throwover"}, 
+				"2":{"name": "invalid.illegal"},
+				"3":{"name": "markup.underline"}},
+			"end": "(?xi)^\\s*(end)\\s*((?=\/)|(?=$))", "patterns": [
+				{"include": "#load-throwover-bnu-record"},
+				{"include": "pg"}
+			],	"endCaptures": {"1":{"name": "keyword.control.end"}}
+		},
+		"load-throwover-bna-record": {			
+			"name": "keyword.operator.loadthrowoverrecord",
+			"begin": "(?xi)^\\s*((?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+),((?<r>\"|')[^'\"]+\\k<r>|[^'\"\\s]+)\\b",
+			"beginCaptures": {
+				"1":{"name":"string.busname"},
+				"3":{"name":"string.busname"}
+			},
+			"end": "(?=$)", "patterns": [
+					{"include": "pg"}
+		]},
+		"load-throwover-bnu-record": {			
+			"name": "keyword.operator.loadthrowoverrecord",
+			"begin": "(?xi)^\\s*(\\d+),(\\d+)\\b",
+			"beginCaptures": {
+				"1":{"name":"entity.name.tag.busnumber"},
+				"2":{"name":"entity.name.tag.busnumber"}
+			},
+			"end": "(?=$)", "patterns": [
 					{"include": "pg"}
 		]},
 		"open-bnu": {			
@@ -622,7 +828,7 @@
 		]},
 		"open-bnu-branch": {			
 			"name": "entity.name.type.branchbusnumber",
-			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|from|ento|lose|...[0-9]))\\s+((branch(es)?|line(s)?|lshunt|secdd|terminal)(?=\\s+from\\s+bus\\s+[0-9]+\\s+to\\s+bus\\s+[0-9]+(\\s+(ckt|circuit)\\s+(@|&)?(\\w+|\"[^\"]*\"|'[^']*'))?(\\s+section\\s+[0-9]+)?\\s*([\\\\\\\/].*)?$)|((branch(es)?|line(s)?|secdd|lshunt|terminal)))",
+			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|from|ento|lose|...[0-9]))\\s+((branch(es)?|line(s)?|lshunt|secdd|terminal)(?=\\s+from\\s+bus\\s+[0-9]+\\s+to\\s+bus\\s+[0-9]+(?:\\s+to\\s+bus\\s+[0-9]+)?(\\s+(ckt|circuit)\\s+(@|&)?([\\w\\-_]+|\"[^\"]*\"|'[^']*'))?(\\s+section\\s+[0-9]+)?\\s*([\\\\\\\/].*)?$)|((branch(es)?|line(s)?|secdd|lshunt|terminal)))",
 			"beginCaptures": {
 				"12":{"name":"invalid.illegal"},
 				"13":{"name":"markup.underline"}
@@ -635,7 +841,7 @@
 		]},
 		"open-bna-branch": {			
 			"name": "entity.name.type.branchbusname",
-			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|from|ento|lose|...[0-9]))\\s+((branch(es)?|line(s)?|lshunt|secdd|terminal)(?=\\s+from\\s+bus\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s+to\\s+bus\\s+(\\w+|\"[^\"]*\"|'[^']*')(\\s+(ckt|circuit)\\s+(@|&)?(\\w+|\"[^\"]*\"|'[^']*'))?(\\s+section\\s+[0-9]+)?\\s*([\\\\\\\/].*)?$)|((branch(es)?|line(s)?|secdd|lshunt|terminal)))",
+			"begin": "(?xi)(?<=(isol|late|tage|data|open|trip|nect|from|ento|lose|...[0-9]))\\s+((branch(es)?|line(s)?|lshunt|secdd|terminal)(?=\\s+from\\s+bus\\s+([\\w\\-_]+|\"[^\"]*\"|'[^']*')\\s+to\\s+bus\\s+([\\w\\-_]+|\"[^\"]*\"|'[^']*')(?:\\s+to\\s+bus\\s+(?:[\\w\\-_]+|\"[^\"]*\"|'[^']*'))?(\\s+(ckt|circuit)\\s+(@|&)?([\\w\\-_]+|\"[^\"]*\"|'[^']*'))?(\\s+section\\s+[0-9]+)?\\s*([\\\\\\\/].*)?$)|((branch(es)?|line(s)?|secdd|lshunt|terminal)))",
 			"beginCaptures": {
 				"14":{"name":"invalid.illegal"},
 				"15":{"name":"markup.underline"}
@@ -648,24 +854,26 @@
 		]},
 		"open-bnu-bus": {			
 			"name": "entity.name.type.busnumber",
-			"begin": "(?xi)(?<=(tage|data|open|trip|nect))\\s+((?=bus\\s+[0-9]+\\s*([\\\\\\\/].*)?$)|((bus)))",
+			"begin": "(?xi)(?<=(tage|data|open|trip|nect))\\s+((?=bus\\s+[0-9]+\\s*(?=dispatch|[\\\\\\\/]|$))|((bus)))",
+			"beginCaptures": {
+				"3":{"name":"invalid.illegal"},
+				"4":{"name":"markup.underline"}
+			},
+			"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#bus"},
+					{"include": "#dispatch-bnu"},
+					{"include": "pg"}
+		]},
+		"open-bna-bus": {			
+			"name": "entity.name.type.busname",
+			"begin": "(?xi)(?<=(tage|data|open|trip|nect))\\s+((?=bus\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s*(?=dispatch|[\\\\\\\/]|$))|((bus)))",
 			"beginCaptures": {
 				"4":{"name":"invalid.illegal"},
 				"5":{"name":"markup.underline"}
 			},
 			"end": "(?=$)", "patterns": [
-					{"include": "source.pg.common#bus"},
-					{"include": "pg"}
-		]},
-		"open-bna-bus": {			
-			"name": "entity.name.type.busname",
-			"begin": "(?xi)(?<=(tage|data|open|trip|nect))\\s+((?=bus\\s+(\\w+|\"[^\"]*\"|'[^']*')\\s*([\\\\\\\/].*)?$)|((bus)))",
-			"beginCaptures": {
-				"5":{"name":"invalid.illegal"},
-				"6":{"name":"markup.underline"}
-			},
-			"end": "(?=$)", "patterns": [
 					{"include": "source.pg.common#bus-busname"},
+					{"include": "#dispatch-bna"},
 					{"include": "pg"}
 		]},		
 		"open-bnu-breaker": {			
@@ -1162,7 +1370,7 @@
 					"7":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bnu"},
 					{"include": "source.pg.common#load"},
 					{"include": "source.pg.common#machine"},
 					{"include": "#remove-shunt-bnu"},
@@ -1181,7 +1389,7 @@
 					"8":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bna"},
 					{"include": "source.pg.common#load"},
 					{"include": "source.pg.common#machine"},
 					{"include": "#remove-shunt-bna"},
@@ -1203,7 +1411,7 @@
 					{"include": "source.pg.common#machine-br"},
 					{"include": "source.pg.common#load-br"},
 					{"include": "source.pg.common#swshunt-br"},
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bnu"},
 					{"include": "pg"}
 				]}
 		]},	
@@ -1211,13 +1419,13 @@
 			"patterns": 
 			[{
 				"name": "entity.name.type.removeshunt",
-				"begin": "(?xi)(?<=remove)\\s+(swshunt(?=\\s+from\\s+bus\\s+[0-9]+\\s+block\\s+[0-9]+(\\s+step\\s+[0-9]+)?)|(sw)?shunt(?=\\s+from\\s+bus\\s+[0-9]+\\s+(ckt|circuit)\\s+(?:(?<q>\"|')[^'\"]{1,3}\\k<q>|[^'\"\\s]{1,3}(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$))|(((sw)?shunt)))",
+				"begin": "(?xi)(?<=remove)\\s+(swshunt(?=\\s+from\\s+bus\\s+[0-9]+(?:\\s+block\\s+[0-9]+)?(\\s+step\\s+[0-9]+)?)|(sw)?shunt(?=\\s+from\\s+bus\\s+[0-9]+\\s+(ckt|circuit)\\s+(?:(?<q>\"|')[^'\"]{1,3}\\k<q>|[^'\"\\s]{1,3}(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$))|(((sw)?shunt)))",
 				"beginCaptures": {
 					"6":{"name": "invalid.illegal"},
 					"7":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bnu"},
 					{"include": "source.pg.common#circuit-shunt"},
 					{"include": "source.pg.common#block"},
 					{"include": "source.pg.common#step"},
@@ -1230,13 +1438,13 @@
 			"patterns": 
 			[{
 				"name": "entity.name.type.removeshunt",
-				"begin": "(?xi)(?<=remove)\\s+(swshunt(?=\\s+from\\s+bus\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)\\s+block\\s+[0-9]+(\\s+step\\s+[0-9]+)?)|(sw)?shunt(?=\\s+from\\s+bus\\s+(?:(?<q3>\"|')[^'\"]+\\k<q3>|[^'\"\\s]+)\\s+(ckt|circuit)\\s+(?:(?<q2>\"|')[^'\"]{1,3}\\k<q2>|[^'\"\\s]{1,3}(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$))|(((sw)?shunt)))",
+				"begin": "(?xi)(?<=remove)\\s+(swshunt(?=\\s+from\\s+bus\\s+(?:(?<q>\"|')[^'\"]+\\k<q>|[^'\"\\s]+)(?:\\s+block\\s+[0-9]+)?(\\s+step\\s+[0-9]+)?)|(sw)?shunt(?=\\s+from\\s+bus\\s+(?:(?<q3>\"|')[^'\"]+\\k<q3>|[^'\"\\s]+)\\s+(ckt|circuit)\\s+(?:(?<q2>\"|')[^'\"]{1,3}\\k<q2>|[^'\"\\s]{1,3}(?:\\s+dispatch)?\\s*(?:[\\\\\\\/].*)?$))|(((sw)?shunt)))",
 				"beginCaptures": {
 					"8":{"name": "invalid.illegal"},
 					"9":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bna"},
 					{"include": "source.pg.common#circuit-shunt"},
 					{"include": "source.pg.common#block"},
 					{"include": "source.pg.common#step"},
@@ -1255,7 +1463,7 @@
 					"12":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bnu"},
 					{"include": "source.pg.common#bus-bnu"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#set-bus-mvar"},
@@ -1275,7 +1483,7 @@
 					"13":{"name": "markup.underline"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#dispatch"},
+					{"include": "#dispatch-bna"},
 					{"include": "source.pg.common#bus-bna"},
 					{"include": "#set-rating-bnu"},
 					{"include": "#set-bus-mvar"},
@@ -1482,17 +1690,237 @@
 		"single-bnu": {			
 			"patterns": 
 			[{
-				"name": "entity.name.type.single",
-				"begin": "(?xi)^\\s*(?:single\\b(?:\\s+(isol(?:ate)?|stuck|missing|open|trip|disconnect)\\b)?(?=\\s+(?:breaker|branch(?:es)?|line(?:s)?|secdd|tie(?:s)?|terminal|generator|unit|machine|bus|swshunt|(?:(?:\\#)?sub)?system(?:s)?)\\b)|((single))\\b(\\s+(isol(?:ate)?|stuck|missing|open|trip|disconnect)\\b)?)",
+				"name": "entity.name.function.single",
+				"begin": "(?xi)^\\s*(?:single((?:\\s+isol(?:ate)?)?(?:\\s+stuck)?(?:\\s+missing)?(?:\\s+(?:open|trip|disconnect))?)(?=\\s+(?:breaker|branch(?:es)?|line(?:s)?|secdd|tie(?:s)?|terminal|generator|unit|machine|bus|swshunt|(?:(?:\\#)?sub)?system(?:s)?)\\b)|((single))((?:\\s+isol(?:ate)?)?(?:\\s+stuck)?(?:\\s+missing)?(?:\\s+(?:open|trip|disconnect))?)\\b)",
 				"beginCaptures": {
-					"1":{"name": "entity.name.function.single"},
-					"2":{"name": "invalid.illegal"},
-					"3":{"name": "markup.underline"},
-					"4":{"name": "entity.name.function.single"}
+					"1":{"name": "entity.other.attribute-name.singlemodifier"},
+					"2":{"name": "invalid.illegal.single"},
+					"3":{"name": "markup.underline.single"}
 				},
 				"end": "(?=$)", "patterns": [
-					{"include": "#open-bnu-branch"},
+					{"include": "#single-branch-bnu"},
+					{"include": "#single-terminal-bnu"},
+					{"include": "#single-swshunt-bnu"},
+					{"include": "#single-subsystem"},
+					{"include": "#single-tie-bnu"},
+					{"include": "#single-unit-bnu"},
 					{"include": "#open-bnu-breaker"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.function.single",
+				"begin": "(?xi)^\\s*(?:single((?:\\s+isol(?:ate)?)?(?:\\s+stuck)?(?:\\s+missing)?(?:\\s+(?:open|trip|disconnect))?)(?=\\s+(?:breaker|branch(?:es)?|line(?:s)?|secdd|tie(?:s)?|terminal|generator|unit|machine|bus|swshunt|(?:(?:\\#)?sub)?system(?:s)?)\\b)|((single))((?:\\s+isol(?:ate)?)?(?:\\s+stuck)?(?:\\s+missing)?(?:\\s+(?:open|trip|disconnect))?)\\b)",
+				"beginCaptures": {
+					"1":{"name": "entity.other.attribute-name.singlemodifier"},
+					"2":{"name": "invalid.illegal.single"},
+					"3":{"name": "markup.underline.single"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#single-branch-bna"},
+					{"include": "#single-subsystem"},
+					{"include": "#single-swshunt-bna"},
+					{"include": "#single-terminal-bna"},
+					{"include": "#single-tie-bna"},
+					{"include": "#single-unit-bna"},
+					{"include": "#open-bnu-breaker"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-branch-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.single-branch",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect|uble|llel))\\s+(?:(?:branch(?:es)?|line(?:s)?|breaker|secdd)((?:\\s+outage)?(?:\\s+close)?(?:\\s+openend)?)(?=\\s+from\\s+bus(?:\\s+[0-9]+)?\\s*(?:$|[\\\\\\\/])|(?=(?:\\s+(?:with)?in|(?<=openend)|\\s+tie(?:s)?)))|((branch(?:es)?|\\s+line(?:s)?|\\s+breaker|\\s+secdd))\\b((?:\\s+outage)?(?:\\s+close)?(?:\\s+openend)?))",
+				"beginCaptures": {
+					"2":{"name": "entity.other.attribute-name.singlemodifier"},
+					"3":{"name": "invalid.illegal.single-branch"},
+					"4":{"name": "markup.underline.single-branch"},
+					"5":{"name": "entity.other.attribute-name.singlemodifier"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#bus-bnu"},
+					{"include": "#single-tie-bnu"},
+					{"include": "source.pg.common#language-operators-from"},					
+					{"include": "source.pg.common#within-outside"},
+					{"include": "#busfilter-in_from_to-bnu"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-branch-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.single-branch",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect|uble|llel))\\s+(?:(?:branch(?:es)?|line(?:s)?|breaker|secdd)((?:\\s+outage)?(?:\\s+close)?(?:\\s+openend)?)(?=\\s+from\\s+bus(?:\\s+(?:\"[^\\\"]*\"|'[^']*'|\\w+))?\\s*(?:$|[\\\\\\\/])|(?=(?:\\s+(?:with)?in|(?<=openend)|\\s+tie(?:s)?)))|((branch(?:es)?|\\s+line(?:s)?|\\s+breaker|\\s+secdd))\\b((?:\\s+outage)?(?:\\s+close)?(?:\\s+openend)?))",
+				"beginCaptures": {
+					"2":{"name": "entity.other.attribute-name.singlemodifier"},
+					"3":{"name": "invalid.illegal.single-branch"},
+					"4":{"name": "markup.underline.single-branch"},
+					"5":{"name": "entity.other.attribute-name.singlemodifier"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#bus-bna"},
+					{"include": "#single-tie-bna"},
+					{"include": "source.pg.common#language-operators-from"},					
+					{"include": "source.pg.common#within-outside"},
+					{"include": "#busfilter-in_from_to-bna"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-terminal-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.single-terminal",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect))\\s+(?:terminal(?=(?:\\s+in|\\s+tie(?:s)?))|((terminal))\\b)",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal.single-terminal"},
+					"3":{"name": "markup.underline.single-terminal"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#single-tie-bnu"},
+					{"include": "#busfilter-in_from_to-bnu"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-terminal-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.single-terminal",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect))\\s+(?:terminal(?=(?:\\s+in|\\s+tie(?:s)?))|((terminal))\\b)",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal.single-terminal"},
+					"3":{"name": "markup.underline.single-terminal"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#single-tie-bna"},
+					{"include": "#busfilter-in_from_to-bna"},
+					{"include": "source.pg.common#kvrange"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-swshunt-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.swshunt",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect))\\s+(?:swshunt(?=\\s+in)|((swshunt))\\b)",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal.single-tie"},
+					"3":{"name": "markup.underline.single-tie"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#busfilter-in_from_to-bnu"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-swshunt-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.swshunt",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect))\\s+(?:swshunt(?=\\s+in)|((swshunt))\\b)",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal.swshunt"},
+					"3":{"name": "markup.underline.swshunt"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#busfilter-in_from_to-bna"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-subsystem": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.subsystem",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect))\\s+(?:(?:sub)?system(?:s)?(?=\\s*(?:\\s+except|$|[\\\\\\\/]))|(((?:sub)?system(?:s)?))\\b)",
+				"beginCaptures": {
+					"2":{"name": "invalid.illegal.subsystem"},
+					"3":{"name": "markup.underline.subsystem"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#single-subsystem-except"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-subsystem-except": {			
+			"patterns": 
+			[{
+				"name": "keyword.control.except",
+				"begin": "(?xi)\\s*except\\b",
+				"end": "(?xi)^\\s*(end)\\s*((?=\/)|(?=$))", "patterns": [
+					{"include": "source.pg.common#strings-unlimited"},
+					{"include": "pg"}
+				],	"endCaptures": {"1":{"name": "keyword.control.end"}}
+			}
+		]},
+		"single-tie-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.tie",
+				"begin": "(?xi)(?<=(ngle|line|ines|inal|ches|anch|aker|lose|tage|ecdd|late|tuck|sing|open|trip|nect|uble|llel))\\s+(?:(?:tie(?:s)?)((?:\\s+outage)?)(?=\\s+from)|((tie(?:s)?))\\b(\\s+outage)?)",
+				"beginCaptures": {
+					"2":{"name": "entity.other.attribute-name.singlemodifier"},
+					"3":{"name": "invalid.illegal.single-tie"},
+					"4":{"name": "markup.underline.single-tie"},
+					"5":{"name": "entity.other.attribute-name.singlemodifier"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#busfilter-in_from_to-bnu"},
+					{"include": "pg"}
+				]}
+		]},	
+		"single-tie-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.tie",
+				"begin": "(?xi)(?<=(ngle|line|ines|inal|ches|anch|aker|lose|tage|ecdd|late|tuck|sing|open|trip|nect|uble|llel))\\s+(?:(?:tie(?:s)?)((?:\\s+outage)?)(?=\\s+from)|((tie(?:s)?))\\b(\\s+outage)?)",
+				"beginCaptures": {
+					"2":{"name": "entity.other.attribute-name.singlemodifier"},
+					"3":{"name": "invalid.illegal.single-tie"},
+					"4":{"name": "markup.underline.single-tie"},
+					"5":{"name": "entity.other.attribute-name.singlemodifier"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "#busfilter-in_from_to-bna"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-unit-bnu": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.unit",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect))\\s+(?:(?:generator|unit|bus|machine)(\\s+outage)?(?=\\s+(?:all\\s+buses|area(?:s)?|bus(?:es|range)?|(?:with)?in|kv|owner(?:s)?|sub(?:station)?|(?:sub)?system(?:s)?|zone(?:s)?))|((generator|bus|unit|machine))(\\s+outage)?\\b)",
+				"beginCaptures": {
+					"2":{"name": "entity.other.attribute-name.singlemodifier"},
+					"3":{"name": "invalid.illegal.single-unit"},
+					"4":{"name": "markup.underline.single-unit"},
+					"5":{"name": "entity.other.attribute-name.singlemodifier"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#within-outside"},
+					{"include": "#busfilter-in_from_to-bnu"},
+					{"include": "#dispatch-bnu"},
+					{"include": "pg"}
+				]}
+		]},
+		"single-unit-bna": {			
+			"patterns": 
+			[{
+				"name": "entity.name.type.unit",
+				"begin": "(?xi)(?<=(ngle|isol|late|tuck|sing|open|trip|nect))\\s+(?:(?:generator|unit|bus|machine)(\\s+outage)?(?=\\s+(?:all\\s+buses|area(?:s)?|bus(?:es|range)?|(?:with)?in|kv|owner(?:s)?|sub(?:station)?|(?:sub)?system(?:s)?|zone(?:s)?))|((generator|bus|unit|machine))(\\s+outage)?\\b)",
+				"beginCaptures": {
+					"2":{"name": "entity.other.attribute-name.singlemodifier"},
+					"3":{"name": "invalid.illegal.single-unit"},
+					"4":{"name": "markup.underline.single-unit"},
+					"5":{"name": "entity.other.attribute-name.singlemodifier"}
+				},
+				"end": "(?=$)", "patterns": [
+					{"include": "source.pg.common#within-outside"},
+					{"include": "#busfilter-in_from_to-bna"},
+					{"include": "#dispatch-bna"},
 					{"include": "pg"}
 				]}
 		]},
