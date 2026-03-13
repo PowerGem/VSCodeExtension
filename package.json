@@ -79,6 +79,16 @@
         "light": "./icons/Eo_circle_green_letter-c.svg.png",
         "dark": "./icons/Eo_circle_green_white_letter-c.svg.png"
       }
+    },
+    {
+      "id": "pg.inch",
+      "aliases": ["INCH","pg.inch"],
+      "extensions": [".inch"],
+      "configuration": "./inch-language-configuration.json",
+      "icon": {
+        "light": "./icons/PGlogo.png",
+        "dark": "./icons/PGlogo.png"
+      }
     }],
     "grammars": [
     {
@@ -116,6 +126,13 @@
       "scopeName": "source.pg.sub",
       "path": "./syntaxes/sub.tmLanguage.json",
       "embeddedLanguages": {"pg": "pg", "pg.common": "source.pg.common" }
+
+    },
+    {
+      "language": "pg.inch",
+      "scopeName": "source.pg.inch",
+      "path": "./syntaxes/inch.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg"}
 
     }],
     "snippets": [
