@@ -1,0 +1,138 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "TARA Directive",
+  "scopeName": "source.pg.dir",
+  "fileTypes": ["dir"],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#command-block"
+    },
+    {
+      "include": "#directives"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#attribute-names"
+    },
+    {
+      "include": "#numbers"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.pg.dir",
+          "begin": "//",
+          "end": "$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.pg.dir",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.pg.dir"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.pg.dir"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.pg.dir",
+              "match": "\\\\[^\"]"
+            }
+          ]
+        }
+      ]
+    },
+    "command-block": {
+      "patterns": [
+        {
+          "name": "meta.command-block.pg.dir",
+          "begin": "^\\s*(READ|PSSE|SUBSYS|CONT|MONIT|solve|fdec|stop|chdir)\\b",
+          "end": "(?=^\\s*[a-z]|^\\s*[0-9]|^\\s*%|$)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.pg.dir"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#numbers"
+            }
+          ]
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
+        {
+          "name": "entity.name.function.pg.dir",
+          "match": "\\b(%trace|%include|%run|%read|%save|%add)\\b"
+        },
+        {
+          "name": "keyword.operator.pg.dir",
+          "match": "\\b(%csv|%txt)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.other.option.pg.dir",
+          "match": "\\b(lfopt|opt)\\b"
+        },
+        {
+          "name": "keyword.other.pg.dir",
+          "match": "\\b(adj|solve|misc|cont|N-1-1|EMS|SCED|FACTS|AMB|accont|dccont|acbranch|acvolt|dcbranch|dcvolt)\\b"
+        },
+        {
+          "name": "constant.language.pg.dir",
+          "match": "\\b0\\s+0\\b"
+        }
+      ]
+    },
+    "attribute-names": {
+      "patterns": [
+        {
+          "name": "entity.other.attribute-name.pg.dir",
+          "match": "^\\s+([A-Za-z][A-Za-z0-9_]*)\\b(?=\\s+[0-9])"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.pg.dir",
+          "match": "\\b[0-9]+\\.[0-9]+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.pg.dir",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    }
+  }
+}

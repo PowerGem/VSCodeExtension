@@ -1,0 +1,114 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "inch",
+	"scopeName": "source.pg.inch",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#command-block" },
+		{ "include": "#keywords" }
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"match": "//.*$",
+					"name": "comment.line.inch"
+				}
+			]
+		},
+		"command-block": {
+			"patterns": [
+				{
+					"name": "meta.command-block.inch",
+					"begin": "^\\s*(#)(ADD_BUS|ADD_GEN|ADD_LOAD|ADD_LINE|ADD_BRANCH|ADD_TRANSFORMER|ADD_SYNCH_COND|ADD_SWSHUNT|ADD_BUSSHUNT|ADD_HVDC|ADD_VSC|ADD_FACTS|DELETE_BUS|DELETE_GEN|DELETE_LOAD|DELETE_LINE|DELETE_BRANCH|DELETE_TRANSFORMER|DELETE_SWSHUNT|DELETE_BUSSHUNT|DELETE_HVDC|DELETE_VSC|DELETE_FACTS|MODIFY_BUS|MODIFY_GEN|MODIFY_LOAD|MODIFY_LINE|MODIFY_BRANCH|MODIFY_TRANSFORMER|MODIFY_SWSHUNT|MODIFY_BUSSHUNT|MODIFY_HVDC|MODIFY_AREA|MODIFY_FACTS|COPY_BUS|COPY_GEN|COPY_LOAD|COPY_LINE|COPY_TRANSFORMER|COPY_SWSHUNT|COPY_BUSSHUNT|COPY_HVDC|TAP|MERGE_BUS|SPLIT_BUS|MOVE_LINE|MOVE_TRANSFORMER|MOVE_LOAD|MOVE_GEN|MOVE_SWSHUNT|MOVE_BUSSHUNT|MOVE_HVDC|MOVE_VSC|SUBSYSTEM|SCALE_GEN|SCALE_LOAD|PURGE|WRITE|SOLVE_FDEC|SAVE)\\b",
+					"end": "^\\s*(#)(END)\\b",
+					"beginCaptures": {
+						"1": { "name": "punctuation.definition.inch" },
+						"2": { "name": "entity.name.function.inch" }
+					},
+					"endCaptures": {
+						"1": { "name": "punctuation.definition.inch" },
+						"2": { "name": "entity.name.function.inch" }
+					},
+					"patterns": [
+						{ "include": "#comments" },
+						{ "include": "#parameters" },
+						{ "include": "#keywords" },
+						{ "include": "#attribute-name" },
+						{ "include": "#strings" },
+						{ "include": "#numbers" }
+					]
+				}
+			]
+		},
+		"parameters": {
+			"patterns": [
+				{
+					"name": "meta.parameters.inch",
+					"begin": "\\[",
+					"end": "\\]",
+					"patterns": [
+						{
+							"name": "variable.parameter.inch",
+							"match": "[^\\],]+"
+						}
+					]
+				}
+			]
+		},
+		"attribute-name": {
+			"patterns": [
+				{
+					"match": "(?i)^\\s+([A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": { "name": "entity.other.attribute-name.inch" }
+					}
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"match": "\\b(SUBSYSTEM|AREA|ZONE|SCALE|ALL|FOR|IMPORT|SubSysName|ValueOption|Value|MachineLimit|ScalingMethod)\\b",
+					"name": "keyword.other.inch"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.single.inch",
+					"begin": "'",
+					"end": "'",
+					"patterns": [
+						{
+							"name": "constant.character.escape.inch",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.double.inch",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.inch",
+							"match": "\\\\."
+						}
+					]
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"match": "-?\\b\\d+(\\.\\d+)?\\b",
+					"name": "constant.numeric.inch"
+				}
+			]
+		}
+	}
+}
+
+

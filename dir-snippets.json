@@ -1,0 +1,350 @@
+{
+  "Basic Directive File": {
+    "prefix": "dir",
+    "body": [
+      "// ${1:Script Name} - TARA Directive File",
+      "%trace \"${2:output.log}\" %txt",
+      "%include \"${3:Options_common.dir}\"",
+      "",
+      "// Read input files",
+      "READ PSSE ${4:30} \"${5:case.raw}\" 0",
+      "READ SUBSYS \"${6:case.sub}\"",
+      "CONT \"${7:case.con}\"",
+      "MONIT \"${8:case.mon}\"",
+      "0 0",
+      "",
+      "// Run analysis",
+      "${9:cont accont 0}",
+      "",
+      "stop",
+      "%exit"
+    ],
+    "description": "Basic TARA directive file template"
+  },
+  "opt cont - Contingency Options": {
+    "prefix": "opt-cont-full",
+    "body": [
+      "opt cont",
+      "monBranRatingBase ${1:1} //Base case rating (1-A;2-B;3-C)",
+      "monBranRatingCont ${2:2} //Contingency rating (1-A;2-B;3-C)",
+      "monBranRatingMultBase ${3:100} //Base case rating multipliers",
+      "monBranRatingMultCont ${4:100} //Contingency rating multipliers",
+      "monBranRatingEnAdd1 ${5:0} //Enable additional rating reporting 1 (0-no,1-yes)",
+      "monBranRatingEnAdd2 ${6:0} //Enable additional rating reporting 2 (0-no,1-yes)",
+      "contChanCutOffMW ${7:5} //MW cutoff to ignore constraints if cont.flow doesn't change from base case more than",
+      "contChanCutOffPercent ${8:2} //Rating % cutoff to ignore if cont.flow changes from base case is less than",
+      "PAR_AdjEnabledContAnal ${9:1} //Phase shifter model for base case (0-fixed angle,1-control flow)",
+      "adjustRatingMVA ${10:0} //Adjust branch MW rating based on MVAR flow (DC analysis)",
+      "limitTypeLine ${11:1} //Use AMP (0) or MVA (1) limit to check lines violation in AC mode",
+      "limitTypeTran ${12:0} //Use AMP (0) or MVA (1) limit to check transformer violation in AC mode",
+      "voltMinChange ${13:0.001} //Voltage change cutoff in PU to ignore voltage violations when change from base case is smaller than",
+      "numContMaxAlloc ${14:15000} //Max number of contingencies",
+      "numEventsAlloc ${15:35000} //Max number of contingency events",
+      "numDispEventAlloc ${16:60000} //Max number of generation redispatch events",
+      "numLFgatesMaxAlloc ${17:10000} //Max number of flowgates",
+      "mulSecPrintMode ${18:0} //Multi-section line modelling (0-ignore;1-honor)",
+      "MAXOUTAGES ${19:1000} //Maximum number of outages",
+      "maxORAFlowResults ${20:2000000} //Maximum number of ORA or N-1-1 results to report",
+      "0 0"
+    ],
+    "description": "Complete opt cont block with all contingency analysis parameters"
+  },
+  "lfopt solve - Load Flow Solution Parameters": {
+    "prefix": "lfopt-solve-full",
+    "body": [
+      "lfopt solve",
+      "busMismToler ${1:0.5} //Bus Mismatch tolerance",
+      "MaxIterLF ${2:50} //Max N of iterations in DC LF",
+      "useFlatStart ${3:0} //Use flat start during LF",
+      "ZeroImpThr ${4:0.0001} //Zero impedance threshhold in PU",
+      "lowVoltCutOffLoad ${5:0.8} //Scale load down if voltage becomes low",
+      "maxVoltChangeInit ${6:0.3} //Max volt magnit change in PU per iteration - init stage",
+      "maxAngleChangeInit ${7:3} //Max volt angle change in radians per iteration - init stage",
+      "maxVoltChangeFinal ${8:0.2} //Max volt magnit change in PU per iteration - final stage",
+      "maxAngleChangeFinal ${9:1} //Max volt angle change in radians per iteration - final stage",
+      "numIterInit ${10:3} //Max iteration for initial stage",
+      "MemFactor ${11:5} //Sparse methods fill in allocation factor",
+      "voltTolnUser ${12:0} //Voltage magnitude tolerance for volt. contr. buses(if 0.00 will be computed automat.)",
+      "lowVoltAddQGen ${13:0} //Add Q at generator buses with low voltage(0-no ,1-yes)",
+      "lowVoltCutOffQGen ${14:0.7} //Low voltage cutoff to add Qgen if voltage becomes low",
+      "highVoltReduceQGen ${15:0} //Reduce Q at generator buses with high voltage below Qmin (0-no,1-yes)",
+      "highVoltCutOffQGen ${16:1.3} //High Voltage cutoff to reduce Q gen for high voltage",
+      "lowVoltAddShunt ${17:0} //Add Shunts at buses with low voltage(0-no,1-yes )",
+      "lowVoltCutOffShunt ${18:0.7} //Low voltage cutoff to add shunts if voltage becomes low",
+      "highVoltReduceShunt ${19:1} //Remove fixed Shunt with high voltage(0-no,1-yes )",
+      "highVoltCutOffShunt ${20:1.25} //High Voltage cutoff to limit fixed shunts injection",
+      "0 0"
+    ],
+    "description": "Complete lfopt solve block with all load flow solver parameters"
+  },
+  "lfopt adj - Adjustment Parameters": {
+    "prefix": "lfopt-adj-full",
+    "body": [
+      "lfopt adj",
+      "iterCheckVarLimitHotStart ${1:0} //Iteration to start generator VAR limit checking - hot start",
+      "iterCheckVarLimitFlat ${2:3} //Iteration to start generator VAR limit checking - flat start",
+      "PAR_AdjEnabledLF ${3:1} //Enable Phase Shifter Adjustment",
+      "areaInterAdjustEnabled ${4:0} //Area interchange control",
+      "TAP_AdjEnabledLF ${5:1} //Enable TAP adjustment",
+      "shuntAdjEnabled ${6:2} //Enable shunt adjustment",
+      "DCLineAdjEnabled ${7:0} //Enable DC lines adjustment",
+      "showParAdj ${8:1} //Report PAR adjustments per iteration",
+      "showTapAdj ${9:1} //Report TAP adjustments per iteration",
+      "showShuntAdj ${10:1} //Report shunt adjustments per iteration",
+      "showAreaInterAdj ${11:1} //Area interchange reporting level",
+      "busMismTolerAreaInter ${12:5} //Bus Mismatch tolerance to start area adjustments",
+      "maxVarLimitsBusTypeChanges ${13:6} //Max times voltage controlled bus can change type",
+      "iterCheckVarLimitLast ${14:40} //Iteration to stop checking var limits",
+      "maxAdjustIterVolt ${15:30} //Iteration to stop TAP and Shunt adjustments",
+      "deacFactRTap ${16:1} //Voltage adjustment deacceleration factor",
+      "maxTapChange ${17:0.02} //Max tap ratio change per iteration",
+      "voltAdjTrigger ${18:0.01} //Max voltage magnitude change to activate TAP and Shunt adjustments",
+      "angleAdjTrigger ${19:1} //Max voltage angle change (in degrees) to activate PAR and area interchange adjustments",
+      "showBusTypeChan ${20:0} //Show voltage controlled buses type changes",
+      "deOscilFactor ${21:0.7} //De-oscillation factor (if 1.0-not activated)",
+      "0 0"
+    ],
+    "description": "Complete lfopt adj block with all adjustment parameters"
+  },
+
+  "lfopt misc - Miscellaneous Load Flow Parameters": {
+    "prefix": "lfopt-misc-full",
+    "body": [
+      "lfopt misc",
+      "maxBuses ${1:120000} //Maximum number of buses",
+      "maxBranches ${2:190000} //Maximum number of branches (includes 2W and 3W transformers)",
+      "maxLoads ${3:190000} //Maximum number of loads",
+      "maxShunts ${4:15000} //Maximum number of shunts",
+      "maxTransfor ${5:60000} //Maximum number of 2W and 3W transformers total",
+      "maxGenerators ${6:25000} //Maximum number of generators and plants",
+      "0 0"
+    ],
+    "description": "lfopt misc block with array allocation parameters"
+  },
+  "opt N-1-1 - N-1-1 Contingency Analysis": {
+    "prefix": "opt-n-1-1-full",
+    "body": [
+      "opt N-1-1",
+      "consPerMonBran ${1:5} //Number of top contingencies to show per monitored branch",
+      "consPerMonBus ${2:5} //Number of top contingencies to show per monitored bus",
+      "0 0"
+    ],
+    "description": "opt N-1-1 block for N-1-1 contingency analysis options"
+  },
+  "opt EMS - EMS Options": {
+    "prefix": "opt-ems-full",
+    "body": [
+      "opt EMS",
+      "emsNamingMethod ${1:1} //Method for naming EMS equipment (1-PJM, 2-MISO, 3-ISO-NE)",
+      "useAUXMonStatus ${2:0} //Use monitored branch status field in AUX file (0-No, 1-Yes)",
+      "reduceCaseMode ${3:0} //Case reduction (0-no,1-basic,2-remove radial cont/out events)",
+      "reduceAtRuntime ${4:0} //Keep node-breaker model but reduce topology at run-time (0-No,1-Yes)",
+      "neOverrideFormat ${5:0} //Format of NE override data (0-AUX, 1-CSV)",
+      "0 0"
+    ],
+    "description": "opt EMS block for EMS (Energy Management System) parameters"
+  },
+  "opt screen - Screening Options": {
+    "prefix": "opt-screen-full",
+    "body": [
+      "opt screen",
+      "limitFgateMode0 ${1:0} //Limit flowgate name created by screening to 40 characters (0-no,1-yes)",
+      "0 0"
+    ],
+    "description": "opt screen block for screening output parameters"
+  },
+  "lfopt solve - Breaker Parameters": {
+    "prefix": "lfopt-breaker",
+    "body": [
+      "lfopt solve",
+      "ApplyBreakerImpOverride ${1:0} //Apply breaker zero impedance override (0-no,1-yes)",
+      "BreakerZeroImp ${2:0.000001} //Low impedance value in PU for breakers and switches",
+      "0 0"
+    ],
+    "description": "lfopt solve block for breaker impedance parameters"
+  },
+  "opt sced options - SCED Parameters": {
+    "prefix": "opt-sced-full",
+    "body": [
+      "opt sced options",
+      "maxBidPoints ${1:10000} //Maximum number of Pnodes",
+      "MAXBIDBLOCKS ${2:100000} //Maximum number of bids/cost curves",
+      "maxZonFactors ${3:40000} //Maximum number of zonal factors",
+      "0 0 0"
+    ],
+    "description": "opt sced options block for Security-Constrained Economic Dispatch"
+  },
+  "lfopt misc - Extended Parameters": {
+    "prefix": "lfopt-misc-extended",
+    "body": [
+      "lfopt misc",
+      "branNamePrefix \"${1:/* [}\" //Branch Names Prefix",
+      "branNameSuffix \"${2:]}\" //Branch Names Suffix",
+      "readEquipNamesFromRAW ${3:0} //Read equipment names(bus,gen,load,branches,shunts) from RAW file?",
+      "reportBusAreaName ${4:0} //Add area names to LF data reports(bus,gen,load,branches,shunts)",
+      "reportBusZoneName ${5:0} //Add zone names to LF data reports(bus,gen,load,branches,shunts)",
+      "busOutputMode ${6:2} //Default Bus output mode (1-names; 2-numbers)",
+      "0 0"
+    ],
+    "description": "lfopt misc with branch naming and reporting parameters"
+  },
+  "opt amb - AMB Multi-Snapshot Analysis": {
+    "prefix": "opt-amb-full",
+    "body": [
+      "opt amb",
+      "general",
+      "useFirmTransOnly ${1:1} //Transaction schedule to include in AMB models (0-All,1-Firm Only)",
+      "AMBStartDateMethod ${2:1} //Calculation Start Time (0-computer time,1-subsystem file,2-user defined)",
+      "AMB_CommandFile \"${3:amb_snapshot.dir}\" //AMB command file to execute per each snapshot",
+      "optBuildSnapNEScreen ${4:0} //Build models only for topology changes?",
+      "0",
+      "param",
+      "MAXHOURS_AMB ${5:400} //Maximum Hourly snapshots (48-8760)",
+      "MAXDAYS_AMB ${6:180} //Maximum Daily snapshots (35-1096)",
+      "MAXWEEKS_AMB ${7:52} //Maximum Weekly snapshots (5-104)",
+      "MAXMONTHS_AMB ${8:60} //Maximum Monthly snapshots (18-120)",
+      "SDXGensMax ${9:200000} //Maximum number of SDX generator event",
+      "SDXBranMax ${10:10000} //Maximum number of SDX branch event",
+      "SDX_3WTranMax ${11:10000} //Maximum number of SDX 3Winding outages",
+      "useGrossLoadForecast ${12:1} //SDX files use gross load forecast with losses (0-No, 1-yes)",
+      "adjustAreaWithNoLoad ${13:1} //Redispatch areas with no load forecast(0-No, 1-yes)",
+      "GMTShiftEngine ${14:5} //Calculation target time zone (5-EST&EDT, 6-CST&CDT)",
+      "stopAMBOnLoadError ${15:0} //Exit AMB process on Load forecast error(1-yes, 0-no)",
+      "TDFSaveFormat ${16:0} //TDF Save mode (0-CSV,1-Binary)",
+      "TDFSaveModeHourly ${17:1} //Method to save TDF (1-every snapshot, 2-on changes, 3-force at end)",
+      "TDFSaveCutOffHoulry ${18:0.01} //TDF factors change cutoff to create new hourly TDF set",
+      "0",
+      "hourly",
+      "SchedLookAhead ${19:1} //Dynamic scheduling horizon or fixed window hours",
+      "AMB_LookAhead ${20:1} //Hours from AMB reference time to start creating LF models",
+      "useSlidingWindow ${21:1} //Use Dynamic Scheduling Horizon until midnight (0-No, 1-yes)",
+      "SlidingWindowHours ${22:10} //Starting hour to extend scheduling horizon by 24 hours",
+      "0",
+      "long",
+      "AMBPeriodType ${23:2} //AMB Period type (1-FULL_PERIOD, 2-ON_PEAK, 3-OFF_PEAK)",
+      "OffPeakLoadScaleFact ${24:0.85} //Off-Peak Load Scaling Factor (0-1)",
+      "FirstHourPeak ${25:11} //First Hour (0-23) for Representative Peak Time Window",
+      "LastHourPeak ${26:21} //Last Hour (0-23) for Representative Peak Time Window",
+      "FirstHourOffPeak ${27:3} //First Hour (0-23) for Representative Off-Peak Time Window",
+      "LastHourOffPeak ${28:5} //Last Hour (0-23) for Representative Off-Peak Time Window",
+      "AMB_RepresentWeekDay ${29:3} //Representative Week Day (1-Monday, 2-Tuesday...)",
+      "AMB_RepresentWeekNumber ${30:3} //Representative Week for Monthly AFC (1-5)",
+      "adjustDailyLoadForProfile ${31:0} //Adjust Daily load for load profile if defined(0-no,1-yes)",
+      "0",
+      "ems",
+      "EMSFlowsEnable ${32:0} //Enable using EMS flows for hourly AFC calculations(1-yes, 0-no)",
+      "EMSFlowsHoursFullImpact ${33:4} //Hours from hour 1 to fully utilize EMS flow bias",
+      "EMSFlowsLastHour ${34:8} //Last hours to use EMS flows bias. EMS bias will be prorated",
+      "EMSFlowsType ${35:3} //EMSFlowsType (1-SCADA only, 2-State Estimator, 3-both)",
+      "EMSFlowsUsePartial ${36:0} //Use EMS flows bias if flows available only for some elements (0-no,1-yes)",
+      "0"
+    ],
+    "description": "Complete opt amb block with all multi-snapshot analysis parameters"
+  },
+  "opt misc - Reporting Options": {
+    "prefix": "opt-misc-report",
+    "body": [
+      "opt misc needReportHeader ${1:0}"
+    ],
+    "description": "opt misc for controlling report header output"
+  },
+  "Trace Command": {
+    "prefix": "trace",
+    "body": [
+      "%trace \"${1:filename}.log\" %txt"
+    ],
+    "description": "Create TARA trace/log file"
+  },
+  "Include File": {
+    "prefix": "include",
+    "body": [
+      "%include \"${1:filename}.dir\"${2: // ${3:description}}"
+    ],
+    "description": "Include another directive file"
+  },
+  "Read PSSE Case": {
+    "prefix": "read-psse",
+    "body": [
+      "READ PSSE ${1:30} \"${2:case}.raw\" 0"
+    ],
+    "description": "Read PSSE power flow case file (version 10-36)"
+  },
+  "Read Subsystem File": {
+    "prefix": "read-subsys",
+    "body": [
+      "READ SUBSYS \"${1:case}.sub\""
+    ],
+    "description": "Read subsystem/study data file"
+  },
+  "Read Contingency File": {
+    "prefix": "read-cont",
+    "body": [
+      "CONT \"${1:case}.con\""
+    ],
+    "description": "Read contingency file"
+  },
+  "Read Monitored Elements": {
+    "prefix": "read-monit",
+    "body": [
+      "MONIT \"${1:case}.mon\""
+    ],
+    "description": "Read monitored elements file"
+  },
+  "Solve AC Load Flow": {
+    "prefix": "solve-ac",
+    "body": [
+      "solve fdec 0 0 // solve AC LF"
+    ],
+    "description": "Solve AC load flow with FDEC"
+  },
+  "Solve DC Load Flow": {
+    "prefix": "solve-dc",
+    "body": [
+      "solve dc 0 0 // solve DC LF"
+    ],
+    "description": "Solve DC load flow"
+  },
+  "AC Contingency Analysis": {
+    "prefix": "cont-accont",
+    "body": [
+      "cont accont 0"
+    ],
+    "description": "Run AC contingency analysis"
+  },
+  "DC Contingency Analysis": {
+    "prefix": "cont-dccont",
+    "body": [
+      "cont dccont 0"
+    ],
+    "description": "Run DC contingency analysis"
+  },
+  "Save Branch Violations": {
+    "prefix": "save-branches",
+    "body": [
+      "cont %save \"${1:output/BranchViol.csv}}\" %csv acbranch 90 0 0"
+    ],
+    "description": "Save monitored branch violations at 90%+ rating"
+  },
+  "Save Voltage Violations": {
+    "prefix": "save-voltages",
+    "body": [
+      "cont %save \"${1:output/VoltViol.csv}}\" %csv acvolt 0 0"
+    ],
+    "description": "Save monitored voltage violations"
+  },
+  "Change Directory": {
+    "prefix": "chdir",
+    "body": [
+      "chdir \"${1:path/to/directory}\""
+    ],
+    "description": "Change working directory for TARA execution"
+  },
+  "Stop and Exit": {
+    "prefix": "stop-exit",
+    "body": [
+      "stop",
+      "%exit"
+    ],
+    "description": "Stop execution and exit TARA"
+  }
+}

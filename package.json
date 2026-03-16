@@ -4,7 +4,7 @@
   "displayName": "PowerGEM_vscode",
   "description": "Syntax Highlighting for various PowerGEM related formats",
   "icon": "icons/PGlogo.png",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/PowerGem/VSCodeExtension.git"
@@ -79,6 +79,26 @@
         "light": "./icons/Eo_circle_green_letter-c.svg.png",
         "dark": "./icons/Eo_circle_green_white_letter-c.svg.png"
       }
+    },
+    {
+      "id": "pg.inch",
+      "aliases": ["INCH","pg.inch"],
+      "extensions": [".inch"],
+      "configuration": "./inch-language-configuration.json",
+      "icon": {
+        "light": "./icons/PGlogo.png",
+        "dark": "./icons/PGlogo.png"
+      }
+    },
+    {
+      "id": "pg.dir",
+      "aliases": ["TARA Directive","pg.dir"],
+      "extensions": [".dir"],
+      "configuration": "./dir-language-configuration.json",
+      "icon": {
+        "light": "./icons/PGlogo.png",
+        "dark": "./icons/PGlogo.png"
+      }
     }],
     "grammars": [
     {
@@ -117,11 +137,33 @@
       "path": "./syntaxes/sub.tmLanguage.json",
       "embeddedLanguages": {"pg": "pg", "pg.common": "source.pg.common" }
 
+    },
+    {
+      "language": "pg.inch",
+      "scopeName": "source.pg.inch",
+      "path": "./syntaxes/inch.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg"}
+
+    },
+    {
+      "language": "pg.dir",
+      "scopeName": "source.pg.dir",
+      "path": "./syntaxes/dir.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg"}
+
     }],
     "snippets": [
       {
         "language": "pg.cont",
         "path": "./cont-snippets.json"
+      },
+      {
+        "language": "python",
+        "path": "./pytara-snippets.json"
+      },
+      {
+        "language": "pg.dir",
+        "path": "./dir-snippets.json"
       }
     ]
   }

@@ -2,3 +2,8 @@ node_modules
 cparse.json
 junk.txt
 vsc-extension-quickstart.md
+*.pdf
+*.inch
+TARA2601_Manual.md
+inch file examples/**
+references/**
