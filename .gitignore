@@ -1,4 +1,13 @@
 node_modules
+out/
+server/out/
 cparse.json
 junk.txt
 vsc-extension-quickstart.md
+*.vsix
+.DS_Store
+*.pdf
+*.inch
+TARA2601_Manual.md
+inch file examples/**
+references/**

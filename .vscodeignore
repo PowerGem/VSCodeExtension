@@ -2,3 +2,15 @@
 .vscode-test/**
 .gitignore
 vsc-extension-quickstart.md
+*.vsix
+.DS_Store
+*.pdf
+*.inch
+TARA2601_Manual.md
+inch file examples/**
+references/**
+src/**/*.ts
+server/**/*.ts
+tsconfig.json
+server/tsconfig.json
+**/*.map

@@ -2,9 +2,13 @@
   "name": "powergem-vscode",
   "publisher": "PowerGEM-VSCode",
   "displayName": "PowerGEM_vscode",
-  "description": "Syntax Highlighting for various PowerGEM related formats",
+  "description": "Syntax Highlighting and IDE Support for PowerGEM and TARA",
   "icon": "icons/PGlogo.png",
-  "version": "0.5.0",
+  "version": "1.0.1",
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:pg.dir"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/PowerGem/VSCodeExtension.git"
@@ -14,11 +18,21 @@
     "email": "djohnsonbaugh@power-gem.com"
   },
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.80.0",
+    "node": ">=16.0.0"
   },
   "categories": [
     "Programming Languages"
   ],
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "npm run compile-src && npm run compile-server",
+    "compile-src": "tsc -p ./tsconfig.json",
+    "compile-server": "tsc -p ./server/tsconfig.json",
+    "watch": "concurrently \"npm run watch-src\" \"npm run watch-server\"",
+    "watch-src": "tsc -w -p ./tsconfig.json",
+    "watch-server": "tsc -w -p ./server/tsconfig.json"
+  },
   "contributes": {
     "languages": [
       {
@@ -79,6 +93,26 @@
         "light": "./icons/Eo_circle_green_letter-c.svg.png",
         "dark": "./icons/Eo_circle_green_white_letter-c.svg.png"
       }
+    },
+    {
+      "id": "pg.inch",
+      "aliases": ["INCH","pg.inch"],
+      "extensions": [".inch"],
+      "configuration": "./inch-language-configuration.json",
+      "icon": {
+        "light": "./icons/PGlogo.png",
+        "dark": "./icons/PGlogo.png"
+      }
+    },
+    {
+      "id": "pg.dir",
+      "aliases": ["TARA Directive","pg.dir"],
+      "extensions": [".dir"],
+      "configuration": "./dir-language-configuration.json",
+      "icon": {
+        "light": "./icons/PGlogo.png",
+        "dark": "./icons/PGlogo.png"
+      }
     }],
     "grammars": [
     {
@@ -117,12 +151,45 @@
       "path": "./syntaxes/sub.tmLanguage.json",
       "embeddedLanguages": {"pg": "pg", "pg.common": "source.pg.common" }
 
+    },
+    {
+      "language": "pg.inch",
+      "scopeName": "source.pg.inch",
+      "path": "./syntaxes/inch.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg"}
+
+    },
+    {
+      "language": "pg.dir",
+      "scopeName": "source.pg.dir",
+      "path": "./syntaxes/dir.tmLanguage.json",
+      "embeddedLanguages": {"pg": "pg"}
+
     }],
     "snippets": [
       {
         "language": "pg.cont",
         "path": "./cont-snippets.json"
+      },
+      {
+        "language": "python",
+        "path": "./pytara-snippets.json"
+      },
+      {
+        "language": "pg.dir",
+        "path": "./dir-snippets.json"
       }
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0",
+    "concurrently": "^8.0.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
   }
 }

@@ -1,0 +1,445 @@
+{
+	"PyTARA Import": {
+		"prefix": "pytara_import",
+		"body": "import pyPowerGEM.pyTARA as pt",
+		"description": "Import pyTARA module"
+	},
+	"PyTARA Initialize": {
+		"prefix": "pytara_init",
+		"body": [
+			"tara = pt.taraAPI(logFilePath=\"${1:tara_log.txt}\")"
+		],
+		"description": "Initialize pyTARA API object"
+	},
+	"Load Power Flow Case": {
+		"prefix": "pytara_load_raw",
+		"body": [
+			"tara.loadPowerFlowCase(",
+			"\t caseFilePath=r'${1:case_file.raw}',",
+			"\t version=${2:33}",
+			")"
+		],
+		"description": "Load RAW power flow case file"
+	},
+	"Load EPC Case": {
+		"prefix": "pytara_load_epc",
+		"body": [
+			"tara.loadEpcCase(",
+			"\t caseFilePath=r'${1:case_file.epc}'",
+			")"
+		],
+		"description": "Load EPC case file"
+	},
+	"Solve Case": {
+		"prefix": "pytara_solve",
+		"body": "tara.solveCase()",
+		"description": "Solve the loaded power flow case"
+	},
+	"Loop Buses": {
+		"prefix": "pytara_loop_buses",
+		"body": [
+			"for bus in tara.loopBuses():",
+			"\t${1:# process bus}"
+		],
+		"description": "Loop through all buses in case"
+	},
+	"Loop Generators": {
+		"prefix": "pytara_loop_generators",
+		"body": [
+			"for gen in tara.loopGenerators():",
+			"\t${1:# process generator}"
+		],
+		"description": "Loop through all generators in case"
+	},
+	"Loop Loads": {
+		"prefix": "pytara_loop_loads",
+		"body": [
+			"for load in tara.loopLoads():",
+			"\t${1:# process load}"
+		],
+		"description": "Loop through all loads in case"
+	},
+	"Loop Lines": {
+		"prefix": "pytara_loop_lines",
+		"body": [
+			"for line in tara.loopLines():",
+			"\t${1:# process line}",
+			"\tfromBus = tara.getBus(iBus=line.fromBusIBus)",
+			"\ttoBus = tara.getBus(iBus=line.toBusIBus)"
+		],
+		"description": "Loop through all transmission lines in case"
+	},
+	"Loop Transformers": {
+		"prefix": "pytara_loop_transformers",
+		"body": [
+			"for trans in tara.loopTransformers():",
+			"\t${1:# process transformer}",
+			"\tbus1 = tara.getBus(iBus=trans.bus1IBus)",
+			"\tbus2 = tara.getBus(iBus=trans.bus2IBus)"
+		],
+		"description": "Loop through all transformers in case"
+	},
+	"Loop Areas": {
+		"prefix": "pytara_loop_areas",
+		"body": [
+			"for area in tara.loopAreas():",
+			"\t${1:# process area}",
+			"\tprint(f\"Area: {area.number}, Name: {area.name}\")"
+		],
+		"description": "Loop through all areas in case"
+	},
+	"Get Bus": {
+		"prefix": "pytara_get_bus",
+		"body": "bus = tara.getBus(busNum=${1:10001})",
+		"description": "Get bus object by bus number"
+	},
+	"Get Bus by iBus": {
+		"prefix": "pytara_get_bus_ibus",
+		"body": "bus = tara.getBus(iBus=${1:0})",
+		"description": "Get bus object by internal bus index"
+	},
+	"Get Generator": {
+		"prefix": "pytara_get_generator",
+		"body": "gen = tara.getGenerator(busNum=${1:10001})",
+		"description": "Get generator object"
+	},
+	"Get Line": {
+		"prefix": "pytara_get_line",
+		"body": [
+			"line = tara.getLine(",
+			"\t frBus=tara.getBus(busNum=${1:10001}),",
+			"\t toBus=tara.getBus(busNum=${2:10002}),",
+			"\t cktId='${3:1}'",
+			")"
+		],
+		"description": "Get transmission line object"
+	},
+	"Get Transformer": {
+		"prefix": "pytara_get_transformer",
+		"body": [
+			"trans = tara.getTransformer(",
+			"\t bus1iBus=${1:0},",
+			"\t bus2iBus=${2:1}",
+			")"
+		],
+		"description": "Get transformer object"
+	},
+	"Add Bus": {
+		"prefix": "pytara_add_bus",
+		"body": [
+			"newBus = pt.Bus(",
+			"\t number=${1:99999},",
+			"\t name='${2:NEWBUS}',",
+			"\t nominalVoltage=${3:345.0}",
+			")",
+			"tara.addBus(busObj=newBus)"
+		],
+		"description": "Add new bus to case"
+	},
+	"Add Generator": {
+		"prefix": "pytara_add_generator",
+		"body": [
+			"newGen = pt.Generator(",
+			"\t devNum='${1:1}',",
+			"\t status=${2:1}",
+			")",
+			"tara.addGenerator(genObj=newGen)"
+		],
+		"description": "Add new generator to case"
+	},
+	"Add Load": {
+		"prefix": "pytara_add_load",
+		"body": [
+			"newLoad = pt.Load(",
+			"\t devNum='${1:1}',",
+			"\t mwLoad=${2:100.0},",
+			"\t mvarLoad=${3:50.0}",
+			")",
+			"tara.addLoad(loadObj=newLoad)"
+		],
+		"description": "Add new load to case"
+	},
+	"Delete Bus": {
+		"prefix": "pytara_delete_bus",
+		"body": "tara.deleteBus(busNum=${1:10001})",
+		"description": "Delete bus from case"
+	},
+	"Delete Generator": {
+		"prefix": "pytara_delete_generator",
+		"body": [
+			"gen = tara.getGenerator(busNum=${1:10001})",
+			"tara.deleteGenerator(genObj=gen)"
+		],
+		"description": "Delete generator from case"
+	},
+	"Delete Load": {
+		"prefix": "pytara_delete_load",
+		"body": [
+			"load = tara.getLoad(busNum=${1:10001})",
+			"tara.deleteLoad(loadObj=load)"
+		],
+		"description": "Delete load from case"
+	},
+	"Delete Line": {
+		"prefix": "pytara_delete_line",
+		"body": [
+			"line = tara.getLine(",
+			"\t frBus=tara.getBus(busNum=${1:10001}),",
+			"\t toBus=tara.getBus(busNum=${2:10002}),",
+			"\t cktId='${3:1}'",
+			")",
+			"tara.deleteLine(lineObj=line)"
+		],
+		"description": "Delete transmission line from case"
+	},
+	"Scale Generation": {
+		"prefix": "pytara_scale_generation",
+		"body": [
+			"tara.scaleGeneration(",
+			"\t subsystemName='${1:SUBSYS}',",
+			"\t scalingFactor=${2:1.1}",
+			")"
+		],
+		"description": "Scale generation in subsystem"
+	},
+	"Scale Load": {
+		"prefix": "pytara_scale_load",
+		"body": [
+			"tara.scaleLoad(",
+			"\t subsystemName='${1:SUBSYS}',",
+			"\t scalingFactor=${2:0.9}",
+			")"
+		],
+		"description": "Scale load in subsystem"
+	},
+	"Apply INCH File": {
+		"prefix": "pytara_apply_inch",
+		"body": "tara.applyInchFile(inchFilePath=r'${1:changes.inch}')",
+		"description": "Apply INCH file modifications"
+	},
+	"Save RAW Case": {
+		"prefix": "pytara_save_raw",
+		"body": [
+			"tara.saveRawCase(",
+			"\t outputFilePath=r'${1:output.raw}',",
+			"\t version=${2:33}",
+			")"
+		],
+		"description": "Save case in RAW format"
+	},
+	"Save EPC Case": {
+		"prefix": "pytara_save_epc",
+		"body": [
+			"tara.saveEpcCase(",
+			"\t outputFilePath=r'${1:output.epc}'",
+			")"
+		],
+		"description": "Save case in EPC format"
+	},
+	"Calc Area Zone Totals": {
+		"prefix": "pytara_calc_area_zone",
+		"body": "tara.calcAreaZoneTotals(areaZoneMode=${1:1})",
+		"description": "Calculate area and zone totals"
+	},
+	"Get Area": {
+		"prefix": "pytara_get_area",
+		"body": "area = tara.getArea(areaNum=${1:1})",
+		"description": "Get area object"
+	},
+	"Get Zone": {
+		"prefix": "pytara_get_zone",
+		"body": "zone = tara.getZone(zoneNum=${1:1})",
+		"description": "Get zone object"
+	},
+	"Filter for Area": {
+		"prefix": "pytara_filter_area",
+		"body": [
+			"buses_in_area = tara.filterForArea(",
+			"\t objList=[${1:buses}],",
+			"\t areas=[${2:1}]",
+			")"
+		],
+		"description": "Filter objects for specific area"
+	},
+	"Merge Buses": {
+		"prefix": "pytara_merge_buses",
+		"body": [
+			"bus1 = tara.getBus(busNum=${1:10001})",
+			"bus2 = tara.getBus(busNum=${2:10002})",
+			"tara.mergeBuses(fromBusObj=bus1, toBusObj=bus2)"
+		],
+		"description": "Merge two buses"
+	},
+	"Split Bus": {
+		"prefix": "pytara_split_bus",
+		"body": [
+			"bus = tara.getBus(busNum=${1:10001})",
+			"tara.splitBus(",
+			"\t sourceBusObj=bus,",
+			"\t newBusNum=${2:10003}",
+			")"
+		],
+		"description": "Split bus into two buses"
+	},
+	"Move Generator": {
+		"prefix": "pytara_move_generator",
+		"body": [
+			"gen = tara.getGenerator(busNum=${1:10001})",
+			"new_bus = tara.getBus(busNum=${2:10002})",
+			"tara.moveGenerator(fromBusObj=source_bus, generatorID='${3:1}', toBusObj=new_bus)"
+		],
+		"description": "Move generator to different bus"
+	},
+	"Change Bus Number": {
+		"prefix": "pytara_change_bus_num",
+		"body": [
+			"bus = tara.getBus(busNum=${1:10001})",
+			"tara.changeBusNum(busObj=bus, newBusNum=${2:99999})"
+		],
+		"description": "Change bus number"
+	},
+	"Get Bus Equipment": {
+		"prefix": "pytara_get_bus_equipment",
+		"body": [
+			"bus = tara.getBus(busNum=${1:10001})",
+			"equipment = tara.getBusEquipment(busObj=bus)"
+		],
+		"description": "Get all equipment on a bus"
+	},
+	"Get Bus Distance": {
+		"prefix": "pytara_get_bus_distance",
+		"body": [
+			"distance = tara.getBusDistance(",
+			"\t sourceBusNum=${1:10001},",
+			"\t targetBusNum=${2:10002}",
+			")"
+		],
+		"description": "Get distance between two buses"
+	},
+	"Check Solution Converged": {
+		"prefix": "pytara_check_converged",
+		"body": [
+			"if tara.isACSolutionConverged:",
+			"\tprint(f\"Case converged in {tara.iterations} iterations\")",
+			"else:",
+			"\tprint(\"Case did not converge\")"
+		],
+		"description": "Check if power flow solution converged"
+	},
+	"Tap Line": {
+		"prefix": "pytara_tap_line",
+		"body": [
+			"line = tara.getLine(",
+			"\t frBus=tara.getBus(busNum=${1:10001}),",
+			"\t toBus=tara.getBus(busNum=${2:10002})",
+			")",
+			"tara.tapLine(",
+			"\t lineObj=line,",
+			"\t percentTap=${3:50},",
+			"\t newBusNum=${4:99999}",
+			")"
+		],
+		"description": "Tap transmission line at specified location"
+	},
+	"File Info": {
+		"prefix": "pytara_file_info",
+		"body": "info = tara.fileInfo(path=r'${1:case_file.raw}')",
+		"description": "Get information about case file"
+	},
+	"Get AC LF Options": {
+		"prefix": "pytara_get_lf_options",
+		"body": "options = tara.getACLFBaseOptions()",
+		"description": "Get AC load flow base options"
+	},
+	"Set AC LF Options": {
+		"prefix": "pytara_set_lf_options",
+		"body": [
+			"options = tara.getACLFBaseOptions()",
+			"options.${1:flatStart} = ${2:1}",
+			"tara.setACLFBaseOptions(aclfOptions=options)"
+		],
+		"description": "Set AC load flow options"
+	},
+	"Loop Branches": {
+		"prefix": "pytara_loop_branches",
+		"body": [
+			"for branch in tara.loopBranches():",
+			"\t${1:# process branch (line or transformer)}"
+		],
+		"description": "Loop through all branches (lines and transformers)"
+	},
+	"Get Subsystem": {
+		"prefix": "pytara_get_subsystem",
+		"body": "subsys = tara.getSubsystem(subsystemName='${1:SUBSYS}')",
+		"description": "Get subsystem object"
+	},
+	"Loop Subsystems": {
+		"prefix": "pytara_loop_subsystems",
+		"body": [
+			"for subsys in tara.loopSubsystems():",
+			"\tprint(f\"Subsystem: {subsys.name}\")"
+		],
+		"description": "Loop through all subsystems"
+	},
+	"Get Owner": {
+		"prefix": "pytara_get_owner",
+		"body": "owner = tara.getOwner(ownerNum=${1:1})",
+		"description": "Get owner by number"
+	},
+	"Num Buses": {
+		"prefix": "pytara_num_buses",
+		"body": "numBuses = tara.numBuses",
+		"description": "Get number of buses in case"
+	},
+	"Num Branches": {
+		"prefix": "pytara_num_branches",
+		"body": "numBranches = tara.numBranches",
+		"description": "Get number of branches in case"
+	},
+	"Num Generators": {
+		"prefix": "pytara_num_generators",
+		"body": "numGenerators = tara.numGenerators",
+		"description": "Get number of generators in case"
+	},
+	"Num Loads": {
+		"prefix": "pytara_num_loads",
+		"body": "numLoads = tara.numLoads",
+		"description": "Get number of loads in case"
+	},
+	"Num Areas": {
+		"prefix": "pytara_num_areas",
+		"body": "numAreas = tara.numAreas",
+		"description": "Get number of areas in case"
+	},
+	"Num Zones": {
+		"prefix": "pytara_num_zones",
+		"body": "numZones = tara.numZones",
+		"description": "Get number of zones in case"
+	},
+	"Base Template": {
+		"prefix": "pytara_template",
+		"body": [
+			"import os",
+			"import pyPowerGEM.pyTARA as pt",
+			"",
+			"def main():",
+			"\ttara = pt.taraAPI(logFilePath=\"tara_log.txt\")",
+			"\t${1:# Load case}",
+			"\ttara.loadPowerFlowCase(caseFilePath=r'${2:case_file.raw}', version=${3:33})",
+			"\t",
+			"\t${4:# Solve case}",
+			"\ttara.solveCase()",
+			"\t",
+			"\t${5:# Process results}",
+			"\tfor bus in tara.loopBuses():",
+			"\t\tprint(f'Bus: {bus.number}, Voltage: {bus.voltageMagnitude}')",
+			"\t",
+			"\t${6:# Save case}",
+			"\ttara.saveRawCase(outputFilePath=r'${7:output.raw}', version=${8:33})",
+			"",
+			"if __name__ == \"__main__\":",
+			"\tmain()"
+		],
+		"description": "PyTARA basic script template"
+	}
+}
