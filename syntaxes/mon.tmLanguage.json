@@ -406,6 +406,7 @@
 					{"include": "source.pg.common#areas"},
 					{"include": "source.pg.common#system"},
 					{"include": "source.pg.common#kvrange"},
+					{"include": "source.pg.common#language-operators"},
 					{"include": "pg"}
 				]}
 		]},

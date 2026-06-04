@@ -42,7 +42,7 @@
 			"patterns": 
 			[{
 				"name": "entity.name.type.area-zone",
-				"match": "(?xi)\\s+(?:(?:area|zone)\\s+([0-9]+)|((area|zone)))\\b",
+				"match": "(?xi)\\s*(?:(?:area|zone)\\s+([0-9]+)|((area|zone)))\\b",
 				"captures": {
 					"1": { "name": "entity.name.tag.areas" },
 					"2":{"name": "invalid.illegal"},
@@ -280,7 +280,7 @@
 		}}]},
 		"kvrange": {"patterns": [{
 			"name": "entity.name.type.kvrange",
-			"match": "(?xi)(?:kvrange\\s+([0-9]*\\.?[0-9]+\\s+[0-9]*\\.?[0-9]+)|((kvrange)))\\b",
+			"match": "(?xi)(?:\\s*kvrange\\s+([0-9]*\\.?[0-9]+\\s+[0-9]*\\.?[0-9]+)|\\s*((kvrange)))\\b",
 			"captures": {
 				"1": { "name": "constant.numeric.kv" },
 				"2":{"name": "invalid.illegal"},

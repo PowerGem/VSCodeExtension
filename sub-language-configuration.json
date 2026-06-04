@@ -29,14 +29,14 @@
     ],
     "folding": {
       "markers": {
-        "start": "(^\\s*(c|C)(o|O)(N|n)(t|T)(i|I)(n|N)(g|G)(e|E)(N|n)(c|C)(Y|y)|^\\s*((m|M)(o|O)(n|N)(i|I)(t|T)(o|O)(r|R)\\s+)?(i|I)(n|N)(t|T)(e|E)(r|R)(f|F)(a|A)(c|C)(e|E)|^\\s*((m|M)(o|O)(n|N)(i|I)(t|T)(o|O)(r|R)\\s+)?(f|F)(l|L)(o|O)(w|W)(g|G)(a|A)(t|T)(e|E)|^\\s*(o|O)(u|U)(t|T)(a|A)(g|G)(e|E)|\\s*(l|L)(o|O)(a|A)(d|D)\\s+(t|T)(h|H)(r|R)(o|O)(w|W)(o|O)(v|V)(e|E)(r|R)|\\s*(d|D)(i|I)(s|S)(p|P)(a|A)(t|T)(c|C)(h|H)(\\s+((f|F)(i|I)(r|R)(s|S)(t|T)(l|L)(e|E)(v|V)(e|E)(l|L)|(u|U)(p|P)|(d|D)(o|O)(w|W)(n|N)))?)\\b",
+        "start": "(^\\s*(c|C)(o|O)(N|n)(t|T)(i|I)(n|N)(g|G)(e|E)(N|n)(c|C)(Y|y)|^\\s*((s|S)(u|U)(b|B))?(s|S)(y|Y)(s|S)(t|T)(e|E)(m|M)|^\\s*(j|J)(o|O)(i|I)(n|N)|^\\s*(p|P)(a|A)(r|R)(t|T)(i|I)(c|C)(i|I)(p|P)(a|A)(t|T)(e|E)|^\\s*((m|M)(o|O)(n|N)(i|I)(t|T)(o|O)(r|R)\\s+)?(i|I)(n|N)(t|T)(e|E)(r|R)(f|F)(a|A)(c|C)(e|E)|^\\s*((m|M)(o|O)(n|N)(i|I)(t|T)(o|O)(r|R)\\s+)?(f|F)(l|L)(o|O)(w|W)(g|G)(a|A)(t|T)(e|E)|^\\s*(o|O)(u|U)(t|T)(a|A)(g|G)(e|E)|\\s*(l|L)(o|O)(a|A)(d|D)\\s+(t|T)(h|H)(r|R)(o|O)(w|W)(o|O)(v|V)(e|E)(r|R)|\\s*(e|E)(x|X)(c|C)(e|E)(p|P)(t|T)|\\s*(d|D)(i|I)(s|S)(p|P)(a|A)(t|T)(c|C)(h|H)(\\s+((f|F)(i|I)(r|R)(s|S)(t|T)(l|L)(e|E)(v|V)(e|E)(l|L)|(u|U)(p|P)|(d|D)(o|O)(w|W)(n|N)))?)\\b",
         "end": "^\\s*(e|E)(N|n)(D|d)\\b"
       }
     },
     
       "indentationRules": {
         "increaseIndentPattern": {
-          "pattern": "(^\\s*contingency|^\\s*(monitor\\s+)?flowgate|^\\s*(monitor\\s+)?interface|^\\s*load\\s+throwover|^\\s*outage|\\s*dispatch(\\s+(firstlevel|up|down))?)\\b.*$",
+          "pattern": "(^\\s*contingency|^\\s*(sub)?system|^\\s*join|^\\s*participate|^\\s*(monitor\\s+)?flowgate|^\\s*(monitor\\s+)?interface|^\\s*load\\s+throwover|^\\s*outage|\\s*except|\\s*dispatch(\\s+(firstlevel|up|down))?)\\b.*$",
           "flags":"i"
         },
 

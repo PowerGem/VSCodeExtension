@@ -4,6 +4,7 @@ All notable changes to the "powergem-vscode" extension will be documented in thi
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## 0.5.2
 
-- Initial release
+Added Functionality for Contingency_Type
+Added Placeholder for SPS_AUX
